@@ -102,6 +102,9 @@
     tdesktop
     rnix-lsp
     nixpkgs-fmt
+    firefox
+    kate
+    thunderbird
   ];
 
   home.stateVersion = "22.11";
