@@ -82,11 +82,12 @@
       autocd = true;
       dotDir = ".config/zsh";
       defaultKeymap = "viins";
-
+      completionInit = "autoload -Uz compinit && compinit -iCd ${config.xdg.cacheHome}/zcompdump-$ZSH_VERSION";
       history.path = "${config.xdg.dataHome}/zsh/zsh_history";
 
       zplug = {
         enable = true;
+        zplugHome = "${config.xdg.dataHome}/zplug";
         plugins = [
           { name = "hlissner/zsh-autopair"; }
           { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; }
@@ -106,6 +107,8 @@
     kate
     thunderbird
   ];
+
+  xdg.enable = true;
 
   home.stateVersion = "22.11";
 }
