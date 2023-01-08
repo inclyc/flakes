@@ -34,7 +34,7 @@
 
   # Select internationalisation properties.
   i18n = {
-    defaultLocale = "en_HK.UTF-8";
+    defaultLocale = "zh_CN.UTF-8";
     inputMethod = {
       enabled = "fcitx5";
       fcitx5.addons = with pkgs; [
@@ -119,13 +119,12 @@
       fira-code
       (nerdfonts.override { fonts = [ "JetBrainsMono" "Noto" ]; })
     ];
-  };
-
-  fonts.fontconfig.defaultFonts = pkgs.lib.mkForce {
-    serif = [ "Noto Serif" "Noto Serif CJK SC" ];
-    sansSerif = [ "Noto Sans" "Noto Sans CJK SC" ];
-    monospace = [ "Fira Code" "JetBrains Mono" ];
-    emoji = [ "Noto Color Emoji" ];
+    fontconfig.defaultFonts = pkgs.lib.mkForce {
+      serif = [ "Noto Serif CJK SC Bold" "Noto Serif"  ];
+      sansSerif = [ "Noto Sans CJK SC Bold" "Noto Sans"  ];
+      monospace = [ "Fira Code" "JetBrains Mono" ];
+      emoji = [ "Noto Color Emoji" ];
+    };
   };
 
   # List packages installed in system profile. To search, run:
