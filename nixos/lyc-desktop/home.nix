@@ -99,6 +99,29 @@
       enable = true;
       homedir = "${config.xdg.dataHome}/gnupg";
     };
+
+    git = {
+      enable = true;
+      userName = "Yingchi Long";
+      userEmail = "i@lyc.dev";
+      signing = {
+        key = "296C3FEFEA88ABC5!";
+        signByDefault = true;
+      };
+      extraConfig = {
+        init.defaultBranch = "main";
+        pull.ff = "only";
+        push.default = "current";
+        rerere.enabled = true;
+        sendemail = {
+          smtpencryption = "ssl";
+          smtpserver = "smtppro.zoho.com.cn";
+          smtpuser = "i@lyc.dev";
+          smtpserverport = 465;
+          confirm = "always";
+        };
+      };
+    };
   };
 
 
@@ -112,6 +135,13 @@
     kate
     thunderbird
   ];
+
+  services.gpg-agent = {
+    enable = true;
+    extraConfig = ''
+      pinentry-program ${pkgs.pinentry-curses}/bin/pinentry-curses
+    '';
+  };
 
   xdg.enable = true;
 
