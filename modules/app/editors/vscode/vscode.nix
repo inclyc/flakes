@@ -15,6 +15,7 @@
 
       "[nix]" = {
         "editor.tabSize" = 2;
+        "editor.formatOnSaveMode" = "file";
       };
     };
     extensions = with pkgs.vscode-extensions; [
