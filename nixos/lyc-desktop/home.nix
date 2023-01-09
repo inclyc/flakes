@@ -9,6 +9,8 @@
     firefox
     kate
     thunderbird
+    nix-index
+    nix-output-monitor
   ];
 
   xdg.enable = true;
