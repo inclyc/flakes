@@ -13,6 +13,7 @@
       "editor.formatOnSave" = true;
       "editor.formatOnSaveMode" = "modifications";
       "files.insertFinalNewline" = true;
+      "vscode-neovim.neovimExecutablePaths.linux" = "/run/current-system/sw/bin/nvim";
 
       "[nix]" = {
         "editor.tabSize" = 2;
