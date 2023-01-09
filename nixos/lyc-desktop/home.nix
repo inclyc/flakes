@@ -12,6 +12,9 @@
     nix-index
     nix-output-monitor
     python3
+    (pkgs.texlive.combine {
+      inherit (pkgs.texlive) scheme-full;
+    })
   ];
 
   xdg.enable = true;
