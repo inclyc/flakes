@@ -12,6 +12,7 @@
       "workbench.colorTheme" = "Nord";
       "editor.formatOnSave" = true;
       "editor.formatOnSaveMode" = "modifications";
+      "files.insertFinalNewline" = true;
 
       "[nix]" = {
         "editor.tabSize" = 2;
