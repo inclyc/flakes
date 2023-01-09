@@ -4,7 +4,7 @@
     enable = true;
     shellAliases = {
       ls = "ls --color=auto";
-      ll = "ls -l";
+      ll = "ls -alF";
       update = "sudo nixos-rebuild switch --flake";
       ip = "ip --color=auto";
       grep = "grep --color=auto";
