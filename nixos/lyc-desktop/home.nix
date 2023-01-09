@@ -11,6 +11,7 @@
     thunderbird
     nix-index
     nix-output-monitor
+    python3
   ];
 
   xdg.enable = true;
