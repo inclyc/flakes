@@ -34,7 +34,12 @@
 
   # Select internationalisation properties.
   i18n = {
-    defaultLocale = "zh_CN.UTF-8";
+    defaultLocale = "C.UTF-8";
+    extraLocaleSettings = {
+      LC_MESSAGES = "en_US.UTF-8";
+      LC_TIME = "C.UTF-8";
+      LC_CTYPE = "zh_CN.UTF-8";
+    };
     inputMethod = {
       enabled = "fcitx5";
       fcitx5.addons = with pkgs; [
