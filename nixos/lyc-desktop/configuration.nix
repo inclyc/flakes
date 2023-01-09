@@ -117,12 +117,12 @@
       noto-fonts-emoji
       jetbrains-mono
       fira-code
-      (nerdfonts.override { fonts = [ "JetBrainsMono" "Noto" ]; })
+      (nerdfonts.override { fonts = [ "JetBrainsMono" "Noto" "FiraCode" ]; })
     ];
     fontconfig.defaultFonts = pkgs.lib.mkForce {
-      serif = [ "Noto Serif CJK SC Bold" "Noto Serif"  ];
-      sansSerif = [ "Noto Sans CJK SC Bold" "Noto Sans"  ];
-      monospace = [ "Fira Code" "JetBrains Mono" ];
+      serif = [ "Noto Serif CJK SC Bold" "Noto Serif" ];
+      sansSerif = [ "Noto Sans CJK SC Bold" "Noto Sans" ];
+      monospace = [ "FiraCode Nerd Font Mono" "JetBrains Mono" ];
       emoji = [ "Noto Color Emoji" ];
     };
   };
