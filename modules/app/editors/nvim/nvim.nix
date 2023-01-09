@@ -1,40 +1,173 @@
 { pkgs, lib, config, ... }:
+let
+  inherit (lib) concatStringsSep optional;
+  inherit (config.lib.file) mkOutOfStoreSymlink;
+  inherit (config.home.user-info) nixConfigDirectory;
+
+  mkLuaTableFromList = x: "{" + lib.concatMapStringsSep "," (y: "'${y}'") x + "}";
+  mkNeovimAutocmd = { event, pattern, callback ? "" }: ''
+    vim.api.nvim_create_autocmd(${mkLuaTableFromList event}, {
+      pattern = ${mkLuaTableFromList pattern},
+      callback = ${callback},
+    })'';
+  requireConf = p: "require 'lyc.${builtins.replaceStrings [ "." ] [ "-" ] p.pname}'";
+
+  # Function to create `programs.neovim.plugins` entries inspired by `packer.nvim`.
+  packer =
+    { use
+      # Plugins that this plugin depends on.
+    , deps ? [ ]
+      # Used to manually specify that the plugin shouldn't be loaded at start up.
+    , opt ? false
+      # Whether to load the plugin when using VS Code with `vscode-neovim`.
+    , vscode ? false
+      # Code to run before the plugin is loaded.
+    , setup ? ""
+      # Code to run after the plugin is loaded.
+    , config ? ""
+      # The following all imply lazy-loading and imply `opt = true`.
+      # `FileType`s which load the plugin.
+    , ft ? [ ]
+      # Autocommand events which load the plugin.
+    , event ? [ ]
+    }:
+    let
+      loadFunctionName = "load_${builtins.replaceStrings [ "." "-" ] [ "_" "_" ] use.pname}";
+      autoload = !opt && vscode && ft == [ ] && event == [ ];
+      configFinal =
+        concatStringsSep "\n" (
+          optional (!autoload && !opt) "vim.cmd 'packadd ${use.pname}'"
+          ++ optional (config != "") config
+        );
+    in
+    {
+      plugin = use.overrideAttrs (old: {
+        dependencies = lib.unique (old.dependencies or [ ] ++ deps);
+      });
+      optional = !autoload;
+      type = "lua";
+      config = if (setup == "" && configFinal == "") then null else
+      (
+        concatStringsSep "\n"
+          (
+            [ "\n-- ${use.pname or use.name}" ]
+            ++ optional (setup != "") setup
+
+            # If the plugin isn't always loaded at startup
+            ++ optional (!autoload) (concatStringsSep "\n" (
+              [ "local ${loadFunctionName} = function()" ]
+              ++ optional (!vscode) "if vim.g.vscode == nil then"
+              ++ [ configFinal ]
+              ++ optional (!vscode) "end"
+              ++ [ "end" ]
+              ++ optional (ft == [ ] && event == [ ]) "${loadFunctionName}()"
+              ++ optional (ft != [ ]) (mkNeovimAutocmd {
+                event = [ "FileType" ];
+                pattern = ft;
+                callback = loadFunctionName;
+              })
+              ++ optional (event != [ ]) (mkNeovimAutocmd {
+                inherit event;
+                pattern = [ "*" ];
+                callback = loadFunctionName;
+              })
+            ))
+
+            # If the plugin is always loaded at startup
+            ++ optional (autoload && configFinal != "") configFinal
+          )
+      );
+    };
+in
 {
   programs.neovim = {
     enable = true;
     vimAlias = true;
     vimdiffAlias = true;
-    plugins = with pkgs.vimPlugins; [
-      nvim-lspconfig
-      nvim-cmp
-      cmp-nvim-lsp
-      everforest
-      luasnip
-      vim-lastplace
-      editorconfig-nvim
-      lualine-nvim
-      which-key-nvim
-      lualine-lsp-progress
-      (nvim-treesitter.withPlugins (
-        plugins: with plugins; [
-          tree-sitter-nix
-          tree-sitter-lua
-          tree-sitter-rust
-          tree-sitter-go
-        ]
-      ))
-    ];
+    plugins = with pkgs.vimPlugins; map packer [
+      # Apperance, interface, UI, etc.
+      {
+        use = bufferline-nvim;
+        deps = [ nvim-web-devicons scope-nvim ];
+        config = requireConf bufferline-nvim;
+      }
+      {
+        use = lualine-nvim;
+      }
+      {
+        use = gitsigns-nvim;
+        config = requireConf gitsigns-nvim;
+      }
+      { use = goyo-vim; }
+      { use = indent-blankline-nvim; config = requireConf indent-blankline-nvim; }
+      {
+        use = telescope-nvim;
+        config = requireConf telescope-nvim;
+        deps = [
+          nvim-web-devicons
+          telescope-file-browser-nvim
+          telescope-fzf-native-nvim
+          telescope_hoogle
+          telescope-symbols-nvim
+          telescope-zoxide
+        ];
+      }
+      { use = toggleterm-nvim; config = requireConf toggleterm-nvim; }
+      { use = zoomwintab-vim; opt = true; }
 
-    extraConfig = ''
-      set viminfo+=n${config.xdg.stateHome}/viminfo
-      let g:everforest_background = 'soft'
-      colorscheme everforest
-      luafile ${./nvim.lua}
-    '';
+      # Language servers, linters, etc.
+      {
+        use = lsp_lines-nvim;
+        config = ''
+          require'lsp_lines'.setup()
+          vim.diagnostic.config({ virtual_lines = { only_current_line = true } })
+        '';
+      }
+      { use = lspsaga-nvim; config = requireConf lspsaga-nvim; }
+      { use = null-ls-nvim; config = requireConf null-ls-nvim; }
+      { use = nvim-lspconfig; deps = [ neodev-nvim ]; config = requireConf nvim-lspconfig; }
+
+      # Language support/utilities
+      {
+        use = nvim-treesitter.withAllGrammars;
+        config = requireConf nvim-treesitter;
+      }
+      { use = vim-haskell-module-name; vscode = true; }
+      { use = vim-polyglot; config = requireConf vim-polyglot; }
+
+      # Editor behavior
+      { use = comment-nvim; config = "require'Comment'.setup()"; }
+      { use = editorconfig-vim; setup = "vim.g.EditorConfig_exclude_patterns = { 'fugitive://.*' }"; }
+      { use = tabular; vscode = true; }
+      { use = vim-surround; vscode = true; }
+      { use = nvim-lastplace; config = "require'nvim-lastplace'.setup()"; }
+      {
+        use = vim-pencil;
+        setup = "vim.g['pencil#wrapModeDefault'] = 'soft'";
+        config = "vim.fn['pencil#init'](); vim.wo.spell = true";
+        ft = [ "markdown" "text" ];
+      }
+
+      # Misc
+      { use = direnv-vim; }
+      { use = vim-eunuch; vscode = true; }
+      { use = vim-fugitive; }
+      { use = which-key-nvim; opt = true; }
+    ] ++ (with pkgs.vimPlugins;
+      [
+        catppuccin-nvim
+      ]);
+
+    extraConfig = "
+      lua require('init')
+    ";
+    extraLuaPackages = ps: [ ps.luaPackages.penlight ];
+    withNodeJs = true;
   };
 
+  xdg.configFile."nvim/lua".source = ./config/lua;
+
   home.packages = with pkgs; [
-    rnix-lsp
     sumneko-lua-language-server
     gopls
     pyright
@@ -42,6 +175,12 @@
     rust-analyzer
     clang-tools
     texlab
+
+    # Nix
+    rnix-lsp
+    deadnix
+    statix
+    nil
 
     stylua
     black

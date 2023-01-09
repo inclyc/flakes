@@ -1,1 +1,1 @@
-nvim.lua linguist-vendored
+config/** linguist-vendored
