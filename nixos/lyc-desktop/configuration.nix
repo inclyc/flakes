@@ -114,6 +114,7 @@
       vimAlias = true;
       viAlias = true;
     };
+    kdeconnect.enable = true;
   };
 
   fonts = {
