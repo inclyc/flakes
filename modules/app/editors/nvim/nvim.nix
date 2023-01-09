@@ -168,12 +168,15 @@ in
   xdg.configFile."nvim/lua".source = ./config/lua;
 
   home.packages = with pkgs; [
-    sumneko-lua-language-server
-    gopls
-    pyright
-    zk
-    rust-analyzer
+    # C/C++
     clang-tools
+    lldb
+
+    # Rust
+    rustfmt
+    rust-analyzer
+
+    # TeX
     texlab
 
     # Nix
@@ -182,12 +185,13 @@ in
     statix
     nil
 
+    # Lua
+    sumneko-lua-language-server
     stylua
-    black
     nixpkgs-fmt
-    rustfmt
-    nodePackages.prettier
 
-    lldb
+    # Python
+    pyright
+    black
   ];
 }
