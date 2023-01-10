@@ -147,9 +147,15 @@
     wget
     neofetch
     git
-    clang
-    gcc
     tree-sitter
+
+    # Toolchain
+    clang_14
+    lld_14
+    gcc
+    cmake
+    ninja
+    ccache
   ];
 
   environment.shells = with pkgs; [ zsh ];
