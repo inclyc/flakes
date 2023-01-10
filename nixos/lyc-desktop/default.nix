@@ -4,5 +4,6 @@ nixpkgs.lib.nixosSystem {
   modules = [
     ./configuration.nix
     inputs.home-manager.nixosModules.home-manager
+    inputs.nur.nixosModules.nur
   ];
 }
