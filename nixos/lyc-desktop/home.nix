@@ -12,6 +12,7 @@
     nix-index
     nix-output-monitor
     python3
+    htop
     (pkgs.texlive.combine {
       inherit (pkgs.texlive) scheme-full;
     })
