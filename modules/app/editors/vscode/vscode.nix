@@ -3,6 +3,11 @@
   programs.vscode = {
     enable = true;
     userSettings = {
+      "[latex]" = {
+        "editor.formatOnSaveMode" = "file";
+        "editor.wordWrap" = "bounded";
+        "editor.wordWrapColumn" = 80;
+      };
       "[nix]" = {
         "editor.tabSize" = 2;
         "editor.formatOnSaveMode" = "file";
