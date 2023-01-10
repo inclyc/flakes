@@ -254,7 +254,7 @@
         "git-rebase-todo" = "default";
       };
       "vscode-neovim.neovimExecutablePaths.darwin" = "/opt/homebrew/bin/nvim";
-      "editor.fontSize" = 14;
+      "editor.fontSize" = 21;
       "window.zoomLevel" = -1;
     };
     extensions = with pkgs.vscode-extensions; [
