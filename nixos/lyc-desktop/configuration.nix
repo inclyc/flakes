@@ -98,6 +98,9 @@
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJkYzGkwtGiync8npD5qTPT7fbgviw8dOL5LsrVpAMy3"
       ];
       shell = pkgs.zsh;
+      packages = with pkgs; [
+        config.nur.repos.linyinfeng.wemeet
+      ];
     };
     root.initialHashedPassword = "$6$VItBrOpGBXUZx19w$SnffROSfG69jHZkBhbqcScGEV2CpB52toTwpnZ/E3TJUxlaXv8/zGHRpFOefFfPwnfORC/aBrtTIRorxWKlzg/";
   };
