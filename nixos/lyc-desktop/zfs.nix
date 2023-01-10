@@ -20,4 +20,5 @@
     '';
     device = "nodev";
   };
+  services.zfs.autoSnapshot.enable = true;
 }
