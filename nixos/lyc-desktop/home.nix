@@ -6,6 +6,7 @@
   home.packages = with pkgs; [
     tree
     tdesktop
+    element-desktop
     firefox
     kate
     thunderbird
