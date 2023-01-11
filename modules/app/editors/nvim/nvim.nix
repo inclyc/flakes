@@ -114,6 +114,10 @@ in
       }
       { use = toggleterm-nvim; config = requireConf toggleterm-nvim; }
       { use = zoomwintab-vim; opt = true; }
+    ] ++ (with pkgs.vimPlugins;
+      [
+        catppuccin-nvim
+      ]) ++ (map packer [
 
       # Language servers, linters, etc.
       {
@@ -153,10 +157,7 @@ in
       { use = vim-eunuch; vscode = true; }
       { use = vim-fugitive; }
       { use = which-key-nvim; opt = true; }
-    ] ++ (with pkgs.vimPlugins;
-      [
-        catppuccin-nvim
-      ]);
+    ]);
 
     extraConfig = "
       lua require('init')
