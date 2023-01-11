@@ -1,2 +1,3 @@
-(import ./app)
-++ (import ./dev)
+(import ./applications)
+  ++ (import ./shells)
+++ (import ./tools)
