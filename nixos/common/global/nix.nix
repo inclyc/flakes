@@ -3,9 +3,9 @@
   nix = {
     settings = {
       substituters = [
+        "https://mirrors.bfsu.edu.cn/nix-channels/store"
         "https://hyprland.cachix.org"
         "https://nix-community.cachix.org"
-        "https://mirrors.bfsu.edu.cn/nix-channels/store"
       ];
       trusted-users = [ "root" "@wheel" ];
       auto-optimise-store = lib.mkDefault true;
