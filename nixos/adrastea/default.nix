@@ -5,21 +5,15 @@
 { config, pkgs, lib, ... }:
 
 {
-
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    users.lyc = import ./home.nix;
-  };
-
   imports =
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../common/global
       ./zfs.nix
     ];
 
-  networking.hostName = "lyc-desktop"; # Define your hostname.
+  networking.hostName = "adrastea"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -159,6 +153,9 @@
     cmake
     ninja
     ccache
+
+    # NixOS
+    home-manager
   ];
 
   environment.shells = with pkgs; [ zsh ];
@@ -194,12 +191,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.11"; # Did you read the comment?
-  nix = {
-    settings = {
-      trusted-users = [ "root" "lyc" ];
-      experimental-features = [ "nix-command" "flakes" ];
-      substituters = [ "https://mirrors.bfsu.edu.cn/nix-channels/store" ];
-    };
-    package = pkgs.nixUnstable;
-  };
 }

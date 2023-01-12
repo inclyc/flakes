@@ -1,3 +1,4 @@
 (import ./applications)
   ++ (import ./shells)
-++ (import ./tools)
+  ++ (import ./tools)
+++ [ ./global.nix ]
