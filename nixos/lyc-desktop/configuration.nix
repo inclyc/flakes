@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
 
@@ -53,6 +53,9 @@
   # Enable the KDE Plasma Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
+
+  # Workaround of nixpkgs#187963 and nixpkgs#199881
+  services.xserver.displayManager.setupCommands = lib.mkForce "";
 
   # Configure keymap in X11
   services.xserver = {
