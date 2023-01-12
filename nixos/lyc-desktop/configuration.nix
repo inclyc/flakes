@@ -164,8 +164,6 @@
   environment.shells = with pkgs; [ zsh ];
   environment.localBinInPath = true;
 
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
