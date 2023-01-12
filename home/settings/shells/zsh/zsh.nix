@@ -5,7 +5,7 @@
     shellAliases = {
       ls = "ls --color=auto";
       ll = "ls -alF";
-      update = "sudo nixos-rebuild switch --flake";
+      update = "home-manager switch --flake . && sudo nixos-rebuild switch --flake .";
       ip = "ip --color=auto";
       grep = "grep --color=auto";
     };
