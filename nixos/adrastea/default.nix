@@ -9,7 +9,7 @@
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ../common/global
+      ../../modules/nixos/global
       ./zfs.nix
     ];
 
