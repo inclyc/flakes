@@ -237,10 +237,10 @@
             "args": [
                 "-l"
             ],
-            "path": "/opt/homebrew/bin/zsh"
+            "path": "/Users/inclyc/.nix-profile/bin/zsh"
         }
     },
-    "vscode-neovim.neovimExecutablePaths.darwin": "/opt/homebrew/bin/nvim",
+    "vscode-neovim.neovimExecutablePaths.darwin": "/Users/inclyc/.nix-profile/bin/nvim",
     "vscode-neovim.neovimExecutablePaths.linux": "/run/current-system/sw/bin/nvim",
     "vscode-neovim.useCtrlKeysForInsertMode": false,
     "window.menuBarVisibility": "toggle",
