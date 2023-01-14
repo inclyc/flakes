@@ -13,8 +13,14 @@
   outputs = { self, nixpkgs, nur, home-manager, ... }@inputs:
     let
       inherit (self) outputs;
+      supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
+      forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
     in
     {
+
+      devShells = forAllSystems (system: {
+        default = nixpkgs.legacyPackages.${system}.callPackage ./shell.nix { };
+      });
 
       nixosConfigurations = {
         # Desktop
