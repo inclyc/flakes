@@ -12,6 +12,7 @@
     thunderbird
     nix-index
     nix-output-monitor
+    nix-tree
     python3
     htop
     arcanist
