@@ -14,6 +14,7 @@
     nix-output-monitor
     python3
     htop
+    arcanist
     (pkgs.texlive.combine {
       inherit (pkgs.texlive) scheme-full;
     })
