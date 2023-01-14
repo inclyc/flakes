@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }:
 {
 
-  imports = (import ../../modules/home-manager);
+  imports = (import ../settings);
 
   home.packages = with pkgs; [
     tree
