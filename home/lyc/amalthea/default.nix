@@ -1,6 +1,6 @@
 { pkgs, lib, config, ... }:
 {
-  imports = (import ../settings/applications) ++ (import ../settings/shells) ++ [ ../settings/global.nix ];
+  imports = (import ../../common/applications) ++ (import ../../common/shells) ++ [ ../../common/global.nix ];
 
   home.packages = with pkgs; [
     tree
@@ -33,4 +33,6 @@
   ]);
 
   services.gpg-agent.enable = lib.mkForce false;
+
+  programs.vscode.userSettings = (builtins.fromJSON (builtins.readFile ./vscode-settings.json));
 }

@@ -20,7 +20,6 @@
     "editor.cursorBlinking": "smooth",
     "editor.fontFamily": "'FiraCode Nerd Font Mono', 'Microsoft Yahei', Monaco, 'Courier New', monospace",
     "editor.fontLigatures": true,
-    "editor.fontSize": 21,
     "editor.formatOnSave": true,
     "editor.formatOnSaveMode": "modifications",
     "editor.inlineSuggest.enabled": true,
@@ -185,63 +184,8 @@
         "vscode-neovim.neovimExecutablePaths.darwin"
     ],
     "telemetry.telemetryLevel": "off",
-    "terminal.integrated.defaultProfile.linux": "zsh",
     "terminal.integrated.defaultProfile.osx": "zsh",
     "terminal.integrated.fontFamily": "\"MesloLGS NF\", 'FiraCode Nerd Font Mono', \"Consolas\", \"Microsoft Yahei\"",
-    "terminal.integrated.profiles.linux": {
-        "bash": {
-            "icon": "terminal-bash",
-            "path": "bash"
-        },
-        "fish": {
-            "path": "fish"
-        },
-        "pwsh": {
-            "icon": "terminal-powershell",
-            "path": "pwsh"
-        },
-        "tmux": {
-            "icon": "terminal-tmux",
-            "path": "tmux"
-        },
-        "zsh": {
-            "args": [
-                "-l"
-            ],
-            "path": "zsh"
-        }
-    },
-    "terminal.integrated.profiles.osx": {
-        "bash": {
-            "args": [
-                "-l"
-            ],
-            "icon": "terminal-bash",
-            "path": "bash"
-        },
-        "fish": {
-            "args": [
-                "-l"
-            ],
-            "path": "fish"
-        },
-        "pwsh": {
-            "icon": "terminal-powershell",
-            "path": "pwsh"
-        },
-        "tmux": {
-            "icon": "terminal-tmux",
-            "path": "tmux"
-        },
-        "zsh": {
-            "args": [
-                "-l"
-            ],
-            "path": "/Users/inclyc/.nix-profile/bin/zsh"
-        }
-    },
-    "vscode-neovim.neovimExecutablePaths.darwin": "/Users/inclyc/.nix-profile/bin/nvim",
-    "vscode-neovim.neovimExecutablePaths.linux": "/run/current-system/sw/bin/nvim",
     "vscode-neovim.useCtrlKeysForInsertMode": false,
     "window.menuBarVisibility": "toggle",
     "window.zoomLevel": -1,
