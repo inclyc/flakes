@@ -1,0 +1,28 @@
+{
+    "editor.fontSize": 21,
+    "vscode-neovim.neovimExecutablePaths.linux": "/run/current-system/sw/bin/nvim",
+    "terminal.integrated.profiles.linux": {
+        "bash": {
+            "icon": "terminal-bash",
+            "path": "bash"
+        },
+        "fish": {
+            "path": "fish"
+        },
+        "pwsh": {
+            "icon": "terminal-powershell",
+            "path": "pwsh"
+        },
+        "tmux": {
+            "icon": "terminal-tmux",
+            "path": "tmux"
+        },
+        "zsh": {
+            "args": [
+                "-l"
+            ],
+            "path": "zsh"
+        }
+    },
+    "terminal.integrated.defaultProfile.linux": "zsh"
+}

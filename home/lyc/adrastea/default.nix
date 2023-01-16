@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }:
 {
 
-  imports = (import ../settings);
+  imports = (import ../../common);
 
   home.packages = with pkgs; [
     tree
@@ -25,4 +25,6 @@
   gtk.gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
 
   services.kdeconnect.enable = true;
+
+  programs.vscode.userSettings = (builtins.fromJSON (builtins.readFile ./vscode-settings.json));
 }

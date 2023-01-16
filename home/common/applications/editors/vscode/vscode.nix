@@ -2,7 +2,7 @@
 {
   programs.vscode = {
     enable = lib.mkDefault true;
-    userSettings = lib.mkDefault (builtins.fromJSON (builtins.readFile ./settings.json));
+    userSettings = (builtins.fromJSON (builtins.readFile ./settings.json));
     extensions = lib.mkDefault (with pkgs.vscode-extensions; [
       vadimcn.vscode-lldb
       llvm-vs-code-extensions.vscode-clangd
