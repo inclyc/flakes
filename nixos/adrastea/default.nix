@@ -136,28 +136,6 @@
     };
   };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    # vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    # neovim
-    wget
-    neofetch
-    git
-    tree-sitter
-
-    # Toolchain
-    clang_14
-    lld_14
-    gcc
-    cmake
-    ninja
-    ccache
-
-    # NixOS
-    home-manager
-  ];
-
   environment.shells = with pkgs; [ zsh ];
   environment.localBinInPath = true;
 

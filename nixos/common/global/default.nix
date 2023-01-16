@@ -1,5 +1,5 @@
 # This file (and the global directory) holds config that i use on all hosts
-{ lib, inputs, outputs, ... }:
+{ lib, inputs, outputs, pkgs, ... }:
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
@@ -31,5 +31,27 @@
       type = "hard";
       value = "1048576";
     }
+  ];
+
+
+  environment.systemPackages = with pkgs; [
+    wget
+    neofetch
+    git
+    tree-sitter
+    file
+
+    # Toolchain
+    clang_14
+    lld_14
+    gcc
+    cmake
+    ninja
+    ccache
+
+    # NixOS
+    home-manager
+    patchelf
+    nix-review
   ];
 }
