@@ -27,4 +27,11 @@
   services.kdeconnect.enable = true;
 
   programs.vscode.userSettings = (builtins.fromJSON (builtins.readFile ./vscode-settings.json));
+
+  services.gpg-agent = {
+    enable = true;
+    extraConfig = ''
+      pinentry-program ${pkgs.pinentry-curses}/bin/pinentry-curses
+    '';
+  };
 }

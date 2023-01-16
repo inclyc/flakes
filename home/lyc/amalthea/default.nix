@@ -1,6 +1,6 @@
 { pkgs, lib, config, ... }:
 {
-  imports = (import ../common/applications) ++ (import ../common/shells) ++ [ ../common/global.nix ];
+  imports = (import ../common);
 
   home.packages = with pkgs; [
     tree
@@ -12,6 +12,7 @@
     (pkgs.texlive.combine {
       inherit (pkgs.texlive) scheme-full;
     })
+    pinentry
   ];
   home.homeDirectory = "/Users/${config.home.username}";
   home.username = "inclyc";
@@ -31,8 +32,6 @@
     shardulm94.trailing-spaces
     ms-vscode-remote.remote-ssh
   ]);
-
-  services.gpg-agent.enable = lib.mkForce false;
 
   programs.vscode.userSettings = (builtins.fromJSON (builtins.readFile ./vscode-settings.json));
 }
