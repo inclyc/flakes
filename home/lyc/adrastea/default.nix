@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }:
 {
 
-  imports = (import ../../common);
+  imports = (import ../common);
 
   home.packages = with pkgs; [
     tree

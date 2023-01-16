@@ -1,6 +1,6 @@
 { pkgs, lib, config, ... }:
 {
-  imports = (import ../../common/applications) ++ (import ../../common/shells) ++ [ ../../common/global.nix ];
+  imports = (import ../common/applications) ++ (import ../common/shells) ++ [ ../common/global.nix ];
 
   home.packages = with pkgs; [
     tree
