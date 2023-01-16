@@ -7,7 +7,7 @@
     };
 
     flake-utils.url = "github:numtide/flake-utils";
-    nur.url = github:nix-community/NUR;
+    nur.url = "github:nix-community/NUR";
   };
 
   outputs = { self, nixpkgs, nur, home-manager, ... }@inputs:
