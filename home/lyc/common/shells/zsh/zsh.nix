@@ -38,10 +38,5 @@
       flakes = "$HOME/workspace/Study/CS/OS/NixOS/flakes";
       llvm = "$HOME/workspace/Study/CS/Compilers/llvm-project";
     };
-
-    sessionVariables = {
-      PYTHONHISTFILE = "${config.xdg.dataHome}/python_history";
-    };
-
   };
 }
