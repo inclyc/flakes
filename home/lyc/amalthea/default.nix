@@ -12,7 +12,7 @@
     (pkgs.texlive.combine {
       inherit (pkgs.texlive) scheme-full;
     })
-    pinentry
+    pinentry_mac
   ];
   home.homeDirectory = "/Users/${config.home.username}";
   home.username = "inclyc";
