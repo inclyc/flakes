@@ -21,6 +21,13 @@
       options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
+  fileSystems."/nix" =
+    {
+      device = "tank/nixos/nix";
+      fsType = "zfs";
+      options = [ "zfsutil" "X-mount.mkdir" ];
+    };
+
   fileSystems."/var" =
     {
       device = "tank/nixos/var";
