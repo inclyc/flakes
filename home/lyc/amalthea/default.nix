@@ -3,15 +3,6 @@
   imports = (import ../common);
 
   home.packages = with pkgs; [
-    tree
-    nix-index
-    nix-output-monitor
-    nix-tree
-    python3
-    htop
-    (pkgs.texlive.combine {
-      inherit (pkgs.texlive) scheme-full;
-    })
     pinentry_mac
   ];
   home.homeDirectory = "/Users/${config.home.username}";
