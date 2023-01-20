@@ -42,6 +42,12 @@
       nix-tree
       python3
       htop
+
+      # C/C++ build system
+      cmake
+      meson
+      bear
+
       (pkgs.texlive.combine {
         inherit (pkgs.texlive) scheme-full;
       })
