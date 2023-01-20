@@ -35,6 +35,17 @@
       RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
       EDITOR = "code --wait";
     };
+    packages = with pkgs; [
+      tree
+      nix-index
+      nix-output-monitor
+      nix-tree
+      python3
+      htop
+      (pkgs.texlive.combine {
+        inherit (pkgs.texlive) scheme-full;
+      })
+    ];
   };
 
   xdg.enable = lib.mkDefault true;
