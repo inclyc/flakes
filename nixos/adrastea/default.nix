@@ -151,8 +151,10 @@
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
-    passwordAuthentication = false;
-    kbdInteractiveAuthentication = false;
+    settings = {
+      passwordAuthentication = false;
+      kbdInteractiveAuthentication = false;
+    };
   };
 
   # Open ports in the firewall.
