@@ -48,6 +48,10 @@
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
 
+  environment.systemPackages = with pkgs.libsForQt5; [
+    ark
+  ];
+
   # Workaround of nixpkgs#187963 and nixpkgs#199881
   services.xserver.displayManager.setupCommands = lib.mkForce "";
 
