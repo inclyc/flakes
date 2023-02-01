@@ -131,3 +131,5 @@ EOF
     return 127 # command not found should always exit with 127
 
 }
+
+export EDITOR="code --wait"

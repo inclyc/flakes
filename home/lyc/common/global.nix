@@ -33,7 +33,6 @@
       _JAVA_OPTIONS = "-Djavafx.cachedir=${config.xdg.cacheHome}/openjfx -Djava.util.prefs.userRoot=${config.xdg.configHome}/java";
       GRADLE_USER_HOME = "${config.xdg.dataHome}/gradle";
       RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
-      EDITOR = "code --wait";
     };
     packages = with pkgs; [
       tree
