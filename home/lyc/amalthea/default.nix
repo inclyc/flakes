@@ -9,9 +9,6 @@
   home.username = "inclyc";
 
   programs.vscode.extensions = (with pkgs.vscode-extensions; [
-    # vadimcn.vscode-lldb
-    # Code LLDB is currently not working
-    # https://github.com/NixOS/nixpkgs/issues/202507
     llvm-vs-code-extensions.vscode-clangd
     jnoortheen.nix-ide
     eamodio.gitlens
@@ -21,7 +18,7 @@
     usernamehw.errorlens
     james-yu.latex-workshop
     shardulm94.trailing-spaces
-    ms-vscode-remote.remote-ssh
+
   ]);
 
   programs.vscode.userSettings = (builtins.fromJSON (builtins.readFile ./vscode-settings.json));

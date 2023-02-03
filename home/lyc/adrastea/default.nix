@@ -17,7 +17,12 @@
 
   services.kdeconnect.enable = true;
 
-  programs.vscode.userSettings = (builtins.fromJSON (builtins.readFile ./vscode-settings.json));
+  programs.vscode = {
+    userSettings = (builtins.fromJSON (builtins.readFile ./vscode-settings.json));
+    extensions = with pkgs.vscode-extensions; [
+      vadimcn.vscode-lldb
+    ];
+  };
 
   services.gpg-agent = {
     enable = true;
