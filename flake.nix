@@ -10,18 +10,11 @@
     nur.url = "github:nix-community/NUR";
   };
 
-  outputs = { self, nixpkgs, nur, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, nur, home-manager, flake-utils, ... }@inputs:
     let
       inherit (self) outputs;
-      supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
-      forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
     in
     {
-
-      devShells = forAllSystems (system: {
-        default = nixpkgs.legacyPackages.${system}.callPackage ./shell.nix { };
-      });
-
       nixosConfigurations = {
         # Desktop
         adrastea = nixpkgs.lib.nixosSystem {
@@ -47,5 +40,9 @@
           extraSpecialArgs = { inherit inputs outputs; };
         };
       };
-    };
+    } // (flake-utils.lib.eachDefaultSystem (system:
+      {
+        devShells.default = nixpkgs.legacyPackages.${system}.callPackage ./shell.nix { };
+      }
+    ));
 }
