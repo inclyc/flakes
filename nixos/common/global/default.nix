@@ -42,8 +42,6 @@
     file
 
     # Toolchain
-    clang_14
-    lld_14
     gcc
     cmake
     ninja
@@ -53,5 +51,15 @@
     home-manager
     patchelf
     nix-review
-  ];
+  ] ++ (
+    # LLVM Packages
+    let
+      llvmpkg = pkgs.llvmPackages_15;
+    in
+    (with llvmpkg; [
+      clang
+      llvm
+      bintools
+    ])
+  );
 }
