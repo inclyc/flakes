@@ -36,6 +36,11 @@
           modules = [ ./home/lyc/adrastea ];
           extraSpecialArgs = { inherit inputs outputs; };
         };
+        "lyc@hellsegga" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages."x86_64-linux";
+          modules = [ ./home/lyc/hellsegga ];
+          extraSpecialArgs = { inherit inputs outputs; };
+        };
         "inclyc@amalthea" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages."aarch64-darwin";
           modules = [ ./home/lyc/amalthea ];
