@@ -6,7 +6,7 @@
     userEmail = "i@lyc.dev";
     signing = {
       key = "296C3FEFEA88ABC5!";
-      signByDefault = true;
+      signByDefault = false;
     };
     extraConfig = {
       init.defaultBranch = "main";
