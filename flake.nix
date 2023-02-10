@@ -21,6 +21,12 @@
           specialArgs = { inherit inputs outputs; };
           modules = [ ./nixos/adrastea nur.nixosModules.nur ];
         };
+
+        # Server, Dual AMD 7H12
+        metis = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs outputs; };
+          modules = [ ./nixos/metis ];
+        };
       };
 
       homeConfigurations = {
