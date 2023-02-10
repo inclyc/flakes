@@ -30,6 +30,11 @@
       };
 
       homeConfigurations = {
+        "lyc@metis" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages."x86_64-linux";
+          modules = [ ./home/lyc/metis ];
+          extraSpecialArgs = { inherit inputs outputs; };
+        };
         "lyc@adrastea" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages."x86_64-linux";
           modules = [ ./home/lyc/adrastea ];
