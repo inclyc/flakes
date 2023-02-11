@@ -24,9 +24,5 @@
             "path": "zsh"
         }
     },
-    "terminal.integrated.defaultProfile.linux": "zsh",
-    "remote.SSH.useLocalServer": false,
-    "remote.SSH.remotePlatform": {
-        "metis": "linux"
-    }
+    "terminal.integrated.defaultProfile.linux": "zsh"
 }

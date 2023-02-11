@@ -194,5 +194,9 @@
     "workbench.editorAssociations": {
         "*.md": "default",
         "git-rebase-todo": "default"
+    },
+    "remote.SSH.useLocalServer": false,
+    "remote.SSH.remotePlatform": {
+        "metis": "linux"
     }
 }
