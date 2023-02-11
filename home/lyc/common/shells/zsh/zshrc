@@ -87,49 +87,4 @@ zle -N down-line-or-beginning-search
 # Use `jk` to escape insert mode
 bindkey -M viins 'jk' vi-cmd-mode
 
-
-# Command not found
-command_not_found_handler () {
-
-    # TODO: use "command not found" gettext translations
-
-    # taken from http://www.linuxjournal.com/content/bash-command-not-found
-    # - do not run when inside Midnight Commander or within a Pipe
-
-    # - Also do not run if nix-locate is not available
-    if [ -n "$MC_SID" ] || ! [ -t 1 ] || ! whence nix-locate 2>&1 >/dev/null; then
-        >&2 echo "$1: command not found"
-        return 127
-    fi
-
-    cmd=$1
-    attrs=$(nix-locate --minimal --no-group --type x --type s --top-level --whole-name --at-root "/bin/$cmd")
-    len=$(echo -n "$attrs" | grep -c "^")
-
-    case $len in
-        0)
-            >&2 echo "$cmd: command not found"
-            ;;
-        *)
-            >&2 cat <<EOF
-$cmd: command not found
-nix-locate says:
-EOF
-
-            # ensure we get each element of attrs
-            # in a cross platform way
-            counter=0
-            while read attr; do
-                >&2 echo "  $attr"
-                counter=$((counter + 1))
-                if ((counter >= 10)); then
-                    >&2 echo "  ... and more ($len total)"
-                    break
-                fi
-            done <<< "$attrs"
-    esac
-    return 127 # command not found should always exit with 127
-
-}
-
 export EDITOR="code --wait"
