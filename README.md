@@ -2,7 +2,7 @@
   <h1>Flakes</code></h1>
 
   <p>
-    <strong>New generation dotfiles</strong>
+    <strong>Reproducible builds and deployments.</strong>
   </p>
 </div>
 
