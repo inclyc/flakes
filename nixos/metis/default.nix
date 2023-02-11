@@ -16,6 +16,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   virtualisation.vmware.guest.enable = true;
 
   networking.hostName = "metis"; # Define your hostname.
