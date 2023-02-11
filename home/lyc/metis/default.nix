@@ -2,7 +2,7 @@
 {
   imports =
     (import ../common/shells) ++
-    (import ../common/applications/version-management)
+    (import ../common/applications)
     ++ [ ../common/global.nix ];
 
   home.packages = with pkgs; [
