@@ -20,7 +20,7 @@
       };
       portal-llvmws = {
         hostname = "171.214.26.38";
-        user = "lyc";
+        user = "user";
         port = 22;
         localForwards = [{
           bind.port = 8443;
