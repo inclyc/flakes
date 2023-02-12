@@ -8,6 +8,8 @@
     (import ../common/tools/package-management)
     ++ [ ../common/global.nix ];
 
+  programs.vscode.enable = lib.mkForce false;
+
   home.packages = with pkgs; [
     rnix-lsp
   ];
