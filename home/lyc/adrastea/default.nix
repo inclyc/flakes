@@ -11,7 +11,8 @@
 
     # Web browser
     firefox
-    kate
+
+    # Email client
     thunderbird
 
     # Phabricator CLI tools
