@@ -9,6 +9,7 @@
     element-desktop
     qq
 
+    # Web browser
     firefox
     kate
     thunderbird
