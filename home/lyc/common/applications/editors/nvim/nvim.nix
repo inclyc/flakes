@@ -133,7 +133,17 @@ in
 
       # Language support/utilities
       {
-        use = nvim-treesitter.withAllGrammars;
+        use = (nvim-treesitter.withPlugins (
+          plugins: with plugins; [
+            nix
+            lua
+            rust
+            go
+            c
+            cpp
+            python
+          ]
+        ));
         config = requireConf nvim-treesitter;
       }
       { use = vim-haskell-module-name; vscode = true; }
