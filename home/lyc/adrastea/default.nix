@@ -13,6 +13,9 @@
     firefox
     kate
     thunderbird
+
+    # Phabricator CLI tools
+    # For llvm-project
     arcanist
   ];
 
