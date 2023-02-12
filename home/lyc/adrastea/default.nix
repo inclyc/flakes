@@ -11,6 +11,7 @@
 
     # Web browser
     firefox
+    chromium
 
     # Email client
     thunderbird
