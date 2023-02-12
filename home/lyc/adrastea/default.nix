@@ -4,8 +4,11 @@
   imports = (import ../common);
 
   home.packages = with pkgs; [
+    # Social media, chatting
     tdesktop
     element-desktop
+    qq
+
     firefox
     kate
     thunderbird
