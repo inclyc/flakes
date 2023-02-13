@@ -54,6 +54,12 @@
     ark
   ];
 
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  };
+
   # Workaround of nixpkgs#187963 and nixpkgs#199881
   services.xserver.displayManager.setupCommands = lib.mkForce "";
 
