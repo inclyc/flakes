@@ -19,6 +19,8 @@
     # Phabricator CLI tools
     # For llvm-project
     arcanist
+    graphviz
+    kgraphviewer
   ];
 
 
