@@ -59,7 +59,7 @@
     (with llvmpkg; [
       clang
       llvm
-      lld
+      bintools
     ])
   );
 }
