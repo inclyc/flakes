@@ -14,6 +14,7 @@
   outputs = { self, nixpkgs, nur, home-manager, flake-utils, vscode-server, ... }@inputs:
     let
       inherit (self) outputs;
+      forAllSystems = nixpkgs.lib.genAttrs flake-utils.lib.defaultSystems;
     in
     {
       nixosConfigurations = {
@@ -57,5 +58,11 @@
       {
         devShells.default = nixpkgs.legacyPackages.${system}.callPackage ./shell.nix { };
       }
-    ));
+    )) // {
+      overlays = import ./overlays;
+      packages = forAllSystems (system:
+        let pkgs = nixpkgs.legacyPackages.${system};
+        in import ./pkgs { inherit pkgs; }
+      );
+    };
 }

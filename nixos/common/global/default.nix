@@ -15,6 +15,10 @@
     config = {
       allowUnfree = true;
     };
+    overlays = [
+      outputs.overlays.modifications
+      outputs.overlays.additions
+    ];
   };
 
   # Increase open file limit for sudoers
