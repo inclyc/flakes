@@ -38,6 +38,12 @@
         user = "lyc";
         port = 22;
       };
+      # HPC, 神威.
+      swyjs = {
+        hostname = "40.0.1.110";
+        user = "swyjs";
+        port = 22;
+      };
     };
   };
 }
