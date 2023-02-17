@@ -52,7 +52,9 @@
 
   environment.systemPackages = with pkgs.libsForQt5; [
     ark
-  ];
+  ] ++ (with pkgs; [
+    topsap
+  ]);
 
   programs.steam = {
     enable = true;
@@ -68,6 +70,10 @@
     layout = "us";
     xkbVariant = "";
   };
+
+
+  virtualisation.virtualbox.host.enable = true;
+  users.extraGroups.vboxusers.members = [ "lyc" ];
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
