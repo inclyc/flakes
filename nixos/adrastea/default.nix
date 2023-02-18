@@ -74,6 +74,8 @@
 
   virtualisation.virtualbox.host.enable = true;
   users.extraGroups.vboxusers.members = [ "lyc" ];
+  users.extraGroups.docker.members = [ "lyc" ];
+  virtualisation.docker.enable = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
