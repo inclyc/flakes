@@ -8,7 +8,11 @@
 
     flake-utils.url = "github:numtide/flake-utils";
     nur.url = "github:nix-community/NUR";
-    vscode-server.url = "github:msteen/nixos-vscode-server";
+
+    vscode-server = {
+      url = "github:msteen/nixos-vscode-server";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, nur, home-manager, flake-utils, vscode-server, ... }@inputs:
