@@ -54,7 +54,13 @@
     ark
   ] ++ (with pkgs; [
     topsap
+  ]) ++ (with config.nur.repos; [
+    xddxdd.wechat-uos
   ]);
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-19.0.7"
+  ];
 
   programs.steam = {
     enable = true;
