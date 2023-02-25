@@ -89,6 +89,7 @@
   # Enable sound with pipewire.
   sound.enable = true;
   hardware.pulseaudio.enable = false;
+  hardware.opengl.extraPackages = [ pkgs.intel-compute-runtime ];
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
