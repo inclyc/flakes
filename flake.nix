@@ -25,7 +25,14 @@
         # Desktop
         adrastea = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs; };
-          modules = [ ./nixos/adrastea nur.nixosModules.nur ];
+          modules = [
+            ./nixos/adrastea
+            nur.nixosModules.nur
+            vscode-server.nixosModule
+            ({ config, pkgs, ... }: {
+              services.vscode-server.enable = true;
+            })
+          ];
         };
 
         # Server, Dual AMD 7H12
