@@ -54,6 +54,7 @@
     ark
   ] ++ (with pkgs; [
     topsap
+    musescore
   ]) ++ (with config.nur.repos; [
     xddxdd.wechat-uos
   ]);
