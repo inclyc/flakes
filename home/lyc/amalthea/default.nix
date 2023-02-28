@@ -9,4 +9,6 @@
   home.username = "inclyc";
 
   programs.vscode.userSettings = (builtins.fromJSON (builtins.readFile ./vscode-settings.json));
+
+  programs.ssh.matchBlocks.swyjs.proxyCommand = "ssh -W %h:%p adrastea";
 }
