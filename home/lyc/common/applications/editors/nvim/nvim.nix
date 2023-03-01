@@ -179,10 +179,6 @@ in
   xdg.configFile."nvim/lua".source = ./config/lua;
 
   home.packages = with pkgs; [
-    # C/C++
-    clang-tools
-    lldb
-
     # Rust
     rustfmt
     rust-analyzer
@@ -204,5 +200,8 @@ in
     # Python
     pyright
     black
-  ];
+  ] ++ (with pkgs.llvmPackages_15; [
+    clang-tools
+    lldb
+  ]);
 }
