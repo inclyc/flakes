@@ -90,6 +90,7 @@ o.fillchars       = 'stl: ,stlnc: ,vert:·,eob: ' -- No '~' on lines after end o
 
 -- Set colorscheme
 if g.vscode == nil then
+  require("catppuccin").setup()
   vim.cmd.colorscheme "catppuccin"
 end
 
