@@ -14,6 +14,7 @@
       substituters = [
         "https://mirrors.bfsu.edu.cn/nix-channels/store"
         "https://nix-community.cachix.org"
+        "https://cache.nixos.org"
       ];
       trusted-users = [ "root" "@wheel" ];
       trusted-public-keys = [
