@@ -197,6 +197,8 @@
     },
     "remote.SSH.useLocalServer": false,
     "remote.SSH.remotePlatform": {
-        "metis": "linux"
+        "metis": "linux",
+        "ict-malcon": "linux",
+        "swyjs": "linux"
     }
 }
