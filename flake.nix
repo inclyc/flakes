@@ -8,14 +8,9 @@
 
     flake-utils.url = "github:numtide/flake-utils";
     nur.url = "github:nix-community/NUR";
-
-    vscode-server = {
-      url = "github:msteen/nixos-vscode-server";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = { self, nixpkgs, nur, home-manager, flake-utils, vscode-server, ... }@inputs:
+  outputs = { self, nixpkgs, nur, home-manager, flake-utils, ... }@inputs:
     let
       inherit (self) outputs;
       forAllSystems = nixpkgs.lib.genAttrs flake-utils.lib.defaultSystems;
@@ -28,23 +23,13 @@
           modules = [
             ./nixos/adrastea
             nur.nixosModules.nur
-            vscode-server.nixosModule
-            ({ config, pkgs, ... }: {
-              services.vscode-server.enable = true;
-            })
           ];
         };
 
         # Server, Dual AMD 7H12
         metis = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs; };
-          modules = [
-            ./nixos/metis
-            vscode-server.nixosModule
-            ({ config, pkgs, ... }: {
-              services.vscode-server.enable = true;
-            })
-          ];
+          modules = [ ./nixos/metis ];
         };
       };
 
