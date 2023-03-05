@@ -20,5 +20,9 @@
       automatic = true;
       dates = "weekly";
     };
+    registry.sys = {
+      from = { type = "indirect"; id = "sys"; };
+      flake = inputs.nixpkgs;
+    };
   };
 }
