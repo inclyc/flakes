@@ -44,13 +44,24 @@
         user = "swyjs";
         port = 22;
       };
-      # 计算所组内服务器
-      ict-malcon = {
-        hostname = "10.3.2.104";
-        user = "lyc";
-        port = 22;
-        proxyCommand = "nc -x localhost:1080 %h %p";
-      };
-    };
+    } // (
+      let ict-proxy = "nc -x localhost:1080 %h %p";
+      in
+      {
+        # 计算所组内服务器
+        ict-malcon = {
+          hostname = "10.3.2.104";
+          user = "lyc";
+          port = 22;
+          proxyCommand = ict-proxy;
+        };
+        ict-repo = {
+          hostname = "10.3.2.104";
+          user = "lyc";
+          port = 22;
+          proxyCommand = ict-proxy;
+        };
+      }
+    );
   };
 }
