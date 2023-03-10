@@ -199,6 +199,7 @@
     "remote.SSH.remotePlatform": {
         "metis": "linux",
         "ict-malcon": "linux",
-        "swyjs": "linux"
+        "swyjs": "linux",
+        "adrastea": "linux"
     }
 }
