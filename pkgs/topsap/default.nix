@@ -22,10 +22,10 @@ let
   resource = stdenv.mkDerivation
     rec {
       pname = "topsap-unwrapped";
-      version = "3.5.2.35.2";
+      version = "3.5.2.36.2";
       src = fetchurl {
         url = "https://app.topsec.com.cn/vpn/sslvpnclient/TopSAP-${version}-x86_64.deb";
-        sha256 = "sha256-wBD39gHS5fWOEhOgEVB3a/McbaxYJyL0sclqDA4xLWo=";
+        sha256 = "sha256-I859oVKa7n3VGIZvzu0h0bYXGFg27jxd5GHsnX7Y+yE=";
       };
 
       nativeBuildInputs = [
