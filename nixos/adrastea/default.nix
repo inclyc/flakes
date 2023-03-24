@@ -55,6 +55,7 @@
   ] ++ (with pkgs; [
     topsap
     musescore
+    gnumake
   ]) ++ (with config.nur.repos; [
     xddxdd.wechat-uos
   ]);
