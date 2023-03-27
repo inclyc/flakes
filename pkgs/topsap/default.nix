@@ -2,24 +2,13 @@
 , fetchurl
 , lib
 , dpkg
-, autoPatchelfHook
-, libX11
-, webkitgtk
-, libsoup
-, libkrb5
-, jasper
-, libtiff
-, librsvg
-, libXxf86vm
-, gdk-pixbuf
-, gst_all_1
-, glib
-, writeShellScript
+, libuuid
+, buildFHSUserEnvBubblewrap
 , ...
 } @ args:
 
 let
-  resource = stdenv.mkDerivation
+  topsap-unwrapped = stdenv.mkDerivation
     rec {
       pname = "topsap-unwrapped";
       version = "3.5.2.36.2";
@@ -28,55 +17,40 @@ let
         sha256 = "sha256-I859oVKa7n3VGIZvzu0h0bYXGFg27jxd5GHsnX7Y+yE=";
       };
 
-      nativeBuildInputs = [
-        autoPatchelfHook
-        dpkg
-      ];
-
-      buildInputs = [
-        libX11
-        webkitgtk
-        libsoup
-        libkrb5
-        jasper
-        libtiff
-        librsvg
-        libXxf86vm
-        gdk-pixbuf
-        gst_all_1.gstreamer
-        glib
-      ];
+      nativeBuildInputs = [ dpkg ];
 
       dontUnpack = true;
 
       installPhase = ''
         dpkg-deb -x ${src} .
         sh opt/TopSAP/TopSAP*.bin --target $name --noexec
-        mkdir $out
 
-        rm -rf $name/common/lib/gdk-pixbuf-2.0
-        rm -rf $name/common/lib/libglib-2.0.so.0
+        mkdir -p $out/bin
 
-        cp -r $name/common/. $out/
-        cp -r $name/ubuntu/. $out/
+        cp $name/common/topvpn $out/bin
+        cp $name/common/sv_websrv $out/bin
+        cp $name/common/libvpn_client.so $out/bin
       '';
     };
-
-  sv_websrv = writeShellScript "sv_websrv" ''
-    trap "rm libvpn_client.so" SIGINT SIGTERM SIGQUIT
-    ln -s ${resource}/libvpn_client.so .
-
-    ${resource}/sv_websrv
-  '';
+  sv_websrv = buildFHSUserEnvBubblewrap {
+    name = "sv_websrv";
+    runScript = "${topsap-unwrapped}/bin/sv_websrv";
+    targetPkgs = pkgs: [ libuuid ];
+    unshareUser = false; # Needs TUN device access
+    extraBwrapArgs = [
+      "--symlink ${topsap-unwrapped}/bin/libvpn_client.so /libvpn_client.so"
+      "--chdir /"
+    ];
+  };
 in
 stdenv.mkDerivation {
-  pname = "top";
-  version = "3.5.2.35.2";
+  pname = "topsap";
+  inherit (topsap-unwrapped) version;
   phases = [ "installPhase" ];
 
   installPhase = ''
     mkdir -p $out/bin
-    ln -s ${sv_websrv} $out/bin/sv_websrv
-    ln -s ${resource}/topvpn $out/bin/topvpn
+    ln -s ${sv_websrv}/bin/sv_websrv $out/bin/sv_websrv
+    ln -s ${topsap-unwrapped}/bin/topvpn $out/bin/topvpn
   '';
 }
