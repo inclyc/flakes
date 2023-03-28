@@ -56,6 +56,7 @@
     topsap
     musescore
     gnumake
+    virt-manager
   ]) ++ (with config.nur.repos; [
     xddxdd.wechat-uos
   ]);
@@ -79,9 +80,14 @@
     xkbVariant = "";
   };
 
+  # virtualisation.virtualbox.host.enableExtensionPack = true;
+  # virtualisation.virtualbox.host.enable = true;
+  # users.extraGroups.vboxusers.members = [ "lyc" ];
 
-  virtualisation.virtualbox.host.enable = true;
-  users.extraGroups.vboxusers.members = [ "lyc" ];
+  virtualisation.libvirtd.enable = true;
+  programs.dconf.enable = true;
+  users.extraGroups.libvirtd.members = [ "lyc" ];
+
   users.extraGroups.docker.members = [ "lyc" ];
   virtualisation.docker.enable = true;
 
