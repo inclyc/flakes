@@ -57,8 +57,6 @@
     musescore
     gnumake
     virt-manager
-  ]) ++ (with config.nur.repos; [
-    xddxdd.wechat-uos
   ]);
 
   nixpkgs.config.permittedInsecurePackages = [
