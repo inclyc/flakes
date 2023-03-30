@@ -88,8 +88,15 @@
   programs.dconf.enable = true;
   users.extraGroups.libvirtd.members = [ "lyc" ];
 
-  users.extraGroups.docker.members = [ "lyc" ];
-  virtualisation.docker.enable = true;
+  virtualisation.podman = {
+    enable = true;
+
+    # Create a `docker` alias for podman, to use it as a drop-in replacement
+    dockerCompat = true;
+
+    # Required for containers under podman-compose to be able to talk to each other.
+    defaultNetwork.settings.dns_enabled = true;
+  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
