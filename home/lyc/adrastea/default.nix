@@ -10,9 +10,6 @@
     # Web browser
     chromium
 
-    # Email client
-    thunderbird
-
     # Phabricator CLI tools
     # For llvm-project
     arcanist
