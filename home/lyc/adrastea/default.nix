@@ -5,7 +5,6 @@
 
   home.packages = with pkgs; [
     # Social media, chatting
-    tdesktop
     element-desktop
     qq
 
