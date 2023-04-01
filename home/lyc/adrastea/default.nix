@@ -8,7 +8,6 @@
     qq
 
     # Web browser
-    firefox
     chromium
 
     # Email client
