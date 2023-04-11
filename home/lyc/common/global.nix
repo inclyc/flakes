@@ -29,6 +29,10 @@
       experimental-features = [ "nix-command" "flakes" "repl-flake" ];
       warn-dirty = false;
     };
+    registry.home = {
+      from = { type = "indirect"; id = "home"; };
+      flake = inputs.nixpkgs;
+    };
   };
 
   home = {
