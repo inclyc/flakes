@@ -19,6 +19,7 @@
       experimental-features = [ "nix-command" "flakes" "repl-flake" ];
       warn-dirty = false;
       system-features = [ "kvm" "big-parallel" ];
+      use-xdg-base-directories = true;
     };
     package = pkgs.nixUnstable;
     gc = {

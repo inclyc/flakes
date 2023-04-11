@@ -9,7 +9,7 @@
   };
 
   nix = {
-    package = lib.mkDefault pkgs.nix;
+    package = lib.mkDefault pkgs.nixUnstable;
     settings = {
       substituters = [
         "https://mirrors.bfsu.edu.cn/nix-channels/store"
@@ -28,6 +28,7 @@
       auto-optimise-store = lib.mkDefault true;
       experimental-features = [ "nix-command" "flakes" "repl-flake" ];
       warn-dirty = false;
+      use-xdg-base-directories = true;
     };
     registry.home = {
       from = { type = "indirect"; id = "home"; };
