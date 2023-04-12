@@ -11,6 +11,8 @@
   home.homeDirectory = "/Users/${config.home.username}";
   home.username = "inclyc";
 
+  inclyc.tex.enable = true;
+
   programs.vscode = {
     enable = true;
     userSettings = (builtins.fromJSON (builtins.readFile ./vscode-settings.json));
