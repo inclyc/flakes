@@ -21,6 +21,8 @@
 
   services.kdeconnect.enable = true;
 
+  inclyc.tex.enable = true;
+
   programs.vscode = {
     enable = true;
     userSettings = (builtins.fromJSON (builtins.readFile ./vscode-settings.json));
