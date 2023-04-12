@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }:
 {
   programs.vscode = {
-    enable = lib.mkDefault true;
+    enable = lib.mkDefault false;
     userSettings = (builtins.fromJSON (builtins.readFile ./settings.json));
     extensions = with pkgs.vscode-extensions; [
       llvm-vs-code-extensions.vscode-clangd

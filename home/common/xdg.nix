@@ -18,4 +18,8 @@
   gtk.gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
 
   xdg.enable = lib.mkDefault true;
+
+  programs.gpg = lib.mkIf (config.xdg.enable) {
+    homedir = "${config.xdg.dataHome}/gnupg";
+  };
 }

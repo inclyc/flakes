@@ -1,2 +1,0 @@
-(import ./nvim)
-++ (import ./vscode)

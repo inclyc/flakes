@@ -1,9 +1,7 @@
 { pkgs, lib, config, ... }:
 {
   programs.git = {
-    enable = true;
-    userName = "Yingchi Long";
-    userEmail = "i@lyc.dev";
+    enable = lib.mkDefault true;
     signing = {
       key = "296C3FEFEA88ABC5!";
       signByDefault = false;
@@ -16,7 +14,7 @@
       sendemail = {
         smtpencryption = "ssl";
         smtpserver = "smtppro.zoho.com.cn";
-        smtpuser = "i@lyc.dev";
+        smtpuser = config.inclyc.user.email;
         smtpserverport = 465;
         confirm = "always";
       };

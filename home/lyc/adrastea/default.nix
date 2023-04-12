@@ -1,7 +1,9 @@
 { pkgs, lib, config, ... }:
 {
 
-  imports = (import ../common);
+  imports = [
+    ../common
+  ];
 
   home.packages = with pkgs; [
     # Social media, chatting
@@ -19,7 +21,10 @@
 
   services.kdeconnect.enable = true;
 
+  inclyc.tex.enable = true;
+
   programs.vscode = {
+    enable = true;
     userSettings = (builtins.fromJSON (builtins.readFile ./vscode-settings.json));
     extensions = with pkgs.vscode-extensions; [
       vadimcn.vscode-lldb
