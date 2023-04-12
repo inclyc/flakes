@@ -9,9 +9,9 @@
   ];
 
   home.homeDirectory = "/Users/${config.home.username}";
-  home.username = "inclyc";
 
   inclyc.tex.enable = true;
+  inclyc.user.unixName = lib.mkForce "inclyc";
 
   programs.vscode = {
     enable = true;
