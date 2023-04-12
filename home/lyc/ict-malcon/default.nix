@@ -1,14 +1,8 @@
 { pkgs, lib, config, ... }:
 {
-  imports =
-    (import ../common/shells) ++
-    (import ../common/applications) ++
-    (import ../common/tools/misc) ++
-    (import ../common/tools/networking) ++
-    (import ../common/tools/package-management)
-    ++ [ ../common/global.nix ];
-
-  programs.vscode.enable = lib.mkForce false;
+  imports = [
+    ../common
+  ];
 
   home.homeDirectory = "/data/${config.home.username}";
   home.username = "lyc";

@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }:
 {
   programs.ssh = {
-    enable = true;
+    enable = lib.mkDefault true;
     matchBlocks = {
       hitmc = {
         hostname = "lan.hitmc.cc";

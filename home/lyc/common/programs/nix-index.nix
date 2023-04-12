@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }:
 {
   programs.nix-index = {
-    enable = true;
+    enable = lib.mkDefault true;
     enableZshIntegration = true;
   };
 }

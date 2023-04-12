@@ -1,7 +1,7 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, ... }:
 {
   programs.tmux = {
-    enable = true;
+    enable = lib.mkDefault true;
     mouse = true;
     newSession = true;
     shell = "${pkgs.zsh}/bin/zsh";
