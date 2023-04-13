@@ -32,30 +32,36 @@
           modules = [ ./nixos/metis ];
         };
       };
-
-      homeConfigurations = {
-        "lyc@metis" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages."x86_64-linux";
-          modules = [ ./home/lyc/metis ];
-          extraSpecialArgs = { inherit inputs outputs; };
+    } //
+    (
+      let
+        commonHomeModules = builtins.attrValues outputs.homeModules;
+        configurationDir = ./home/lyc/configurations;
+        genConfig =
+          { unixName ? "lyc"
+          , hostName
+          , system ? "x86_64-linux"
+          }:
+          {
+            "${unixName}@${hostName}" = home-manager.lib.homeManagerConfiguration {
+              pkgs = nixpkgs.legacyPackages."${system}";
+              modules = [ (configurationDir + "/${hostName}") ] ++ commonHomeModules;
+              extraSpecialArgs = { inherit inputs outputs; };
+            };
+          };
+      in
+      {
+        homeConfigurations = genConfig { hostName = "metis"; }
+        // genConfig { hostName = "adrastea"; }
+        // genConfig { hostName = "ict-malcon"; }
+        // genConfig {
+          unixName = "inclyc";
+          hostName = "amalthea";
+          system = "aarch64-darwin";
         };
-        "lyc@adrastea" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages."x86_64-linux";
-          modules = [ ./home/lyc/adrastea ];
-          extraSpecialArgs = { inherit inputs outputs; };
-        };
-        "lyc@ict-malcon" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages."x86_64-linux";
-          modules = [ ./home/lyc/ict-malcon ];
-          extraSpecialArgs = { inherit inputs outputs; };
-        };
-        "inclyc@amalthea" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages."aarch64-darwin";
-          modules = [ ./home/lyc/amalthea ];
-          extraSpecialArgs = { inherit inputs outputs; };
-        };
-      };
-    } // (flake-utils.lib.eachDefaultSystem (system:
+      }
+    )
+    // (flake-utils.lib.eachDefaultSystem (system:
       {
         devShells.default = nixpkgs.legacyPackages.${system}.callPackage ./shell.nix { };
       }
@@ -65,5 +71,9 @@
         let pkgs = nixpkgs.legacyPackages.${system};
         in import ./pkgs { inherit pkgs; }
       );
+      homeModules = {
+        lyc = import ./home/lyc/modules;
+        common = import ./home/modules;
+      };
     };
 }

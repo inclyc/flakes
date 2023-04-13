@@ -1,7 +1,6 @@
 { lib, pkgs, ... }:
 {
   imports = [
-    ../../common
     ./programs/git.nix
     ./programs/gpg.nix
     ./programs/nvim/nvim.nix

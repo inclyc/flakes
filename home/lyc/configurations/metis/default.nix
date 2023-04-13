@@ -1,16 +1,9 @@
 { pkgs, lib, config, ... }:
 {
-  imports = [
-    ../common
-  ];
-
-  home.homeDirectory = "/data/${config.home.username}";
-  home.username = "lyc";
-
   home.packages = with pkgs; [
     rnix-lsp
-    ccache
     ninja
+    ccache
   ] ++ (with pkgs.llvmPackages_15; [
     clang
     llvm
@@ -19,7 +12,7 @@
 
   programs.git.signing.signByDefault = lib.mkForce false;
   programs.zsh.dirHashes = lib.mkForce {
-    flakes = "/dev/shm/lyc/flakes";
-    llvm = "/dev/shm/lyc/llvm-project";
+    flakes = "/home/lyc/flakes";
+    llvm = "/home/lyc/llvm-project";
   };
 }

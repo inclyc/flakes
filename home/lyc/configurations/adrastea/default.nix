@@ -1,10 +1,6 @@
 { pkgs, lib, config, ... }:
 {
 
-  imports = [
-    ../common
-  ];
-
   home.packages = with pkgs; [
     # Social media, chatting
     qq

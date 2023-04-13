@@ -1,8 +1,5 @@
 { pkgs, lib, config, ... }:
 {
-  imports = [
-    ../common
-  ];
 
   home.packages = with pkgs; [
     pinentry_mac
