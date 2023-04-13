@@ -11,23 +11,28 @@
   };
 
   outputs = { self, nixpkgs, nur, home-manager, flake-utils, ... }@inputs:
+    # NixOS configurations
     let
       inherit (self) outputs;
       forAllSystems = nixpkgs.lib.genAttrs flake-utils.lib.defaultSystems;
+
+      commonModules = (builtins.attrValues outputs.nixosModules) ++ [ nur.nixosModules.nur ];
+      configurationDir = ./nixos/configurations;
+      genConfig =
+        { hostName
+        }:
+        {
+          "${hostName}" = nixpkgs.lib.nixosSystem {
+            modules = [ (configurationDir + "/${hostName}") ] ++ commonModules;
+            specialArgs = { inherit inputs outputs; };
+          };
+        };
     in
     {
-      nixosConfigurations = {
-        # Desktop
-        adrastea = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs outputs; };
-          modules = [
-            ./nixos/adrastea
-            nur.nixosModules.nur
-          ];
-        };
-      };
+      nixosConfigurations = genConfig { hostName = "adrastea"; };
     } //
     (
+      # Home-manager configurations
       let
         commonHomeModules = builtins.attrValues outputs.homeModules;
         configurationDir = ./home/lyc/configurations;
@@ -69,5 +74,6 @@
         lyc = import ./home/lyc/modules;
         common = import ./home/modules;
       };
+      nixosModules.lyc = import ./nixos/modules;
     };
 }
