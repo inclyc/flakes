@@ -1,11 +1,10 @@
 { stdenv
 , fetchurl
-, lib
 , dpkg
 , libuuid
 , buildFHSUserEnvBubblewrap
 , ...
-} @ args:
+}:
 
 let
   topsap-unwrapped = stdenv.mkDerivation
