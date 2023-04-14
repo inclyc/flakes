@@ -36,9 +36,11 @@ let
     runScript = "${topsap-unwrapped}/bin/sv_websrv";
     targetPkgs = pkgs: [ libuuid ];
     unshareUser = false; # Needs TUN device access
+
+    # Hardcoded "./libvpn_client.so", symlink this from nix store
     extraBwrapArgs = [
-      "--symlink ${topsap-unwrapped}/bin/libvpn_client.so /libvpn_client.so"
-      "--chdir /"
+      "--tmpfs $(pwd)"
+      "--symlink ${topsap-unwrapped}/bin/libvpn_client.so $(pwd)/libvpn_client.so"
     ];
   };
 in
