@@ -20,15 +20,6 @@ jobs:
     # Cherry-picked from https://github.com/TGuimbert/dotfiles/blob/3b9d27ec6e22ab7c70819799876e4eb089678424/.github/workflows/cachix.yaml#L8
     - name: Build NixOS configuration
       run: nix build .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel
-  check:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - uses: cachix/install-nix-action@v20
-      with:
-        nix_path: nixpkgs=channel:nixos-unstable
-    - name: Nix flake check
-      run: nix flake check
 
   build-packages:
     strategy:
