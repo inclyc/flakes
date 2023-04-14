@@ -37,9 +37,15 @@ let
     targetPkgs = pkgs: [ libuuid ];
     unshareUser = false; # Needs TUN device access
 
-    # Hardcoded "./libvpn_client.so", symlink this from nix store
     extraBwrapArgs = [
+      # server.key server.pem writes here
       "--tmpfs $(pwd)"
+      # Don't let her create /opt on my /
+      "--tmpfs /opt"
+      "--tmpfs /tmp"
+      # Config goes here, mounted tmpfs.
+      "--dir /opt/sslvpn/config"
+      # Hardcoded "./libvpn_client.so", symlink this from nix store
       "--symlink ${topsap-unwrapped}/bin/libvpn_client.so $(pwd)/libvpn_client.so"
     ];
   };
