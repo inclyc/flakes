@@ -12,7 +12,7 @@ let
       pname = "topsap-unwrapped";
       version = "3.5.2.36.2";
       src = fetchurl {
-        url = "https://app.topsec.com.cn/vpn/sslvpnclient/TopSAP-${version}-x86_64.deb";
+        url = "https://raw.githubusercontent.com/inclyc/flakes/storage/TopSAP-${version}-x86_64.deb";
         sha256 = "sha256-I859oVKa7n3VGIZvzu0h0bYXGFg27jxd5GHsnX7Y+yE=";
       };
 
