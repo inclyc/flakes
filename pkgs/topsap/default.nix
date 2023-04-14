@@ -59,4 +59,8 @@ stdenv.mkDerivation {
     ln -s ${sv_websrv}/bin/sv_websrv $out/bin/sv_websrv
     ln -s ${topsap-unwrapped}/bin/topvpn $out/bin/topvpn
   '';
+
+  meta = {
+    platforms = [ "x86_64-linux" ];
+  };
 }
