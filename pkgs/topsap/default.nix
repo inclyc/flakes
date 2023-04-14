@@ -18,10 +18,9 @@ let
 
       nativeBuildInputs = [ dpkg ];
 
-      dontUnpack = true;
+      unpackCmd = "dpkg -x $curSrc source";
 
       installPhase = ''
-        dpkg-deb -x ${src} .
         sh opt/TopSAP/TopSAP*.bin --target $name --noexec
 
         mkdir -p $out/bin
