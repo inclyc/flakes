@@ -2,9 +2,6 @@
 {
 
   home.packages = with pkgs; [
-    # Social media, chatting
-    qq
-
     # Web browser
     chromium
 
