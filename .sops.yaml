@@ -1,0 +1,9 @@
+keys:
+  - &admin_lyc age1tcz7npvfsevrwkxn7ymuju3whj8ekeupn6jwgmnfcfc4s74h7g3svr7dzy
+  - &server_adrastea age1qknq45kwdez9fcsh8xzs6el67h7pyk3k3v6xlleeed80l3wp5ccs3y0cr4
+creation_rules:
+  - path_regex: secrets/[^/]+\.yaml$
+    key_groups:
+    - age:
+      - *admin_lyc
+      - *server_adrastea
