@@ -24,7 +24,7 @@ jobs:
   build-packages:
     strategy:
       matrix:
-        package: [ ddns, topsap ]
+        package: [ ddns ]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3

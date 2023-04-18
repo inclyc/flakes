@@ -52,7 +52,6 @@
   environment.systemPackages = with pkgs.libsForQt5; [
     ark
   ] ++ (with pkgs; [
-    topsap
     musescore
     gnumake
     virt-manager
