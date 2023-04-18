@@ -52,7 +52,8 @@
     (
       # Home-manager configurations
       let
-        commonHomeModules = builtins.attrValues outputs.homeModules;
+        commonhomeManagerModules = builtins.attrValues outputs.homeManagerModules
+        ++ [ sops-nix.homeManagerModules.sops ];
         configurationDir = ./home/lyc/configurations;
         genConfig =
           { unixName ? "lyc"
@@ -62,8 +63,8 @@
           {
             "${unixName}@${hostName}" = home-manager.lib.homeManagerConfiguration {
               pkgs = nixpkgs.legacyPackages."${system}";
-              modules = [ (configurationDir + "/${hostName}") ] ++ commonHomeModules;
-              extraSpecialArgs = { inherit inputs outputs rootPath; };
+              modules = [ (configurationDir + "/${hostName}") ] ++ commonhomeManagerModules;
+              extraSpecialArgs = { inherit inputs outputs rootPath unixName hostName; };
             };
           };
       in
@@ -88,7 +89,7 @@
         let pkgs = nixpkgs.legacyPackages.${system};
         in import ./pkgs { inherit pkgs; }
       );
-      homeModules = {
+      homeManagerModules = {
         lyc = import ./home/lyc/modules;
         common = import ./home/modules;
       };

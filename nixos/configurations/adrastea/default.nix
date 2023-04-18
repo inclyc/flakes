@@ -11,7 +11,6 @@
       ./hardware-configuration.nix
       ./zfs.nix
       ./sops.nix
-      ./topsap.nix
     ];
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" "riscv64-linux" ];
