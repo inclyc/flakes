@@ -10,6 +10,7 @@
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./zfs.nix
+      ./sops.nix
     ];
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" "riscv64-linux" ];

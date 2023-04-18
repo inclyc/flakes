@@ -1,6 +1,11 @@
 { pkgs, lib, config, ... }:
 {
 
+  imports = [
+    ./sops.nix
+    ./topsap.nix
+  ];
+
   home.packages = with pkgs; [
     # Web browser
     chromium
