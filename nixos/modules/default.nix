@@ -40,31 +40,7 @@
 
 
   environment.systemPackages = with pkgs; [
-    wget
-    neofetch
     git
-    tree-sitter
-    file
-
-    # Toolchain
-    gcc
-    cmake
-    ninja
-    ccache
-
-    # NixOS
     home-manager
-    patchelf
-    nix-review
-  ] ++ (
-    # LLVM Packages
-    let
-      llvmpkg = pkgs.llvmPackages_15;
-    in
-    (with llvmpkg; [
-      clang
-      llvm
-      bintools
-    ])
-  );
+  ];
 }
