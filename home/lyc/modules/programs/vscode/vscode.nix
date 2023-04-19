@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, ... }:
 {
   programs.vscode = {
     enable = lib.mkDefault false;

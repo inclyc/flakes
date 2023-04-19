@@ -1,8 +1,6 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, ... }:
 let
   inherit (lib) concatStringsSep optional;
-  inherit (config.lib.file) mkOutOfStoreSymlink;
-  inherit (config.home.user-info) nixConfigDirectory;
 
   mkLuaTableFromList = x: "{" + lib.concatMapStringsSep "," (y: "'${y}'") x + "}";
   mkNeovimAutocmd = { event, pattern, callback ? "" }: ''
