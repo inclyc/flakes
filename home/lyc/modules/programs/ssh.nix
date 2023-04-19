@@ -38,12 +38,6 @@
         user = "lyc";
         port = 22;
       };
-      # HPC, 神威.
-      swyjs = {
-        hostname = "40.0.1.110";
-        user = "swyjs";
-        port = 22;
-      };
     } // (
       let ict-proxy = "nc -x localhost:1080 %h %p";
       in
@@ -60,6 +54,17 @@
           user = "lyc";
           port = 22;
           proxyCommand = ict-proxy;
+        };
+      }
+    ) // (
+      let sunwayProxy = "nc -x localhost:1081 %h %p";
+      in {
+        #  海洋之光
+        swyjs = {
+          hostname = "40.0.1.110";
+          user = "swyjs";
+          port = 22;
+          proxyCommand = sunwayProxy;
         };
       }
     );
