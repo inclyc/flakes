@@ -35,7 +35,7 @@ in
         Type = "notify";
         NotifyAccess = "all";
         TimeoutStopSec = 15;
-        After = [ "sops-nix.service" ];
+        After = [ "sops-nix.service" "network.target" ];
       };
     Install.WantedBy = [ "default.target" ];
   };
