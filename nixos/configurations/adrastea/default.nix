@@ -134,7 +134,7 @@
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJkYzGkwtGiync8npD5qTPT7fbgviw8dOL5LsrVpAMy3"
       ];
       shell = pkgs.zsh;
-      packages = with pkgs; [
+      packages = [
         config.nur.repos.linyinfeng.wemeet
       ];
     };
