@@ -1,4 +1,4 @@
-{ config, pkg, lib, ... }:
+{ ... }:
 {
   inclyc.user = {
     unixName = "lyc";

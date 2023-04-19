@@ -1,4 +1,4 @@
-{ inputs, lib, pkgs, config, outputs, ... }:
+{ lib, pkgs, config, ... }:
 with lib;
 let
   cfg = config.inclyc.tex;
