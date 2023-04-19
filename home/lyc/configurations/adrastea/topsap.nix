@@ -37,5 +37,6 @@ in
         TimeoutStopSec = 15;
         After = [ "sops-nix.service" ];
       };
+    Install.WantedBy = [ "default.target" ];
   };
 }
