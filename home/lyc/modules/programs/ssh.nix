@@ -18,16 +18,6 @@
         user = "lyc";
         port = 22;
       };
-      portal-llvmws = {
-        hostname = "171.214.26.38";
-        user = "user";
-        port = 22;
-        localForwards = [{
-          bind.port = 8443;
-          host.address = "10.20.1.252";
-          host.port = 443;
-        }];
-      };
       metis = {
         hostname = "llvmws.lyc.dev";
         user = "lyc";
