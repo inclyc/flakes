@@ -33,10 +33,5 @@
       source ${./zshrc}
       source ${./p10k.zsh}
     '';
-
-    dirHashes = {
-      flakes = "$HOME/workspace/Study/CS/OS/NixOS/flakes";
-      llvm = "$HOME/workspace/Study/CS/Compilers/llvm-project";
-    };
   };
 }

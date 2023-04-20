@@ -15,8 +15,8 @@
   ]);
 
   programs.git.signing.signByDefault = lib.mkForce false;
-  programs.zsh.dirHashes = lib.mkForce {
-    flakes = "/dev/shm/lyc/flakes";
-    llvm = "/dev/shm/lyc/llvm-project";
+  programs.zsh.dirHashes = {
+    flakes = "${config.home.homeDirectory}/flakes";
+    llvm = "${config.home.homeDirectory}/llvm-project";
   };
 }

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
 
   imports = [
@@ -35,5 +35,10 @@
     extraConfig = ''
       pinentry-program ${pkgs.pinentry-curses}/bin/pinentry-curses
     '';
+  };
+
+  programs.zsh.dirHashes = {
+    flakes = "${config.home.homeDirectory}/workspace/CS/OS/NixOS/flakes";
+    llvm = "${config.home.homeDirectory}/workspace/CS/Compilers/llvm-project";
   };
 }
