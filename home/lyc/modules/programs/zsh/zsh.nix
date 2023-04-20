@@ -4,7 +4,7 @@
     enable = true;
     shellAliases = {
       ls = "ls --color=auto";
-      ll = "ls -alF";
+      ll = "ls -alFh";
       update = "home-manager switch --flake . && sudo nixos-rebuild switch --flake .";
       ip = "ip --color=auto";
       grep = "grep --color=auto";
