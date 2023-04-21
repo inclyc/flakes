@@ -15,5 +15,5 @@
     userSettings = (builtins.fromJSON (builtins.readFile ./vscode-settings.json));
   };
 
-  programs.ssh.matchBlocks.swyjs.proxyCommand = "ssh -W %h:%p adrastea";
+  programs.ssh.matchBlocks.swyjs.proxyCommand = "nc -x 127.0.0.1:1081 %h %p";
 }
