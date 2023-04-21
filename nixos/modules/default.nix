@@ -4,6 +4,7 @@
   imports = [
     inputs.home-manager.nixosModules.home-manager
     ./nix.nix
+    ./ddns.nix
     ./nix-ld.nix
   ];
 
