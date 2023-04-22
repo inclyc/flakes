@@ -84,7 +84,10 @@
       packages = import ./pkgs { pkgs = nixpkgs.legacyPackages.${system}; };
     }
     )) // {
-      overlays = import ./overlays;
+      overlays = {
+        additions = final: _prev: import ./pkgs { pkgs = final; };
+        modifications = final: prev: { };
+      };
       homeManagerModules = {
         lyc = import ./home/lyc/modules;
         common = import ./home/modules;
