@@ -27,7 +27,6 @@
     # NixOS configurations
     let
       inherit (self) outputs;
-      forAllSystems = nixpkgs.lib.genAttrs flake-utils.lib.defaultSystems;
       rootPath = ./.;
 
       commonModules = (builtins.attrValues outputs.nixosModules)
@@ -82,13 +81,10 @@
     // (flake-utils.lib.eachDefaultSystem (system:
     {
       devShells.default = nixpkgs.legacyPackages.${system}.callPackage ./shell.nix { };
+      packages = import ./pkgs { pkgs = nixpkgs.legacyPackages.${system}; };
     }
     )) // {
       overlays = import ./overlays;
-      packages = forAllSystems (system:
-        let pkgs = nixpkgs.legacyPackages.${system};
-        in import ./pkgs { inherit pkgs; }
-      );
       homeManagerModules = {
         lyc = import ./home/lyc/modules;
         common = import ./home/modules;
