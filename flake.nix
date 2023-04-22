@@ -35,18 +35,15 @@
         sops-nix.nixosModules.sops
       ];
       configurationDir = ./nixos/configurations;
-      genConfig =
-        { hostName
-        }:
-        {
-          "${hostName}" = nixpkgs.lib.nixosSystem {
-            modules = [ (configurationDir + "/${hostName}") ] ++ commonModules;
-            specialArgs = { inherit inputs outputs rootPath; };
-          };
+      genConfig = hostName: {
+        "${hostName}" = nixpkgs.lib.nixosSystem {
+          modules = [ (configurationDir + "/${hostName}") ] ++ commonModules;
+          specialArgs = { inherit inputs outputs rootPath; };
         };
+      };
     in
     {
-      nixosConfigurations = genConfig { hostName = "adrastea"; };
+      nixosConfigurations = genConfig "adrastea";
     } //
     (
       # Home-manager configurations
