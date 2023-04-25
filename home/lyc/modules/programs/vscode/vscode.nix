@@ -15,6 +15,7 @@
       shardulm94.trailing-spaces
       colejcummins.llvm-syntax-highlighting
       ms-vscode-remote.remote-ssh
+      mkhl.direnv
     ];
   };
 }
