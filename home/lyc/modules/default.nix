@@ -4,7 +4,6 @@
     ./programs/direnv.nix
     ./programs/git.nix
     ./programs/gpg.nix
-    ./programs/nvim/nvim.nix
     ./programs/ssh.nix
     ./programs/tmux.nix
     ./programs/vscode/vscode.nix
