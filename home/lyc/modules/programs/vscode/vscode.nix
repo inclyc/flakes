@@ -26,4 +26,8 @@
       lextudio.restructuredtext
     ];
   };
+
+  home.packages = with pkgs; [
+    nil
+  ];
 }
