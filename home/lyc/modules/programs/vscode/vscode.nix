@@ -1,9 +1,14 @@
-{ pkgs, lib, ... }:
+{ pkgs
+, lib
+, inputs
+, system
+, ...
+}:
 {
   programs.vscode = {
     enable = lib.mkDefault false;
     userSettings = (builtins.fromJSON (builtins.readFile ./settings.json));
-    extensions = with pkgs.vscode-extensions; [
+    extensions = with inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace; [
       llvm-vs-code-extensions.vscode-clangd
       jnoortheen.nix-ide
       eamodio.gitlens

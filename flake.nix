@@ -11,6 +11,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+
     flake-utils.url = "github:numtide/flake-utils";
     nur.url = "github:nix-community/NUR";
   };
@@ -22,6 +24,7 @@
     , home-manager
     , flake-utils
     , sops-nix
+    , nix-vscode-extensions
     , ...
     }@inputs:
     # NixOS configurations
@@ -60,7 +63,7 @@
             "${unixName}@${hostName}" = home-manager.lib.homeManagerConfiguration {
               pkgs = nixpkgs.legacyPackages."${system}";
               modules = [ (configurationDir + "/${hostName}") ] ++ commonhomeManagerModules;
-              extraSpecialArgs = { inherit inputs outputs rootPath unixName hostName; };
+              extraSpecialArgs = { inherit inputs outputs rootPath unixName hostName system; };
             };
           };
       in
