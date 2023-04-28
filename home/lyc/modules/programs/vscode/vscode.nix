@@ -21,6 +21,9 @@
       colejcummins.llvm-syntax-highlighting
       ms-vscode-remote.remote-ssh
       mkhl.direnv
+      ms-python.python
+      ms-python.vscode-pylance
+      lextudio.restructuredtext
     ];
   };
 }
