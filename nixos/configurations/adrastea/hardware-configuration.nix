@@ -77,23 +77,9 @@
       options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
-  fileSystems."/home/lyc/Games" =
-    {
-      device = "tank/home/games";
-      fsType = "zfs";
-      options = [ "zfsutil" "X-mount.mkdir" ];
-    };
-
   fileSystems."/home/lyc/workspace" =
     {
       device = "tank/home/workspace";
-      fsType = "zfs";
-      options = [ "zfsutil" "X-mount.mkdir" ];
-    };
-
-  fileSystems."/home/lyc/Games/Minecraft" =
-    {
-      device = "tank/home/games/minecraft";
       fsType = "zfs";
       options = [ "zfsutil" "X-mount.mkdir" ];
     };
