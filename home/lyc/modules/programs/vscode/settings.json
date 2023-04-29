@@ -51,6 +51,7 @@
         "uff09": true,
         "uff0c": true
     },
+    "extensions.ignoreRecommendations": true,
     "files.autoSave": "onFocusChange",
     "files.exclude": {
         "**/.classpath": true,
@@ -167,7 +168,16 @@
     ],
     "latex-workshop.view.pdf.viewer": "tab",
     "nix.enableLanguageServer": true,
-    "nix.serverPath": "rnix-lsp",
+    "nix.serverPath": "nil",
+    "nix.serverSettings": {
+        "nil": {
+            "formatting": {
+                "command": [
+                    "nixpkgs-fmt"
+                ]
+            }
+        }
+    },
     "python.analysis.typeCheckingMode": "basic",
     "python.languageServer": "Pylance",
     "python.terminal.activateEnvironment": false,
