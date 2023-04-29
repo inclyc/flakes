@@ -24,10 +24,17 @@
       ms-python.python
       ms-python.vscode-pylance
       lextudio.restructuredtext
+
+      # Java
+      redhat.java
+      vscjava.vscode-java-debug
+      vscjava.vscode-java-dependency
+      vscjava.vscode-gradle
     ];
   };
 
   home.packages = with pkgs; [
     nil
+    nixpkgs-fmt
   ];
 }
