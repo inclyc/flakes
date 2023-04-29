@@ -46,7 +46,8 @@
       };
     in
     {
-      nixosConfigurations = genConfig "adrastea";
+      nixosConfigurations = genConfig "adrastea"
+      // (genConfig "metis");
     } //
     (
       # Home-manager configurations
