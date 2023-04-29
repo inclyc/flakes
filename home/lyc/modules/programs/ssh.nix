@@ -21,7 +21,7 @@
       metis = {
         hostname = "llvmws.lyc.dev";
         user = "lyc";
-        port = 22;
+        port = 20122;
       };
       adrastea = {
         hostname = "adrastea.lyc.dev";
