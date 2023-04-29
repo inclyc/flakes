@@ -1,7 +1,11 @@
 { pkgs
+, lib
 , ...
 }:
 {
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+
+
   # Proxmox-VE container, running LXC
   boot.isContainer = true;
 
