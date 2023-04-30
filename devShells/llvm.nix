@@ -20,6 +20,6 @@ with pkgs; pkgs.mkShell.override { inherit stdenv; }
 
   # workaround for https://github.com/NixOS/nixpkgs/issues/76486
   shellHook = ''
-     PATH="${clang-tools}/bin:$PATH"
+    PATH="${clang-tools}/bin:$PATH"
   '';
 }

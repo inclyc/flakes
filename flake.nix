@@ -13,6 +13,10 @@
 
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+    };
+
     flake-utils.url = "github:numtide/flake-utils";
     nur.url = "github:nix-community/NUR";
 
@@ -28,86 +32,80 @@
     , nur
     , home-manager
     , flake-utils
+    , flake-parts
     , sops-nix
     , envfs
     , ...
     }@inputs:
-    # NixOS configurations
-    let
-      inherit (self) outputs;
-      rootPath = ./.;
-
-      commonModules = (builtins.attrValues outputs.nixosModules)
-        ++ [
-        nur.nixosModules.nur
-        sops-nix.nixosModules.sops
-        envfs.nixosModules.envfs
-      ];
-      configurationDir = ./nixos/configurations;
-      genConfig = hostName: {
-        "${hostName}" = nixpkgs.lib.nixosSystem {
-          modules = [ (configurationDir + "/${hostName}") ] ++ commonModules;
-          specialArgs = { inherit inputs outputs rootPath; };
-        };
-      };
-    in
-    {
-      nixosConfigurations = genConfig "adrastea"
-      // (genConfig "metis");
-    } //
-    (
-      # Home-manager configurations
-      let
-        commonhomeManagerModules = builtins.attrValues outputs.homeManagerModules
-        ++ [ sops-nix.homeManagerModules.sops ];
-        configurationDir = ./home/lyc/configurations;
-        genConfig =
-          { unixName ? "lyc"
-          , hostName
-          , system ? "x86_64-linux"
-          }:
-          {
-            "${unixName}@${hostName}" = home-manager.lib.homeManagerConfiguration {
-              pkgs = nixpkgs.legacyPackages."${system}";
-              modules = [ (configurationDir + "/${hostName}") ] ++ commonhomeManagerModules;
-              extraSpecialArgs = { inherit inputs outputs rootPath unixName hostName system; };
-            };
-          };
-      in
-      {
-        homeConfigurations = genConfig { hostName = "metis"; }
-        // genConfig { hostName = "adrastea"; }
-        // genConfig { hostName = "ict-malcon"; }
-        // genConfig {
-          unixName = "inclyc";
-          hostName = "amalthea";
-          system = "aarch64-darwin";
-        };
-      }
-    )
-    // (flake-utils.lib.eachDefaultSystem (system:
     let
       devShellsDir = ./devShells;
-      pkgs = nixpkgs.legacyPackages.${system};
-      devShellsConfig = shellName: {
-        "${shellName}" = import (devShellsDir + "/${shellName}") { inherit pkgs; };
-      };
+      inherit (self) outputs;
+      rootPath = ./.;
     in
-    {
-      devShells = devShellsConfig "llvm" // {
-        default = nixpkgs.legacyPackages.${system}.callPackage ./shell.nix { };
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = flake-utils.lib.defaultSystems;
+      perSystem = { config, self', inputs', pkgs, system, ... }: {
+        devShells = nixpkgs.lib.mapAttrs'
+          (f: _: nixpkgs.lib.nameValuePair
+            (nixpkgs.lib.removeSuffix ".nix" f)
+            (import (devShellsDir + "/${f}") { inherit pkgs; })
+          )
+          (builtins.readDir devShellsDir) // { default = import ./shell.nix { inherit pkgs; }; };
+        packages = import ./pkgs { inherit pkgs; };
       };
-      packages = import ./pkgs { inherit pkgs; };
-    }
-    )) // {
-      overlays = {
-        additions = final: _prev: import ./pkgs { pkgs = final; };
-        modifications = final: prev: { };
-      };
-      homeManagerModules = {
-        lyc = import ./home/lyc/modules;
-        common = import ./home/modules;
-      };
-      nixosModules.lyc = import ./nixos/modules;
+      flake = {
+        nixosModules.lyc = import ./nixos/modules;
+        nixosConfigurations = nixpkgs.lib.genAttrs [ "adrastea" "metis" ] (hostName: nixpkgs.lib.nixosSystem {
+          modules = [ (./nixos/configurations + "/${hostName}") ] ++ [
+            nur.nixosModules.nur
+            sops-nix.nixosModules.sops
+            envfs.nixosModules.envfs
+            outputs.nixosModules.lyc
+          ];
+          specialArgs = { inherit inputs outputs rootPath; };
+        });
+        overlays = {
+          additions = final: _prev: import ./pkgs { pkgs = final; };
+          modifications = final: prev: { };
+        };
+      } //
+      (
+        # Home-manager configurations
+        let
+          homeConfig =
+            { unixName ? "lyc"
+            , hostName
+            , system ? "x86_64-linux"
+            }:
+            {
+              "${unixName}@${hostName}" = home-manager.lib.homeManagerConfiguration {
+                pkgs = nixpkgs.legacyPackages."${system}";
+                modules = [
+                  (./home/lyc/configurations + "/${hostName}")
+                  sops-nix.homeManagerModules.sops
+                ] ++ (builtins.attrValues outputs.homeManagerModules);
+                extraSpecialArgs = { inherit inputs outputs rootPath unixName hostName system; };
+              };
+            };
+        in
+        {
+          homeConfigurations = nixpkgs.lib.foldr (a: b: a // b) { }
+            (map (hostName: homeConfig { inherit hostName; }) [
+              # Simple home configuration, only specified "hostName"
+              "adrastea"
+              "metis"
+              "ict-malcon"
+            ])
+          // homeConfig {
+            unixName = "inclyc";
+            hostName = "amalthea";
+            system = "aarch64-darwin";
+          };
+          homeManagerModules = {
+            lyc = import ./home/lyc/modules;
+            common = import ./home/modules;
+          };
+        }
+      );
     };
 }
