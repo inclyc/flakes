@@ -10,5 +10,9 @@ with pkgs; pkgs.mkShell.override { inherit stdenv; }
   nativeBuildInputs = [
     cmake
     ninja
+    ccache
+
+    # for "lit" testing
+    python3
   ];
 }
