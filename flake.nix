@@ -15,6 +15,11 @@
 
     flake-utils.url = "github:numtide/flake-utils";
     nur.url = "github:nix-community/NUR";
+
+    envfs = {
+      url = "github:Mic92/envfs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -25,6 +30,7 @@
     , flake-utils
     , sops-nix
     , nix-vscode-extensions
+    , envfs
     , ...
     }@inputs:
     # NixOS configurations
@@ -36,6 +42,7 @@
         ++ [
         nur.nixosModules.nur
         sops-nix.nixosModules.sops
+        envfs.nixosModules.envfs
       ];
       configurationDir = ./nixos/configurations;
       genConfig = hostName: {
