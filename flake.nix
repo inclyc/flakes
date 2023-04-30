@@ -29,7 +29,6 @@
     , home-manager
     , flake-utils
     , sops-nix
-    , nix-vscode-extensions
     , envfs
     , ...
     }@inputs:
