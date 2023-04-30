@@ -80,9 +80,18 @@
       }
     )
     // (flake-utils.lib.eachDefaultSystem (system:
+    let
+      devShellsDir = ./devShells;
+      pkgs = nixpkgs.legacyPackages.${system};
+      devShellsConfig = shellName: {
+        "${shellName}" = import (devShellsDir + "/${shellName}") { inherit pkgs; };
+      };
+    in
     {
-      devShells.default = nixpkgs.legacyPackages.${system}.callPackage ./shell.nix { };
-      packages = import ./pkgs { pkgs = nixpkgs.legacyPackages.${system}; };
+      devShells = devShellsConfig "llvm" // {
+        default = nixpkgs.legacyPackages.${system}.callPackage ./shell.nix { };
+      };
+      packages = import ./pkgs { inherit pkgs; };
     }
     )) // {
       overlays = {
