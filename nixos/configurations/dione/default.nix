@@ -2,6 +2,7 @@
 , lib
 , inputs
 , config
+, pkgs
 , ...
 }:
 {
@@ -12,6 +13,10 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "riscv64-linux";
   nixpkgs.buildPlatform = "x86_64-linux";
+
+  boot.loader.grub.enable = false;
+
+  system.build.installBootLoader = lib.mkDefault "${pkgs.coreutils}/bin/true";
 
 
   inclyc.user.enable = true;
