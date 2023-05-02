@@ -6,6 +6,7 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   inclyc.user.enable = true;
+  inclyc.user.zsh = true;
 
   # Proxmox-VE container, running LXC
   boot.isContainer = true;

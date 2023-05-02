@@ -43,6 +43,7 @@ in
     })
     (mkIf cfg.zsh {
       users.users.lyc.shell = pkgs.zsh;
+      programs.zsh.enable = true;
     })
   ]);
 }
