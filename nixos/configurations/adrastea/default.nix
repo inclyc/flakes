@@ -13,7 +13,14 @@
       ./sops.nix
     ];
 
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" "riscv64-linux" ];
+  systemd = {
+    additionalUpstreamSystemUnits = [
+      "proc-sys-fs-binfmt_misc.automount"
+      "proc-sys-fs-binfmt_misc.mount"
+      "systemd-binfmt.service"
+    ];
+    services.systemd-binfmt.restartTriggers = [ (builtins.toJSON config.boot.binfmt.registrations) ];
+  };
 
   networking.hostName = "adrastea"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
