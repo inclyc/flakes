@@ -1,19 +1,13 @@
 # This file (and the global directory) holds config that i use on all hosts
-{ inputs, outputs, pkgs, ... }:
+{ outputs, pkgs, ... }:
 {
   imports = [
-    inputs.home-manager.nixosModules.home-manager
     ./nix.nix
     ./ddns.nix
     ./nix-ld.nix
     ./gui.nix
     ./user.nix
   ];
-
-  home-manager = {
-    useUserPackages = true;
-    extraSpecialArgs = { inherit inputs outputs; };
-  };
 
   nixpkgs = {
     config = {
@@ -27,6 +21,5 @@
 
   environment.systemPackages = with pkgs; [
     git
-    home-manager
   ];
 }
