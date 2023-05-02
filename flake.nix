@@ -39,6 +39,7 @@
     }@inputs:
     let
       devShellsDir = ./devShells;
+      nixosConfigDir = ./nixos/configurations;
       inherit (self) outputs;
       rootPath = ./.;
     in
@@ -55,15 +56,17 @@
       };
       flake = {
         nixosModules.lyc = import ./nixos/modules;
-        nixosConfigurations = nixpkgs.lib.genAttrs [ "adrastea" "metis" ] (hostName: nixpkgs.lib.nixosSystem {
-          modules = [ (./nixos/configurations + "/${hostName}") ] ++ [
-            nur.nixosModules.nur
-            sops-nix.nixosModules.sops
-            envfs.nixosModules.envfs
-            outputs.nixosModules.lyc
-          ];
-          specialArgs = { inherit inputs outputs rootPath; };
-        });
+        nixosConfigurations = nixpkgs.lib.genAttrs
+          (map (f: nixpkgs.lib.removeSuffix ".nix" f) (builtins.attrNames (builtins.readDir nixosConfigDir)))
+          (hostName: nixpkgs.lib.nixosSystem {
+            modules = [ (nixosConfigDir + "/${hostName}") ] ++ [
+              nur.nixosModules.nur
+              sops-nix.nixosModules.sops
+              envfs.nixosModules.envfs
+              outputs.nixosModules.lyc
+            ];
+            specialArgs = { inherit inputs outputs rootPath; };
+          });
         overlays = {
           additions = final: _prev: import ./pkgs { pkgs = final; };
           modifications = final: prev: { };
