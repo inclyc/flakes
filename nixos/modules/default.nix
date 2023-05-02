@@ -6,6 +6,8 @@
     ./nix.nix
     ./ddns.nix
     ./nix-ld.nix
+    ./gui.nix
+    ./user.nix
   ];
 
   home-manager = {
