@@ -61,8 +61,6 @@
           (hostName: nixpkgs.lib.nixosSystem {
             modules = [ (nixosConfigDir + "/${hostName}") ] ++ [
               nur.nixosModules.nur
-              sops-nix.nixosModules.sops
-              envfs.nixosModules.envfs
               outputs.nixosModules.lyc
             ];
             specialArgs = { inherit inputs outputs rootPath; };

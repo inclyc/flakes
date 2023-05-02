@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 {
   inclyc = {
@@ -14,13 +14,14 @@
     };
   };
 
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./zfs.nix
-      ./sops.nix
-    ];
+  imports = [
+    inputs.sops-nix.nixosModules.sops
+    inputs.envfs.nixosModules.envfs
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./zfs.nix
+    ./sops.nix
+  ];
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" "riscv64-linux" ];
 
