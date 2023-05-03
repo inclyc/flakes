@@ -53,8 +53,11 @@
   ] ++ (with pkgs; [
     musescore
     gnumake
-    virt-manager
+    qemu
+    virt-viewer
   ]);
+
+  virtualisation.spiceUSBRedirection.enable = true;
 
   nixpkgs.config.permittedInsecurePackages = [
     "electron-19.0.7"
@@ -78,10 +81,6 @@
   # virtualisation.virtualbox.host.enableExtensionPack = true;
   # virtualisation.virtualbox.host.enable = true;
   # users.extraGroups.vboxusers.members = [ "lyc" ];
-
-  virtualisation.libvirtd.enable = true;
-  programs.dconf.enable = true;
-  users.extraGroups.libvirtd.members = [ "lyc" ];
 
   virtualisation.podman = {
     enable = true;
