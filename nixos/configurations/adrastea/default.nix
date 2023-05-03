@@ -59,6 +59,14 @@
 
   virtualisation.spiceUSBRedirection.enable = true;
 
+
+  # Grant non-privileged users to access USB devices
+  # For rootlesss USB forwarding (without SPICE)
+  services.udev.extraRules = ''
+    SUBSYSTEM=="usb", GROUP="users", MODE="0660"
+    SUBSYSTEM=="usb_device", GROUP="users", MODE="0660"
+  '';
+
   nixpkgs.config.permittedInsecurePackages = [
     "electron-19.0.7"
   ];
