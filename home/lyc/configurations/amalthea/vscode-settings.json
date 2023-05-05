@@ -24,10 +24,8 @@
         "zsh": {
             "args": [
                 "-l"
-            ],
-            "path": "/Users/inclyc/.nix-profile/bin/zsh"
+            ]
         }
     },
-    "vscode-neovim.neovimExecutablePaths.darwin": "/Users/inclyc/.nix-profile/bin/nvim",
     "editor.fontSize": 16
 }
