@@ -1,13 +1,10 @@
-name: "flake-check":
+name: "flake-check"
 on:
   pull_request:
   push:
 
 jobs:
   nix-flake-check:
-    strategy:
-      matrix:
-        home: [ lyc@adrastea, lyc@metis, lyc@ict-malcon ]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
