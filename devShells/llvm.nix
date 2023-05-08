@@ -16,6 +16,8 @@ with pkgs; pkgs.mkShell.override { inherit stdenv; }
     python3
 
     clang-tools
+
+    arcanist
   ];
 
   # workaround for https://github.com/NixOS/nixpkgs/issues/76486
