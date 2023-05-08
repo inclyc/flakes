@@ -19,11 +19,6 @@
 
     flake-utils.url = "github:numtide/flake-utils";
     nur.url = "github:nix-community/NUR";
-
-    envfs = {
-      url = "github:Mic92/envfs";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -34,7 +29,6 @@
     , flake-utils
     , flake-parts
     , sops-nix
-    , envfs
     , ...
     }@inputs:
     let

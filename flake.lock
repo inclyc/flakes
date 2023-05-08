@@ -1,26 +1,5 @@
 {
   "nodes": {
-    "envfs": {
-      "inputs": {
-        "flake-parts": "flake-parts",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1683189552,
-        "narHash": "sha256-DVDxWmvPgc9L0XU2j6nvUOKld9qTADtbxKTSJmSqDnU=",
-        "owner": "Mic92",
-        "repo": "envfs",
-        "rev": "5dc9af6cfec69a0d7959db96776c4051b66dde4c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Mic92",
-        "repo": "envfs",
-        "type": "github"
-      }
-    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -38,27 +17,6 @@
       }
     },
     "flake-parts": {
-      "inputs": {
-        "nixpkgs-lib": [
-          "envfs",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1673362319,
-        "narHash": "sha256-Pjp45Vnj7S/b3BRpZEVfdu8sqqA6nvVjvYu59okhOyI=",
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "rev": "82c16f1682cf50c01cb0280b38a1eed202b3fe9f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "type": "github"
-      }
-    },
-    "flake-parts_2": {
       "inputs": {
         "nixpkgs-lib": "nixpkgs-lib"
       },
@@ -232,8 +190,7 @@
     },
     "root": {
       "inputs": {
-        "envfs": "envfs",
-        "flake-parts": "flake-parts_2",
+        "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "nix-vscode-extensions": "nix-vscode-extensions",
