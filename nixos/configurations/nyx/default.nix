@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, inputs, ... }:
 let
   chisel_need = (with pkgs; [
     jdk17_headless
@@ -20,15 +20,18 @@ let
   ]);
 in
 {
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  networking.hostName = "nyx";
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   imports = [
-    (fetchTarball "https://github.com/nix-community/nixos-vscode-server/tarball/master")
-    <nixpkgs/nixos/modules/virtualisation/qemu-vm.nix>
-    ./home.nix
+    inputs.vscode-server.nixosModule
+      # <nixpkgs/nixos/modules/virtualisation/qemu-vm.nix>
   ];
-  networking.hostName = "nyx";
+
+  # virtualisation = {
+  #   memorySize = 2048; # Use 2048MiB memory.
+  #   cores = 4; # Simulate 4 cores.
+  # };
 
   users.users = {
     admin = {
@@ -38,30 +41,21 @@ in
       packages = with pkgs; [
         neofetch
       ] ++ chisel_need ++ difftest_need;
-      initialPassword = "nix";
     };
     chisel1 = {
       isNormalUser = true;
       packages = difftest_need ++ chisel_need;
-      initialPassword = "nix";
     };
     chisel2 = {
       isNormalUser = true;
       packages = difftest_need ++ chisel_need;
-      initialPassword = "nix";
     };
   };
-
-  # virtualisation = {
-  #   memorySize = 8192; # Use 8192MB memory.
-  #   cores = 8; # Simulate 8 cores.
-  #   diskSize = 4096; # Simulate 4G disk
-  # };
 
   services = {
     openssh = {
       enable = true;
-      port = [201020];
+      ports = [ 201020 ];
       settings = {
         passwordAuthentication = false;
         kbdInteractiveAuthentication = false;

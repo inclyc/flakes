@@ -12,6 +12,7 @@
     };
 
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    vscode-server.url = "github:nix-community/nixos-vscode-server";
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
