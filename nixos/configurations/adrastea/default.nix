@@ -165,6 +165,9 @@
   systemd.extraConfig = ''
     DefaultTimeoutStopSec=10s
   '';
+  systemd.user.extraConfig = ''
+    DefaultTimeoutStopSec=10s
+  '';
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
