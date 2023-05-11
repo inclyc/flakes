@@ -55,7 +55,7 @@ in
   services = {
     openssh = {
       enable = true;
-      ports = [ 201020 ];
+      ports = [ 1020 ];
       settings = {
         passwordAuthentication = false;
         kbdInteractiveAuthentication = false;
