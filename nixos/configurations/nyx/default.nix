@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, inputs, modulesPath, ... }:
 let
   chisel_need = (with pkgs; [
     jdk17_headless
@@ -7,14 +7,18 @@ let
     mill
   ]);
   difftest_need = (with pkgs; [
-    llvmPackages_15.llvm
+    llvmPackages_15.libllvm
     verilator
     readline
     ncurses
-    gnumake
     bison
     flex
     fmt
+    fd
+
+    gnumake
+    bison
+    flex
     gcc
     gdb
   ]);
@@ -22,16 +26,10 @@ in
 {
   networking.hostName = "nyx";
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-
   imports = [
     inputs.vscode-server.nixosModule
-      # <nixpkgs/nixos/modules/virtualisation/qemu-vm.nix>
+    ("${modulesPath}" + "/virtualisation/qemu-vm.nix")
   ];
-
-  # virtualisation = {
-  #   memorySize = 2048; # Use 2048MiB memory.
-  #   cores = 4; # Simulate 4 cores.
-  # };
 
   users.users = {
     admin = {
@@ -41,6 +39,7 @@ in
       packages = with pkgs; [
         neofetch
       ] ++ chisel_need ++ difftest_need;
+      initialPassword = "nix";
     };
     chisel1 = {
       isNormalUser = true;
@@ -55,7 +54,7 @@ in
   services = {
     openssh = {
       enable = true;
-      ports = [ 1020 ];
+      ports = [ 22 ];
       settings = {
         passwordAuthentication = false;
         kbdInteractiveAuthentication = false;
@@ -64,8 +63,39 @@ in
     vscode-server.enable = true;
   };
 
+  virtualisation = {
+    cores = 16; ## modify by lyc's judgment
+    memorySize = 4096; ## modify by lyc's judgment
+    graphics = false;
+    host.pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";
+    qemu.package = config.virtualisation.host.pkgs.qemu; ## copy from enceladus fork, don't know why 
+    forwardPorts = [
+      { from = "host"; host.port = 20102; guest.port = 22; }
+    ];
+  };
+
+  users.defaultUserShell = pkgs.zsh;
   programs = {
     git.enable = true;
+    zsh = {
+      enable = true;
+      shellAliases = {
+        ls = "ls --color";
+        ll = "ls -l";
+        l = "ls -CF";
+        la = "ls -a";
+        tp = "trash put";
+      };
+      enableCompletion = true;
+      enableBashCompletion = true;
+      syntaxHighlighting.enable = true;
+      autosuggestions.enable = true;
+    };
+    neovim = {
+      enable = true;
+      vimAlias = true;
+      viAlias = true;
+    };
   };
 
   # Set your time zone.
