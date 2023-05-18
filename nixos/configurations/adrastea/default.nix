@@ -37,6 +37,9 @@
   # Set your time zone.
   time.timeZone = "Asia/Hong_Kong";
 
+  boot.kernel.sysctl."kernel.perf_event_paranoid" = -1;
+  boot.kernel.sysctl."kernel.kptr_restrict" = lib.mkForce 0;
+
   # Select internationalisation properties.
   i18n = {
     defaultLocale = "C.UTF-8";
@@ -54,6 +57,7 @@
     gnumake
     qemu
     virt-viewer
+    config.nur.repos.linyinfeng.wemeet
   ]);
 
   virtualisation.spiceUSBRedirection.enable = true;
