@@ -15,6 +15,8 @@
 
   boot.blacklistedKernelModules = [ "i2c_nvidia_gpu" "nouveau" ];
 
+  boot.loader.grub.configurationLimit = 5;
+
   # These modules are required for PCI passthrough, and must come before early modesetting stuff
   boot.kernelModules = [ "vfio" "vfio_iommu_type1" "vfio_pci" "vfio_virqfd" "kvm-intel" ];
 
