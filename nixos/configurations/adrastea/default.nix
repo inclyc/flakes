@@ -64,7 +64,15 @@
   services.udev.extraRules = ''
     SUBSYSTEM=="usb", GROUP="users", MODE="0660"
     SUBSYSTEM=="usb_device", GROUP="users", MODE="0660"
+
+    SUBSYSTEM=="vfio", GROUP="wheel", MODE="0660"
+    SUBSYSTEM=="input", GROUP="wheel", MODE="0660"
   '';
+
+  security.pam.loginLimits = [
+    { domain = "@wheel"; item = "memlock"; type = "hard"; value = "unlimited"; }
+    { domain = "@wheel"; item = "memlock"; type = "soft"; value = "unlimited"; }
+  ];
 
   nixpkgs.config.permittedInsecurePackages = [
     "electron-19.0.7"
