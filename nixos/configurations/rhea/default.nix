@@ -22,6 +22,8 @@
 
   networking.hostName = "rhea";
 
+  networking.networkmanager.enable = true;
+
   inclyc.user.enable = true;
 
 
