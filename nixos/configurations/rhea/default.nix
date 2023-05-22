@@ -1,5 +1,9 @@
-{ pkgs, ... }:
+{ modulesPath, pkgs, ... }:
 {
+  imports = [
+    (modulesPath + "/installer/sd-card/sd-image-aarch64.nix")
+  ];
+
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   nixpkgs.hostPlatform = "aarch64-linux";
