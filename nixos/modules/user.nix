@@ -26,6 +26,7 @@ in
         isNormalUser = true;
         description = "Yingchi Long";
         extraGroups = [ "wheel" ];
+        initialHashedPassword = "$6$FxHqtS36/M3iEKU4$VwEHfgZPtcwlnLjC9DE33u5Shmcd77XwEWryIHBBhRgTDL7Pa536wUBiEKlaDldCMBPBOCSNLz9ObEADwP0O20";
       };
     }
     (mkIf config.networking.networkmanager.enable {
