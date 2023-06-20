@@ -19,6 +19,11 @@
 
     flake-utils.url = "github:numtide/flake-utils";
     nur.url = "github:nix-community/NUR";
+
+    flake-compat = {
+      url = "github:inclyc/flake-compat";
+      flake = false;
+    };
   };
 
   outputs =
