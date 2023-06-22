@@ -13,6 +13,8 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelParams = [ "intel_iommu=on" "iommu=pt" ];
 
+  zramSwap.enable = true;
+
   boot.blacklistedKernelModules = [ "i2c_nvidia_gpu" "nouveau" ];
 
   boot.loader.grub.configurationLimit = 5;
