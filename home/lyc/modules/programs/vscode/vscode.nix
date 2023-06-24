@@ -23,7 +23,6 @@
 
           "terminal.integrated.profiles.osx".zsh.path = zshPath;
           "terminal.integrated.profiles.linux".zsh.path = zshPath;
-          "nix.serverPath" = "${config.home.homeDirectory}/workspace/CS/OS/NixOS/nixd/build-clang/nixd";
         }
       );
     extensions = with inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace; [
