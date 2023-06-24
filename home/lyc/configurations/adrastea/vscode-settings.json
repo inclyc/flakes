@@ -22,5 +22,6 @@
             ]
         }
     },
-    "terminal.integrated.defaultProfile.linux": "zsh"
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "nix.serverPath": "/home/lyc/workspace/CS/OS/NixOS/nixd/build/nixd"
 }
