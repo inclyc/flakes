@@ -58,6 +58,12 @@
     qemu
     virt-viewer
     config.nur.repos.linyinfeng.wemeet
+
+    gdb
+    file
+    patchelf
+    btop
+    stdenv.cc
   ]);
 
   virtualisation.spiceUSBRedirection.enable = true;
