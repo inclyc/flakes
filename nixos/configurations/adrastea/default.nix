@@ -64,6 +64,19 @@
     patchelf
     btop
     stdenv.cc
+
+    valgrind
+    meson
+    cmake
+    lldb
+    llvmPackages_15.clang
+    llvmPackages_15.bintools
+    rr
+
+    pciutils
+    usbutils
+
+    python3
   ]);
 
   virtualisation.spiceUSBRedirection.enable = true;
