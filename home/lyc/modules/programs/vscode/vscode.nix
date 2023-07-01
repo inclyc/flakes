@@ -25,7 +25,7 @@
           "terminal.integrated.profiles.linux".zsh.path = zshPath;
         }
       );
-    extensions = with inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace; [
+    extensions = (with inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace; [
       llvm-vs-code-extensions.vscode-clangd
       jnoortheen.nix-ide
       eamodio.gitlens
@@ -36,7 +36,6 @@
       james-yu.latex-workshop
       shardulm94.trailing-spaces
       colejcummins.llvm-syntax-highlighting
-      ms-vscode-remote.remote-ssh
       mkhl.direnv
       ms-python.python
       ms-python.vscode-pylance
@@ -47,7 +46,9 @@
       vscjava.vscode-java-debug
       vscjava.vscode-java-dependency
       vscjava.vscode-gradle
-    ];
+    ]) ++ (with pkgs.vscode-extensions; [
+      ms-vscode-remote.remote-ssh
+    ]);
   };
 
   home.packages = with pkgs; [
