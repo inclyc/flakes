@@ -20,6 +20,8 @@
     flake-utils.url = "github:numtide/flake-utils";
     nur.url = "github:nix-community/NUR";
 
+    nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon";
+
     flake-compat = {
       url = "github:inclyc/flake-compat";
       flake = false;
@@ -100,6 +102,11 @@
             unixName = "inclyc";
             hostName = "amalthea";
             system = "aarch64-darwin";
+          }
+          // homeConfig {
+            unixName = "lyc";
+            hostName = "aplaz";
+            system = "aarch64-linux";
           };
           homeManagerModules = {
             lyc = import ./home/lyc/modules;
