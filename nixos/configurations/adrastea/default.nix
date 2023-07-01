@@ -72,6 +72,7 @@
     llvmPackages_15.clang
     llvmPackages_15.bintools
     rr
+    ccache
 
     pciutils
     usbutils
