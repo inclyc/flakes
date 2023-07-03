@@ -24,6 +24,32 @@
   # Set your time zone.
   time.timeZone = "Asia/Hong_Kong";
 
+  environment.systemPackages = with pkgs; [
+    gnumake
+    qemu
+    clash-meta
+
+    gdb
+    file
+    patchelf
+    btop
+    stdenv.cc
+
+    valgrind
+    meson
+    cmake
+    lldb
+    llvmPackages_15.clang
+    llvmPackages_15.bintools
+    rr
+    ccache
+
+    pciutils
+    usbutils
+
+    python3
+  ];
+
 
   virtualisation.podman = {
     enable = true;
