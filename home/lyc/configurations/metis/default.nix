@@ -7,7 +7,6 @@
   ] ++ (with pkgs.llvmPackages_15; [
     clang
     llvm
-    lld
   ]);
 
   programs.git.signing.signByDefault = lib.mkForce false;
