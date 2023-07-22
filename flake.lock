@@ -195,6 +195,22 @@
         "type": "github"
       }
     },
+    "nixpkgsStable": {
+      "locked": {
+        "lastModified": 1689885880,
+        "narHash": "sha256-2ikAcvHKkKh8J/eUrwMA+wy1poscC+oL1RkN1V3RmT8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "fa793b06f56896b7d1909e4b69977c7bf842b2f0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-23.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1687502512,
@@ -251,6 +267,7 @@
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixos-apple-silicon": "nixos-apple-silicon",
         "nixpkgs": "nixpkgs_3",
+        "nixpkgsStable": "nixpkgsStable",
         "nur": "nur",
         "sops-nix": "sops-nix"
       }

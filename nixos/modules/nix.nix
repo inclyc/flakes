@@ -26,7 +26,7 @@
       automatic = true;
       dates = "weekly";
     };
-    registry.sys = {
+    registry.sys = lib.mkDefault {
       from = { type = "indirect"; id = "sys"; };
       flake = inputs.nixpkgs;
     };

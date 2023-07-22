@@ -1,9 +1,19 @@
-{ pkgs
+{ config
+, pkgs
 , lib
+, inputs
 , ...
 }:
+let
+  system = "x86_64-linux";
+in
 {
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  nixpkgs.hostPlatform = system;
+  nixpkgs.pkgs = inputs.nixpkgsStable.legacyPackages."${system}";
+  nix.registry.sys = {
+    from = { type = "indirect"; id = "sys"; };
+    flake = inputs.nixpkgsStable;
+  };
 
   inclyc.user.enable = true;
   inclyc.user.zsh = true;

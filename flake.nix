@@ -1,6 +1,9 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    nixpkgsStable.url = "github:NixOS/nixpkgs/nixos-23.05";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -31,6 +34,7 @@
   outputs =
     { self
     , nixpkgs
+    , nixpkgsStable
     , nur
     , home-manager
     , flake-utils
@@ -81,7 +85,6 @@
             }:
             {
               "${unixName}@${hostName}" = home-manager.lib.homeManagerConfiguration {
-                pkgs = nixpkgs.legacyPackages."${system}";
                 modules = [
                   (./home/lyc/configurations + "/${hostName}")
                   sops-nix.homeManagerModules.sops
