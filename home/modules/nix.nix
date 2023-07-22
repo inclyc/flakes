@@ -29,7 +29,7 @@
       warn-dirty = false;
       use-xdg-base-directories = true;
     };
-    registry.home = {
+    registry.home = lib.mkDefault {
       from = { type = "indirect"; id = "home"; };
       flake = inputs.nixpkgs;
     };

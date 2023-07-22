@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ inputs, pkgs, lib, config, ... }:
 {
   home.packages = with pkgs; [
     rnix-lsp
@@ -13,5 +13,10 @@
   programs.zsh.dirHashes = {
     flakes = "${config.home.homeDirectory}/flakes";
     llvm = "${config.home.homeDirectory}/llvm-project";
+  };
+
+  nix.registry.home = {
+    from = { type = "indirect"; id = "home"; };
+    flake = inputs.nixpkgsStable;
   };
 }

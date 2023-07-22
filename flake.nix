@@ -9,6 +9,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    home-manager-stable = {
+      url = "github:nix-community/home-manager/release-23.05";
+      inputs.nixpkgs.follows = "nixpkgsStable";
+    };
+
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -78,13 +83,16 @@
       (
         # Home-manager configurations
         let
-          homeConfig =
-            { unixName ? "lyc"
-            , hostName
+          mkHomeConfig =
+            { hostName
+            , unixName ? "lyc"
             , system ? "x86_64-linux"
+            , pkgs ? nixpkgs.legacyPackages."x86_64-linux"
+            , home-manager ? inputs.home-manager
             }:
             {
               "${unixName}@${hostName}" = home-manager.lib.homeManagerConfiguration {
+                inherit pkgs;
                 modules = [
                   (./home/lyc/configurations + "/${hostName}")
                   sops-nix.homeManagerModules.sops
@@ -95,21 +103,24 @@
         in
         {
           homeConfigurations = nixpkgs.lib.foldr (a: b: a // b) { }
-            (map (hostName: homeConfig { inherit hostName; }) [
+            (map (hostName: mkHomeConfig { inherit hostName; }) [
               # Simple home configuration, only specified "hostName"
               "adrastea"
               "metis"
               "ict-malcon"
             ])
-          // homeConfig {
-            unixName = "inclyc";
+          // mkHomeConfig {
             hostName = "amalthea";
             system = "aarch64-darwin";
           }
-          // homeConfig {
-            unixName = "lyc";
+          // mkHomeConfig {
             hostName = "aplaz";
             system = "aarch64-linux";
+          }
+          // mkHomeConfig {
+            hostName = "metis";
+            pkgs = nixpkgsStable.legacyPackages."x86_64-linux";
+            home-manager = inputs.home-manager-stable;
           };
           homeManagerModules = {
             lyc = import ./home/lyc/modules;
