@@ -87,12 +87,12 @@
             { hostName
             , unixName ? "lyc"
             , system ? "x86_64-linux"
-            , pkgs ? nixpkgs.legacyPackages."x86_64-linux"
+            , nixpkgs ? inputs.nixpkgs
             , home-manager ? inputs.home-manager
             }:
             {
               "${unixName}@${hostName}" = home-manager.lib.homeManagerConfiguration {
-                inherit pkgs;
+                pkgs = nixpkgs.legacyPackages.${system};
                 modules = [
                   (./home/lyc/configurations + "/${hostName}")
                   sops-nix.homeManagerModules.sops
@@ -119,7 +119,7 @@
           }
           // mkHomeConfig {
             hostName = "metis";
-            pkgs = nixpkgsStable.legacyPackages."x86_64-linux";
+            nixpkgs = nixpkgsStable;
             home-manager = inputs.home-manager-stable;
           };
           homeManagerModules = {
