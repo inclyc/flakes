@@ -33,6 +33,7 @@
         hostname = "40.0.1.110";
         user = "swyjs";
         port = 22;
+        proxyCommand = "nc -x 127.0.0.1:1081 %h %p";
       };
       ict-malcon = {
         hostname = "10.3.2.104";
