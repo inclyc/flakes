@@ -53,6 +53,8 @@ in
     llvmPackages_15.bintools
     rr
     ccache
+    ninja
+    (lib.meta.hiPrio clang-tools_16)
 
     pciutils
     usbutils
