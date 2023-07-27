@@ -12,6 +12,11 @@
       inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
     ];
 
+  services.clash = {
+    enable = true;
+    workingDirectory = "/home/lyc/clash";
+  };
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
