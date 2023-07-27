@@ -3,6 +3,7 @@
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
+    ./clash.nix
     ./nix.nix
     ./ddns.nix
     ./nix-ld.nix
