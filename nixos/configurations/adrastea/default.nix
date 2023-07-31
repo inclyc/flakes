@@ -40,6 +40,10 @@
   boot.kernel.sysctl."kernel.perf_event_paranoid" = -1;
   boot.kernel.sysctl."kernel.kptr_restrict" = lib.mkForce 0;
 
+  services.clash = {
+    enable = true;
+    workingDirectory = "/home/lyc/clash";
+  };
 
   # Select internationalisation properties.
   i18n = {
