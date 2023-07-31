@@ -17,7 +17,10 @@
 
   boot.blacklistedKernelModules = [ "i2c_nvidia_gpu" "nouveau" ];
 
-  boot.loader.grub.configurationLimit = 5;
+  boot.loader.systemd-boot = {
+    enable = true;
+    configurationLimit = 5;
+  };
 
   # These modules are required for PCI passthrough, and must come before early modesetting stuff
   boot.kernelModules = [ "vfio" "vfio_iommu_type1" "vfio_pci" "vfio_virqfd" "kvm-intel" ];
@@ -74,13 +77,6 @@
       options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
-  fileSystems."/boot" =
-    {
-      device = "boot";
-      fsType = "zfs";
-      options = [ "zfsutil" "X-mount.mkdir" ];
-    };
-
   fileSystems."/srv/minecraft" =
     {
       device = "tank/srv/minecraft";
@@ -95,9 +91,9 @@
       options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
-  fileSystems."/boot/efi" =
+  fileSystems."/boot" =
     {
-      device = "/dev/disk/by-uuid/2A68-25EA";
+      device = "/dev/disk/by-uuid/235C-5E15";
       fsType = "vfat";
     };
 
