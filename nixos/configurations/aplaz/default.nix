@@ -36,6 +36,9 @@
   };
 
 
+  systemd.oomd.enableRootSlice = true;
+  systemd.oomd.enableUserServices = true;
+
   inclyc.gui.enable = true;
   inclyc.user.enable = true;
   inclyc.user.zsh = true;
