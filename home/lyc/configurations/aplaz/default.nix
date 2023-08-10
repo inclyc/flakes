@@ -3,7 +3,7 @@
 
   home.packages = with pkgs; [
     # Web browser
-    firefox
+    chromium
   ];
 
   services.kdeconnect.enable = true;
