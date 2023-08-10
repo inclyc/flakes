@@ -75,5 +75,35 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
 
+  environment.systemPackages = with pkgs; [
+    gnumake
+    qemu
+
+    gdb
+    file
+    patchelf
+    btop
+    stdenv.cc
+
+    valgrind
+    meson
+    cmake
+    lldb
+    llvmPackages_15.clang
+    llvmPackages_15.bintools
+    rr
+    ccache
+    ninja
+    (lib.meta.hiPrio clang-tools_16)
+
+    pciutils
+    usbutils
+
+    python3
+
+    openjdk19
+  ];
+
+
 }
 
