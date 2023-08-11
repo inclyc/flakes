@@ -15,6 +15,11 @@ in
     flake = inputs.nixpkgsStable;
   };
 
+  services.clash = {
+    enable = true;
+    workingDirectory = "/home/lyc/clash";
+  };
+
   inclyc.user.enable = true;
   inclyc.user.zsh = true;
 
