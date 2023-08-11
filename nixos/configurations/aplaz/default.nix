@@ -100,8 +100,6 @@
     usbutils
 
     python3
-
-    openjdk19
   ];
 
 
