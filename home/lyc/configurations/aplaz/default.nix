@@ -1,11 +1,5 @@
 { pkgs, config, ... }:
 {
-
-  home.packages = with pkgs; [
-    # Web browser
-    chromium
-  ];
-
   services.kdeconnect.enable = true;
 
   programs.vscode = {

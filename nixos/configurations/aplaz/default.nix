@@ -103,6 +103,8 @@
 
     man-pages
     man-pages-posix
+
+    chromium
   ];
 
 
