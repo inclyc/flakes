@@ -8,6 +8,6 @@
   };
 
   programs.zsh.dirHashes = {
-    flakes = "${config.home.homeDirectory}/flakes";
+    flakes = "${config.home.homeDirectory}/workspace/flakes";
   };
 }
