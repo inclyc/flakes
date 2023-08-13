@@ -100,6 +100,9 @@
     usbutils
 
     python3
+
+    man-pages
+    man-pages-posix
   ];
 
 
