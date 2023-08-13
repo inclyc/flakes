@@ -87,6 +87,8 @@ in
     fonts = {
       enableDefaultFonts = false;
       fonts = with pkgs; [
+        source-sans-pro
+        source-serif-pro
         noto-fonts
         noto-fonts-cjk-sans
         noto-fonts-cjk-serif
@@ -96,8 +98,8 @@ in
         (nerdfonts.override { fonts = [ "JetBrainsMono" "Noto" "FiraCode" ]; })
       ];
       fontconfig.defaultFonts = pkgs.lib.mkForce {
-        serif = [ "Noto Serif CJK SC" "Noto Serif" ];
-        sansSerif = [ "Noto Sans CJK SC" "Noto Sans" ];
+        serif = [ "Source Serif Pro" "Noto Serif CJK SC" "Noto Serif" ];
+        sansSerif = [ "Source Sans Pro" "Noto Sans CJK SC" "Noto Sans" ];
         monospace = [ "FiraCode Nerd Font Mono" "JetBrains Mono" ];
         emoji = [ "Noto Color Emoji" ];
       };
