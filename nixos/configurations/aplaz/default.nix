@@ -99,9 +99,6 @@
     ninja
     (lib.meta.hiPrio clang-tools_16)
 
-    pciutils
-    usbutils
-
     python3
 
     man-pages
