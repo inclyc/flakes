@@ -85,8 +85,8 @@ in
     };
 
     fonts = {
-      enableDefaultFonts = false;
-      fonts = with pkgs; [
+      enableDefaultPackages = false;
+      packages = with pkgs; [
         source-sans-pro
         source-serif-pro
         noto-fonts
