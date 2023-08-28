@@ -6,6 +6,6 @@
 
   boot.loader.efi.efiSysMountPoint = "/boot";
   boot.loader.efi.canTouchEfiVariables = false;
- 
+
   services.zfs.autoSnapshot.enable = true;
 }
