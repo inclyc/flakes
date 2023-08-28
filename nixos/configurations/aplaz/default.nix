@@ -13,7 +13,7 @@
 
   services.clash = {
     enable = true;
-    workingDirectory = "/home/lyc/clash";
+    workingDirectory = "/home/lyc/.local/share/clash";
   };
 
   # Use the systemd-boot EFI boot loader.
@@ -107,6 +107,7 @@
     chromium
   ];
 
+  hardware.bluetooth.enable = true;
 
 }
 
