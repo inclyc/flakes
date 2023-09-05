@@ -76,6 +76,7 @@
     lldb
     llvmPackages_15.clang
     llvmPackages_15.bintools
+    (lib.meta.hiPrio clang-tools_15)
     rr
     ccache
 
