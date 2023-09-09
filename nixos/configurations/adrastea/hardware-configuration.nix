@@ -29,71 +29,25 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    {
-      device = "tank/nixos/root";
-      fsType = "zfs";
-      options = [ "zfsutil" "X-mount.mkdir" ];
-    };
-
-  fileSystems."/nix" =
-    {
-      device = "tank/nixos/nix";
-      fsType = "zfs";
-      options = [ "zfsutil" "X-mount.mkdir" ];
-    };
-
-  fileSystems."/var" =
-    {
-      device = "tank/nixos/var";
-      fsType = "zfs";
-      options = [ "zfsutil" "X-mount.mkdir" ];
-    };
-
-  fileSystems."/var/lib" =
-    {
-      device = "tank/nixos/var/lib";
-      fsType = "zfs";
-      options = [ "zfsutil" "X-mount.mkdir" ];
-    };
-
-  fileSystems."/var/log" =
-    {
-      device = "tank/nixos/var/log";
-      fsType = "zfs";
-      options = [ "zfsutil" "X-mount.mkdir" ];
-    };
-
-  fileSystems."/srv" =
-    {
-      device = "tank/srv";
-      fsType = "zfs";
-      options = [ "zfsutil" "X-mount.mkdir" ];
+    { device = "/dev/disk/by-uuid/4bb1ddc7-5cab-4fca-b6bc-897615107387";
+      fsType = "btrfs";
+      options = [ "subvol=root,compress=zstd" ];
     };
 
   fileSystems."/home" =
-    {
-      device = "tank/home";
-      fsType = "zfs";
-      options = [ "zfsutil" "X-mount.mkdir" ];
+    { device = "/dev/disk/by-uuid/4bb1ddc7-5cab-4fca-b6bc-897615107387";
+      fsType = "btrfs";
+      options = [ "subvol=home,compress=zstd" ];
     };
 
-  fileSystems."/srv/minecraft" =
-    {
-      device = "tank/srv/minecraft";
-      fsType = "zfs";
-      options = [ "zfsutil" "X-mount.mkdir" ];
-    };
-
-  fileSystems."/home/lyc/workspace" =
-    {
-      device = "tank/home/workspace";
-      fsType = "zfs";
-      options = [ "zfsutil" "X-mount.mkdir" ];
+  fileSystems."/nix" =
+    { device = "/dev/disk/by-uuid/4bb1ddc7-5cab-4fca-b6bc-897615107387";
+      fsType = "btrfs";
+      options = [ "subvol=nix,compress=zstd,noatime" ];
     };
 
   fileSystems."/boot" =
-    {
-      device = "/dev/disk/by-uuid/235C-5E15";
+    { device = "/dev/disk/by-uuid/3CCC-44DC";
       fsType = "vfat";
     };
 

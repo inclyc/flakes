@@ -18,7 +18,6 @@
     inputs.sops-nix.nixosModules.sops
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./zfs.nix
     ./sops.nix
   ];
 
@@ -87,6 +86,9 @@
 
 
     jdk17
+
+
+    chromium
   ]);
 
   virtualisation.spiceUSBRedirection.enable = true;
