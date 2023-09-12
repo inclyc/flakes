@@ -22,6 +22,8 @@
 
   boot.kernel.sysctl = {
     "vm.swappiness" = 100;
+    "net.ipv4.ip_forward" = 1;
+    "net.ipv6.conf.all.forwarding" = "1";
   };
 
   networking.hostName = "aplaz"; # Define your hostname.
