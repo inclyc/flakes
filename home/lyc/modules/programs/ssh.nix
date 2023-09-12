@@ -39,6 +39,7 @@
         hostname = "10.3.2.104";
         user = "lyc";
         port = 22;
+        proxyCommand = "nc -x 127.0.0.1:1080 %h %p";
       };
       ict-repo = {
         hostname = "10.3.2.104";
