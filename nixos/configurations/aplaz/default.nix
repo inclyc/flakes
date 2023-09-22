@@ -2,13 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, config, lib, pkgs, rootPath, ... }:
+{ inputs, config, lib, pkgs, ... }:
 
 {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    inputs.sops-nix.nixosModules.sops
     inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
   ];
 
@@ -122,45 +121,6 @@
   ];
 
   hardware.bluetooth.enable = true;
-
-  sops.defaultSopsFile = rootPath + /secrets/general.yaml;
-
-  sops.secrets."wireguard/aplaz" = { };
-
-  networking.wireguard.interfaces = {
-    # "wg0" is the network interface name. You can name the interface arbitrarily.
-    wg0 = {
-      # Determines the IP address and subnet of the client's end of the tunnel interface.
-      ips = [ "10.131.0.2/24" ];
-
-      # Path to the private key file.
-      #
-      # Note: The private key can also be included inline via the privateKey option,
-      # but this makes the private key world-readable; thus, using privateKeyFile is
-      # recommended.
-      privateKeyFile = config.sops.secrets."wireguard/aplaz".path;
-
-      peers = [
-        # For a client configuration, one peer entry for the server will suffice.
-
-        {
-          # Public key of the server (not a file path).
-          publicKey = "N/C9sVw5AbDdXQ9Kh/B1pCK0vYI8ugYo1ggbKG3+Nwo=";
-
-          # Forward all the traffic via VPN.
-          allowedIPs = [ "10.131.0.0/24" ];
-          # Or forward only particular subnets
-          #allowedIPs = [ "10.100.0.1" "91.108.12.0/22" ];
-
-          # Set this to the server IP and port.
-          endpoint = "llvmws.lyc.dev:20123"; # ToDo: route to endpoint not automatically configured https://wiki.archlinux.org/index.php/WireGuard#Loop_routing https://discourse.nixos.org/t/solved-minimal-firewall-setup-for-wireguard-client/7577
-
-          # Send keepalives every 25 seconds. Important to keep NAT tables alive.
-          persistentKeepalive = 25;
-        }
-      ];
-    };
-  };
 
 }
 

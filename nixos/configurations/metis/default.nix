@@ -2,16 +2,12 @@
 , pkgs
 , lib
 , inputs
-, rootPath
 , ...
 }:
 let
   system = "x86_64-linux";
 in
 {
-
-  imports = [ inputs.sops-nix.nixosModules.sops ];
-
   nixpkgs.hostPlatform = system;
   nixpkgs.pkgs = inputs.nixpkgsStable.legacyPackages."${system}";
   nix.registry.sys = {
@@ -123,42 +119,4 @@ in
       ];
     };
   };
-
-  sops.defaultSopsFile = rootPath + /secrets/general.yaml;
-
-  sops.secrets."wireguard/metis" = { };
-
-  networking.wireguard.interfaces = {
-    # "wg0" is the network interface name. You can name the interface arbitrarily.
-    wg0 = {
-      # Determines the IP address and subnet of the server's end of the tunnel interface.
-      ips = [ "10.131.0.1/24" ];
-
-      # The port that WireGuard listens to. Must be accessible by the client.
-      listenPort = 20123;
-
-      # Path to the private key file.
-      #
-      # Note: The private key can also be included inline via the privateKey option,
-      # but this makes the private key world-readable; thus, using privateKeyFile is
-      # recommended.
-      privateKeyFile = config.sops.secrets."wireguard/metis".path;
-
-      peers = [
-        # List of allowed peers.
-        {
-          # aplaz
-          publicKey = "1MI1G+CY7oUUiHz1wT5a+aVX+RzscTXT5BidF9ExH2U=";
-          allowedIPs = [ "10.131.0.2/32" ];
-        }
-        {
-          # adrastea
-          publicKey = "q1YaZnkKSDMUAdA8a/r/G9rAlVfkHlhj5EDD5ZiNcx8=";
-          allowedIPs = [ "10.131.0.3/32" ];
-        }
-      ];
-    };
-  };
-
-
 }
