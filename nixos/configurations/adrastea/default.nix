@@ -207,17 +207,6 @@
     DefaultTimeoutStopSec=10s
   '';
 
-  services.xserver.displayManager.sddm.settings = {
-    General = {
-      DisplayServer = "wayland";
-      GreeterEnvironment = "QT_WAYLAND_SHELL_INTEGRATION=layer-shell";
-    };
-    Wayland = {
-      EnableHiDPI = "true";
-      CompositorCommand = "${lib.getBin pkgs.sway}";
-    };
-  };
-
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
