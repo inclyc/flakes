@@ -1,6 +1,9 @@
 { pkgs, inputs, lib, ... }:
 {
   nix = {
+    nixPath = [
+      "nixpkgs=${inputs.nixpkgs}"
+    ];
     settings = {
       substituters = [
         "https://mirrors.bfsu.edu.cn/nix-channels/store"
