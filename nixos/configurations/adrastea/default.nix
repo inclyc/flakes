@@ -12,6 +12,7 @@
       zsh = true;
       ssh = true;
     };
+    tailscale.enable = true;
   };
 
   imports = [

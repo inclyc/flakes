@@ -9,6 +9,7 @@
     ./nix-ld.nix
     ./gui.nix
     ./user.nix
+    ./tailscale.nix
   ];
 
   home-manager = {
