@@ -90,6 +90,10 @@
 
 
     chromium
+
+    # For VPN "Easyconnect"
+    bubblewrap
+    tigervnc
   ]);
 
   virtualisation.spiceUSBRedirection.enable = true;
