@@ -12,7 +12,7 @@
 
     enableAutosuggestions = true;
     enableCompletion = true;
-    syntaxHighlighting.enable = true;
+    enableSyntaxHighlighting = true;
     historySubstringSearch.enable = true;
     autocd = true;
     dotDir = ".config/zsh";
