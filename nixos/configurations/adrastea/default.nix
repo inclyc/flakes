@@ -20,6 +20,7 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./sops.nix
+    ./networking.nix
   ];
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" "riscv64-linux" ];
@@ -30,9 +31,6 @@
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
-  networking.networkmanager.enable = true;
 
   # Set your time zone.
   time.timeZone = "Asia/Hong_Kong";
