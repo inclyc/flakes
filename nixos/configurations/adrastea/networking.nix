@@ -34,6 +34,7 @@ in
       networkConfig = {
         DHCPServer = true;
         IPMasquerade = "ipv4";
+        ConfigureWithoutCarrier = true;
       };
       addresses = [
         { addressConfig.Address = "10.157.0.1/24"; }
@@ -60,4 +61,6 @@ in
   } // (mkTapDev "vmtap0" // mkTapDev "vmtap1");
 
   networking.nftables.enable = true;
+
+  systemd.network.wait-online.anyInterface = true;
 }
