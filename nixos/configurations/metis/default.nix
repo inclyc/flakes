@@ -15,6 +15,8 @@ in
     flake = inputs.nixpkgsStable;
   };
 
+  nix.settings.extra-platforms = [ "aarch64-linux" ];
+
   services.clash = {
     enable = true;
     workingDirectory = "/home/lyc/clash";
