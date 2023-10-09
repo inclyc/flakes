@@ -4,15 +4,11 @@
 , inputs
 , ...
 }:
-let
-  system = "x86_64-linux";
-in
 {
-  nixpkgs.hostPlatform = system;
-  nixpkgs.pkgs = inputs.nixpkgsStable.legacyPackages."${system}";
+  nixpkgs.hostPlatform = "x86_64-linux";
   nix.registry.sys = {
     from = { type = "indirect"; id = "sys"; };
-    flake = inputs.nixpkgsStable;
+    flake = inputs.nixpkgs-stable;
   };
 
   nix.settings.extra-platforms = [ "aarch64-linux" ];

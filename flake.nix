@@ -2,7 +2,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    nixpkgsStable.url = "github:NixOS/nixpkgs/nixos-23.05";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -11,7 +11,7 @@
 
     home-manager-stable = {
       url = "github:nix-community/home-manager/release-23.05";
-      inputs.nixpkgs.follows = "nixpkgsStable";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     sops-nix = {
@@ -39,7 +39,7 @@
   outputs =
     { self
     , nixpkgs
-    , nixpkgsStable
+    , nixpkgs-stable
     , nur
     , home-manager
     , flake-utils
@@ -119,7 +119,7 @@
           }
           // mkHomeConfig {
             hostName = "metis";
-            nixpkgs = nixpkgsStable;
+            nixpkgs = nixpkgs-stable;
             home-manager = inputs.home-manager-stable;
           };
           homeManagerModules = {

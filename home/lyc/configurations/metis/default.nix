@@ -8,6 +8,6 @@
 
   nix.registry.home = {
     from = { type = "indirect"; id = "home"; };
-    flake = inputs.nixpkgsStable;
+    flake = inputs.nixpkgs-stable;
   };
 }
