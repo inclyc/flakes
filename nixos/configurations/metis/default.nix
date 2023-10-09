@@ -118,5 +118,13 @@ in
         "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCf3S1BlWQP5j080Mxq+fCUsR8Eo3ongI9USS2I+8EN5eIxGBgl3owDqCnw/PJQmTcZWm16qWTVrIQ7IjZXtV/qqOpl/8XnvucrKYX/yK19qQly/a7xWTHpRc1uRGnYOvpaUkKaGZrBVVgeGrFBV9uOv7wiqc15q3AKvo9ZQPzEDgqkuF833LBl+EfqQzakwRGO2m7gpkxw8WezH3rgMt6Dg2PyHItBMk38QocoB8AvRUGGe2kJpVvlzmcyjpbABV4P/IMqgasKVRz7HBicTz5JT18b9Ul3km8FGxvXYFCotiK1iyO6eYaU7lO1yCE37gekVcY7QJDDgChvTwuKkPJC4wS4QuGrBZB2YZhfF9ZrRycs8ICF0qvMGs5rAW1uHfhyKRR05ip8V9ypj7EuPgIQ82GqvCtqn9asORxYySp6Y7N1zwgw3nYy9LrwCL0iLsEZOjAvmBKKn8q00OIb1Q87sMkSUNz0WSWYReOueh24z578LMi5UbsSymOiluouj38= 1972088768@qq.com"
       ];
     };
+
+    origami = {
+      isNormalUser = true;
+      description = "Origami404";
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAZxRoweHoLfoaydPqhsLnc4EGgwTp7Uz1DZ2DG447B+"
+      ];
+    };
   };
 }
