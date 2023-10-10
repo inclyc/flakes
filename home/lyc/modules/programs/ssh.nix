@@ -5,16 +5,16 @@
     matchBlocks = {
       hitmc = {
         hostname = "lan.hitmc.cc";
-        user = "lyc";
+        user = "inclyc";
         port = 25884;
       };
       hitmc-pub = {
-        hostname = "t.lyc.cz";
-        user = "lyc";
+        hostname = "t.lyc.dev";
+        user = "inclyc";
         port = 12742;
       };
       ten = {
-        hostname = "t.lyc.cz";
+        hostname = "t.lyc.dev";
         user = "lyc";
         port = 22;
       };
