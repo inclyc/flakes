@@ -5,6 +5,7 @@
     ./sops.nix
     ./topsap.nix
     ./easyconnect.nix
+    ./vm.nix
   ];
 
   home.packages = with pkgs; [
