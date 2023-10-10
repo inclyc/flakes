@@ -1,0 +1,49 @@
+global {
+  lan_interface: br1,br0
+  wan_interface: auto # Use "auto" to auto detect WAN interface.
+
+  log_level: info
+  allow_insecure: false
+  auto_config_kernel_parameter: true
+}
+
+node {
+    'socks5://127.0.0.1:8899'
+}
+
+dns {
+  upstream {
+    googledns: 'tcp+udp://dns.google.com:53'
+    alidns: 'udp://dns.alidns.com:53'
+  }
+  routing {
+    request {
+      fallback: alidns
+    }
+    response {
+      upstream(googledns) -> accept
+      !qname(geosite:cn) && ip(geoip:private) -> googledns
+      fallback: accept
+    }
+  }
+}
+
+group {
+  proxy {
+    #filter: name(keyword: HK, keyword: SG)
+    policy: min_moving_avg
+  }
+}
+
+routing {
+  dip(224.0.0.0/3, 'ff00::/8') -> direct
+  dip(geoip:private) -> direct
+  dip(geoip:cn) -> direct
+
+  pname(clash-meta) -> direct
+
+  domain(geosite:category-ads) -> block
+  domain(geosite:cn) -> direct
+
+  fallback: proxy
+}

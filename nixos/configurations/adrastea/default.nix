@@ -219,6 +219,8 @@
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
 
+  services.dae.enable = true;
+
   services.snapper =
     let
       common = {
