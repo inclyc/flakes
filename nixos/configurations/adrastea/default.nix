@@ -93,6 +93,8 @@
     # For VPN "Easyconnect"
     bubblewrap
     tigervnc
+
+    libreoffice-qt
   ]);
 
   virtualisation.spiceUSBRedirection.enable = true;
