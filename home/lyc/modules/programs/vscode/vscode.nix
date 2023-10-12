@@ -23,6 +23,8 @@
 
           "terminal.integrated.profiles.osx".zsh.path = zshPath;
           "terminal.integrated.profiles.linux".zsh.path = zshPath;
+          "nix.enableLanguageServer" = true;
+          "nix.serverPath" = "${lib.getExe pkgs.nixd}";
         }
       );
     extensions = (with inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace; [
