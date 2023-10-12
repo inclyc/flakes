@@ -33,7 +33,7 @@ in
       matchConfig.Name = "br1";
       networkConfig = {
         DHCPServer = true;
-        IPMasquerade = "ipv4";
+        IPMasquerade = true;
         ConfigureWithoutCarrier = true;
       };
       addresses = [
