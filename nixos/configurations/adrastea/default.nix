@@ -40,7 +40,7 @@
 
   services.clash = {
     enable = true;
-    workingDirectory = "/home/lyc/clash";
+    configPath = config.sops.templates."clash-config.yaml".path;
   };
 
   # Select internationalisation properties.
