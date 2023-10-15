@@ -25,7 +25,6 @@ in
       matchConfig.Name = "br0";
       networkConfig = {
         DHCP = "ipv4";
-        DNS = "127.0.0.1:8053";
         IPv6AcceptRA = true;
       };
     };
