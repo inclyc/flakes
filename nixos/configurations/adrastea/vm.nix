@@ -96,6 +96,7 @@ let
     {
       "vm-${name}" = {
         after = [ "add-vfio.service" ];
+        requires = [ "add-vfio.service" ];
         serviceConfig = {
           WorkingDirectory = "${machineDir}/${name}";
           User = config.users.users.lyc.name;
