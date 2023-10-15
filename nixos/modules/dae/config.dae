@@ -1,5 +1,5 @@
 global {
-  lan_interface: br1,br0
+  lan_interface: br1
   wan_interface: auto # Use "auto" to auto detect WAN interface.
 
   log_level: info
