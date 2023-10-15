@@ -39,11 +39,6 @@
   boot.kernel.sysctl."kernel.perf_event_paranoid" = -1;
   boot.kernel.sysctl."kernel.kptr_restrict" = lib.mkForce 0;
 
-  services.clash = {
-    enable = true;
-    configPath = config.sops.templates."clash-config.yaml".path;
-  };
-
   # Select internationalisation properties.
   i18n = {
     defaultLocale = "C.UTF-8";
@@ -218,8 +213,6 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
-
-  services.dae.enable = true;
 
   services.snapper =
     let

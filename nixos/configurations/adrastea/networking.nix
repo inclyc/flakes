@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, config, ... }:
 let
   mkTapDev = name: {
     "20-${name}" = {
@@ -63,4 +63,11 @@ in
   networking.nftables.enable = true;
 
   systemd.network.wait-online.anyInterface = true;
+
+  services.dae.enable = true;
+
+  services.clash = {
+    enable = true;
+    configPath = config.sops.templates."clash-config.yaml".path;
+  };
 }
