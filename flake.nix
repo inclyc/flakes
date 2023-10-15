@@ -28,7 +28,7 @@
     flake-utils.url = "github:numtide/flake-utils";
     nur.url = "github:nix-community/NUR";
 
-    nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon";
+    nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon/8b138cf14ba96003c199a47350156da06895f9be";
 
     flake-compat = {
       url = "github:inclyc/flake-compat";
@@ -72,6 +72,7 @@
             modules = [ (nixosConfigDir + "/${hostName}") ] ++ [
               nur.nixosModules.nur
               outputs.nixosModules.lyc
+              sops-nix.nixosModules.sops
             ];
             specialArgs = { inherit inputs outputs rootPath; };
           });

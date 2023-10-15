@@ -11,11 +11,6 @@
     inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
   ];
 
-  services.clash = {
-    enable = true;
-    workingDirectory = "/home/lyc/.local/share/clash";
-  };
-
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -30,6 +25,15 @@
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
+
+  services.dae.enable = true;
+
+  services.clash = {
+    enable = true;
+    configPath = config.sops.templates."clash-config.yaml".path;
+  };
+
+  services.resolved.enable = true;
 
   # Set your time zone.
   time.timeZone = "Asia/Shanghai";

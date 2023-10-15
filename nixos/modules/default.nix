@@ -12,6 +12,7 @@
     ./user.nix
     ./tailscale.nix
     ./dae
+    ./sops.nix
   ];
 
   home-manager = {
