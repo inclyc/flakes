@@ -9,15 +9,17 @@
   Each virtual machine owns a private directory under "machines".
   Shared data, OVMF binaries, are located at "shared"
 
-*/
-{ config, pkgs, lib, ... }:
+  */
+{ pkgs, lib, config, ... }:
 let
-  vmDir = "${config.home.homeDirectory}/VM";
+  addVFIO = pkgs.writeShellScriptBin "addVFIO" (builtins.readFile ./add-vfio.sh);
+
+  vmDir = "${config.users.users.lyc.home}/VM";
   machineDir = "${vmDir}/machines";
 
   mkVMCmd =
     { qemu ? pkgs.qemu
-    , enableSystemSound ? true
+    , enableSystemSound ? false
     , enableEmulatedGPU ? false
     , enableGPUPassthrough ? true
     , enableEvdevInputs ? true
@@ -93,21 +95,35 @@ let
   mkVM = { name, cmd }:
     {
       "vm-${name}" = {
-        Unit = { };
-        Service = {
+        after = [ "add-vfio.service" ];
+        serviceConfig = {
           WorkingDirectory = "${machineDir}/${name}";
+          User = config.users.users.lyc.name;
           ExecStart = lib.getExe cmd;
           Type = "simple";
+          LimitMEMLOCK = "infinity";
           TimeoutStopSec = 15;
         };
       };
     };
 in
 {
-  systemd.user.services = mkVM {
+  systemd.services = {
+    "add-vfio" = {
+      path = [ pkgs.pciutils ];
+      description = "override devices driver to vfio";
+
+      serviceConfig = rec {
+        Type = "oneshot";
+        ExecStart = "${lib.getExe addVFIO}  0000:01:00.0";
+      };
+    };
+  } // mkVM {
     name = "Elara";
     cmd = mkVMCmd {
       memory = 32 * 1024;
     };
   };
+
+
 }
