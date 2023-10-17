@@ -225,6 +225,12 @@
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
 
+
+  security.pam.services = {
+    login.u2fAuth = true;
+    sudo.u2fAuth = true;
+  };
+
   services.snapper =
     let
       common = {
