@@ -2,7 +2,10 @@
     "[latex]": {
         "editor.formatOnSaveMode": "file",
         "editor.wordWrap": "bounded",
-        "editor.wordWrapColumn": 80
+        "editor.wordWrapColumn": 80,
+        "editor.unicodeHighlight.allowedLocales": {
+            "zh-hant": true
+        }
     },
     "[nix]": {
         "editor.formatOnSaveMode": "file",
