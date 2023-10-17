@@ -112,6 +112,19 @@
     "electron-19.0.7"
   ];
 
+  services.xserver.displayManager.sddm.enable = lib.mkForce false;
+
+  services.greetd = {
+    enable = true;
+    settings = rec {
+      default_session = {
+        command = "startplasma-wayland";
+        user = "lyc";
+      };
+      initial_session = default_session;
+    };
+  };
+
 
   # Workaround of nixpkgs#187963 and nixpkgs#199881
   services.xserver.displayManager.setupCommands = lib.mkForce "";
