@@ -8,7 +8,8 @@ global {
 }
 
 node {
-    'socks5://127.0.0.1:8899'
+    clash: 'socks5://127.0.0.1:8899'
+    ict: 'socks5://127.0.0.1:1080'
 }
 
 dns {
@@ -30,13 +31,18 @@ dns {
 
 group {
   proxy {
-    #filter: name(keyword: HK, keyword: SG)
+    filter: name(clash)
+    policy: min_moving_avg
+  }
+  ict {
+    filter: name(ict)
     policy: min_moving_avg
   }
 }
 
 routing {
   dip(224.0.0.0/3, 'ff00::/8') -> direct
+  dip(10.3.2.0/24) -> ict
   dip(geoip:private) -> direct
   dip(geoip:cn) -> direct
 
@@ -45,5 +51,5 @@ routing {
   domain(geosite:category-ads) -> block
   domain(geosite:cn) -> direct
 
-  fallback: proxy
+  fallback: clash
 }
