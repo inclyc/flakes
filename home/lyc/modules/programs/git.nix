@@ -4,7 +4,7 @@
     enable = lib.mkDefault true;
     signing = {
       key = "296C3FEFEA88ABC5!";
-      signByDefault = false;
+      signByDefault = true;
     };
     extraConfig = {
       init.defaultBranch = "main";
