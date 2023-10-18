@@ -30,7 +30,7 @@ dns {
 }
 
 group {
-  proxy {
+  clash {
     filter: name(clash)
     policy: min_moving_avg
   }
