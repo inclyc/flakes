@@ -225,6 +225,10 @@
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
 
+  security.pam.u2f = {
+    enable = true;
+    cue = true;
+  };
 
   security.pam.services = {
     login.u2fAuth = true;
