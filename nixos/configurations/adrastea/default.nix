@@ -228,6 +228,9 @@
   security.pam.u2f = {
     enable = true;
     cue = true;
+    authFile = pkgs.writeText "u2f_keys" ''
+      lyc:C0V54BSOmQQKAA1viuQx4qsQs2WdQhOIxrXiny/LUjZGYakFilKeZG0mJwl4lfLwfZr681jJ7dQSRh8WPm/8dP////k=,aCqQlCY+XOJzHHisvlMf4lZi7shNO6ARRuBsHoFzDpEB+p3pPMsIGEVYMLql/KWn0fV+l/uhAgqkPJ73F8y59w==,es256,+presence
+    '';
   };
 
   security.pam.services = {
