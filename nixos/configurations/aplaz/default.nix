@@ -127,5 +127,18 @@
 
   hardware.bluetooth.enable = true;
 
+  security.pam.u2f = {
+    enable = true;
+    cue = true;
+    authFile = pkgs.writeText "u2f_keys" ''
+      lyc:4FV+6pMkst1elJXq+dbVIjapuEvIFkE+ts0mM11kSn1rzatMixRaf5oqiyPpjA/bm9T+pgypwETVQ+VOahX5vv////k=,z3zXcGMPB3UNyuHPPBb6q4LTJyOd5ZyN4KhhypiG5lMYvVOkrMbfQDJrZDO836EnoayPCNQDuoKvSU7kTTavmg==,es256,+presence
+    '';
+  };
+
+  security.pam.services = {
+    login.u2fAuth = true;
+    sudo.u2fAuth = true;
+  };
+
 }
 
