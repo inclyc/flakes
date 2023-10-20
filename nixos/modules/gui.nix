@@ -59,6 +59,17 @@ in
       ];
     };
 
+    services.greetd = {
+      settings = rec {
+        default_session = {
+          command = "startplasma-wayland";
+          user = "lyc";
+        };
+        initial_session = default_session;
+      };
+    };
+
+
     services.xserver.enable = true;
 
     services.xserver.displayManager.sddm.enable = true;
