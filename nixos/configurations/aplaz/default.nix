@@ -123,6 +123,10 @@
     man-pages-posix
 
     chromium
+
+    libreoffice-qt
+    bubblewrap
+    tigervnc
   ];
 
   hardware.bluetooth.enable = true;
