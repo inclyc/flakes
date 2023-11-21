@@ -4,7 +4,6 @@
   imports = [
     ./sops.nix
     ./topsap.nix
-    ./easyconnect.nix
   ];
 
   home.packages = with pkgs; [

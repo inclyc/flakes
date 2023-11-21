@@ -83,10 +83,6 @@
 
     chromium
 
-    # For VPN "Easyconnect"
-    bubblewrap
-    tigervnc
-
     libreoffice-qt
   ]);
 
