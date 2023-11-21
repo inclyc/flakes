@@ -24,8 +24,10 @@ in
     "20-br0" = {
       matchConfig.Name = "br0";
       networkConfig = {
-        DHCP = "ipv4";
-        IPv6AcceptRA = true;
+        DHCP = "no";
+        Address = "10.12.150.59/24";
+        Gateway = "10.12.150.254";
+        DNS = "159.226.39.1";
       };
     };
     "20-br1" = {
