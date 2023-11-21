@@ -9,7 +9,6 @@ global {
 
 node {
     clash: 'socks5://127.0.0.1:8899'
-    ict: 'socks5://127.0.0.1:1080'
 }
 
 dns {
@@ -42,7 +41,6 @@ group {
 
 routing {
   dip(224.0.0.0/3, 'ff00::/8') -> direct
-  dip(10.3.2.0/24) -> ict
   dip(geoip:private) -> direct
   dip(geoip:cn) -> direct
 
