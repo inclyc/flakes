@@ -11,7 +11,7 @@ experimental:
   ignore-resolve-fail: true
 
 proxy-groups:
-    - { name: Proxy, type: select, proxies: ['Auto - UrlTest', DIRECT], use: [ dlercloud ] }
+    - { name: Proxy, type: select, proxies: ['Auto - UrlTest', DIRECT] }
     - { name: Domestic, type: select, proxies: [DIRECT, Proxy] }
     - { name: Others, type: select, proxies: [Proxy, DIRECT] }
     - { name: AdBlock, type: select, proxies: [REJECT, DIRECT, Proxy] }
@@ -35,7 +35,7 @@ proxy-groups:
     - { name: Speedtest, type: select, proxies: [Proxy, DIRECT] }
     - { name: Steam, type: select, proxies: [Proxy, DIRECT] }
     - { name: miHoYo, type: select, proxies: [DIRECT, Proxy] }
-    - { name: 'Auto - UrlTest', type: url-test, use: [ dlercloud ], url: 'http://cp.cloudflare.com/generate_204', interval: '3600' }
+    - { name: 'Auto - UrlTest', type: url-test, use: [ "dler", "mielink", "bywave" ], url: 'http://cp.cloudflare.com/generate_204', interval: '3600' }
 rules:
     - 'RULE-SET, Reject, AdBlock'
     - 'RULE-SET, Special, DIRECT'
