@@ -14,7 +14,7 @@ node {
 dns {
   upstream {
     googledns: 'tcp+udp://dns.google.com:53'
-    alidns: 'udp://dns.alidns.com:53'
+    alidns: 'udp://223.5.5.5:53'
   }
   routing {
     request {
