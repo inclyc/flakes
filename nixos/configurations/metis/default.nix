@@ -28,13 +28,23 @@
 
   networking.hostName = "metis";
 
-  networking.interfaces.eth0.ipv4.addresses = [{
-    address = "192.168.31.6";
-    prefixLength = 24;
-  }];
+  networking.dhcpcd.enable = false;
+  networking.useDHCP = false;
+  networking.useHostResolvConf = false;
 
-  networking.defaultGateway = "192.168.31.1";
-  networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
+  systemd.network.enable = true;
+
+  systemd.network.networks = {
+    "20-eth0@if72" = {
+      matchConfig.Name = "eth0@if72";
+      networkConfig = {
+        DHCP = "no";
+        Address = "192.168.31.6/24";
+        Gateway = "192.168.31.1";
+        DNS = "159.226.39.1";
+      };
+    };
+  };
 
   # Set your time zone.
   time.timeZone = "Asia/Hong_Kong";
