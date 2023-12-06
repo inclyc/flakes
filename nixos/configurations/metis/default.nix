@@ -15,7 +15,7 @@
 
   services.clash = {
     enable = true;
-    workingDirectory = "/home/lyc/clash";
+    configPath = config.sops.templates."clash-config.yaml".path;
   };
 
   inclyc.user.enable = true;
@@ -65,6 +65,12 @@
     usbutils
 
     python3
+
+    mtr
+    dig
+
+    llvmPackages_13.clang
+    llvmPackages_13.bintools
   ];
 
 
