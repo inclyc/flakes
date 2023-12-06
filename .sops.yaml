@@ -2,6 +2,7 @@ keys:
   - &admin_lyc age1tcz7npvfsevrwkxn7ymuju3whj8ekeupn6jwgmnfcfc4s74h7g3svr7dzy
   - &server_adrastea age18appjgzkrf5jnjjp5566e33lt0w3wtrg8e2yqzfltzd8n2l60ccs85xxrk
   - &machine_aplaz age156qya5amgx02usqfg0054lwkc4s6kztahka386w74g76et6k2edsgyv7vk
+  - &machine_metis age1q3wrg2mx9rjv4qedplesu28gyu0j7rzf0zt95zw9xxn524llwyzstjqk3a
 creation_rules:
   - path_regex: secrets/[^/]+\.yaml$
     key_groups:
@@ -9,3 +10,4 @@ creation_rules:
       - *admin_lyc
       - *server_adrastea
       - *machine_aplaz
+      - *machine_metis
