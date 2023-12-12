@@ -115,32 +115,7 @@ dns:
       - +.googleapis.com
       - +.gvt1.com
 
-proxy-groups:
-    - { name: Proxy, type: select, proxies: ['Auto - UrlTest', DIRECT] }
-    - { name: Domestic, type: select, proxies: [DIRECT, Proxy] }
-    - { name: Others, type: select, proxies: [Proxy, DIRECT] }
-    - { name: AdBlock, type: select, proxies: [REJECT, DIRECT, Proxy] }
-    - { name: 'Anti IP', type: select, proxies: [DIRECT, Proxy] }
-    - { name: Netflix, type: select, proxies: [Proxy, DIRECT] }
-    - { name: Disney, type: select, proxies: [Proxy, DIRECT] }
-    - { name: YouTube, type: select, proxies: [Proxy, DIRECT] }
-    - { name: Spotify, type: select, proxies: [Proxy, DIRECT] }
-    - { name: 'Asian TV', type: select, proxies: [DIRECT, Proxy] }
-    - { name: 'Global TV', type: select, proxies: [Proxy, DIRECT] }
-    - { name: Apple, type: select, proxies: [DIRECT, Proxy] }
-    - { name: 'Apple TV', type: select, proxies: [Proxy, DIRECT] }
-    - { name: Telegram, type: select, proxies: [Proxy, DIRECT] }
-    - { name: 'Google FCM', type: select, proxies: [Proxy, DIRECT] }
-    - { name: Crypto, type: select, proxies: [Proxy, DIRECT] }
-    - { name: Discord, type: select, proxies: [Proxy, DIRECT] }
-    - { name: Microsoft, type: select, proxies: [Proxy, DIRECT] }
-    - { name: OpenAI, type: select, proxies: [Proxy, DIRECT] }
-    - { name: PayPal, type: select, proxies: [DIRECT, Proxy] }
-    - { name: Scholar, type: select, proxies: [DIRECT, Proxy] }
-    - { name: Speedtest, type: select, proxies: [Proxy, DIRECT] }
-    - { name: Steam, type: select, proxies: [Proxy, DIRECT] }
-    - { name: miHoYo, type: select, proxies: [DIRECT, Proxy] }
-    - { name: 'Auto - UrlTest', type: url-test, use: [ "dler", "mielink", "bywave" ], url: 'http://cp.cloudflare.com/generate_204', interval: '3600' }
+
 rules:
     - 'RULE-SET, Reject, AdBlock'
     - 'RULE-SET, Special, DIRECT'
