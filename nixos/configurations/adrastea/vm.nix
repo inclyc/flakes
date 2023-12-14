@@ -80,6 +80,11 @@ let
 
         -monitor unix:./monitor.sock,server,nowait
 
+
+        -device qemu-xhci,id=xhci
+        # Logitech, Inc. Webcam C310
+        -device usb-host,bus=xhci.0,vendorid=0x046d,productid=0x081b
+
         ${SystemSound}
         ${EmulatedGPU}
         ${GPUPassthrough}
