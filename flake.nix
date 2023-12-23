@@ -28,7 +28,10 @@
     flake-utils.url = "github:numtide/flake-utils";
     nur.url = "github:nix-community/NUR";
 
-    nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon/18fe3ffd1bf24fac83943c93269b39eefcd0abe1";
+    nixos-apple-silicon = {
+      url = "github:tpwrules/nixos-apple-silicon/79dc4c18241cd3d683dc47c4ab16b8319f76c9de";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     flake-compat = {
       url = "github:inclyc/flake-compat";
