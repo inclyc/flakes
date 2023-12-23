@@ -107,6 +107,17 @@
     stdenv.cc
 
     valgrind
+    kcachegrind
+
+    sops
+    age
+    ssh-to-age
+
+    vim
+    neovim
+
+    neofetch
+
     meson
     cmake
     lldb
@@ -147,6 +158,8 @@
   services.xserver.displayManager.sddm.enable = lib.mkForce false;
 
   services.greetd.enable = true;
+
+  virtualisation.podman.enable = true;
 
 }
 
