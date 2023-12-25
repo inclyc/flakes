@@ -13,8 +13,6 @@
 
   services.gpg-agent = {
     enable = true;
-    extraConfig = ''
-      pinentry-program ${pkgs.pinentry-curses}/bin/pinentry-curses
-    '';
+    pinentryFlavor = "curses";
   };
 }
