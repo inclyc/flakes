@@ -5,6 +5,9 @@
 , ...
 }:
 {
+  imports = [
+    ./wireguard.nix
+  ];
   nixpkgs.hostPlatform = "x86_64-linux";
   nix.registry.sys = {
     from = { type = "indirect"; id = "sys"; };
@@ -59,6 +62,11 @@
     patchelf
     btop
     stdenv.cc
+
+    sops
+    age
+    ssh-to-age
+
 
     valgrind
     meson
