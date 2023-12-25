@@ -10,4 +10,9 @@
     from = { type = "indirect"; id = "home"; };
     flake = inputs.nixpkgs-stable;
   };
+
+  services.gpg-agent = {
+    enable = true;
+    pinentryFlavor = "curses";
+  };
 }
