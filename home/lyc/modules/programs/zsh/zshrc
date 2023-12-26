@@ -4,39 +4,6 @@ setopt nomatch
 setopt notify
 setopt nobeep
 
-# Check whether or not we can attach to a tmux session
-# should not attach tmux session if we are in these following cases:
-# 1. no tmux executable
-# 2. $PS1 is undefined
-# 3. nested daemon environment
-#	eliminate self loops since tmux then source this file (i.e. zshrc)
-# 4. vscode environment
-#	vscode built-in termianl is very small, which is not suitable for this
-function _tmux_check_available() {
-	command -v tmux &> /dev/null \
-	&& [[ -n "$PS1" ]] \
-	&& [[ ! "$TERM" =~ screen ]] \
-	&& [[ ! "$TERM" =~ tmux ]] \
-	&& [[ -z "$TMUX" ]] \
-	&& [[ "$TERM_PROGRAM" != "vscode" ]] \
-	&& true || false
-}
-
-# Check if tmux session given by $1 already exists.
-# If true, attach to it, otherwise create and attach to a new session
-function _tmux_new_or_attach() {
-	tmux_session=$1
-	if command tmux has-session -t $tmux_session; then
-		command tmux attach -t $tmux_session
-	else
-		command tmux new -s $tmux_session
-	fi
-}
-
-# Key bindings
-bindkey -v '^?' backward-delete-char
-bindkey '^R' history-incremental-search-backward
-
 typeset -g -A key
 
 key[Home]="${terminfo[khome]}"
@@ -83,8 +50,5 @@ zle -N down-line-or-beginning-search
 [[ -n "${key[Up]}"   ]] && bindkey -- "${key[Up]}"   up-line-or-beginning-search
 [[ -n "${key[Down]}" ]] && bindkey -- "${key[Down]}" down-line-or-beginning-search
 
-
-# Use `jk` to escape insert mode
-bindkey -M viins 'jk' vi-cmd-mode
 
 export EDITOR="code --wait"
