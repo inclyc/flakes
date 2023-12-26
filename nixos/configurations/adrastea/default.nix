@@ -20,6 +20,7 @@
     ./hardware-configuration.nix
     ./networking.nix
     ./vm.nix
+    ./wireguard.nix
   ];
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" "riscv64-linux" ];
@@ -61,6 +62,10 @@
     patchelf
     btop
     stdenv.cc
+
+    sops
+    age
+    ssh-to-age
 
     valgrind
     meson

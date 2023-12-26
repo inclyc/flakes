@@ -18,6 +18,7 @@ let
 in
 {
   networking.dhcpcd.enable = false;
+  networking.useDHCP = false;
 
   systemd.network.enable = true;
   systemd.network.networks = {
