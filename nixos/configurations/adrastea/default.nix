@@ -184,26 +184,6 @@
     };
   };
 
-  sops.secrets."ddns/cloudflare" = { };
-  services.ddns."cloudflare" = {
-    ipv4 = "adrastea.lyc.dev";
-    index4 = "shell:curl -4L lug.hit.edu.cn/myip";
-    dns = "cloudflare";
-    extraPath = [ pkgs.curl ];
-    environmentFile = [ config.sops.secrets."ddns/cloudflare".path ];
-    onCalendar = "minutely";
-  };
-
-  sops.secrets."ddns/dnspod" = { };
-  services.ddns."inclyc-cn" = {
-    ipv4 = "ppp.ws.inclyc.cn";
-    index4 = "shell:curl -4L lug.hit.edu.cn/myip";
-    dns = "dnspod";
-    extraPath = [ pkgs.curl ];
-    environmentFile = [ config.sops.secrets."ddns/dnspod".path ];
-    onCalendar = "minutely";
-  };
-
   systemd.extraConfig = ''
     DefaultTimeoutStopSec=10s
   '';
