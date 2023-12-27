@@ -56,7 +56,6 @@
   environment.systemPackages = with pkgs; [
     gnumake
     qemu
-    clash-meta
 
     gdb
     file
@@ -67,6 +66,11 @@
     sops
     age
     ssh-to-age
+
+    unzip
+    bubblewrap
+
+    vim
 
 
     valgrind
