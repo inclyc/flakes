@@ -86,6 +86,7 @@ in
     })
     (mkIf cfg.rule.enable (
       let
+        generate_204 = "http://www.gstatic.com/generate_204";
         providers = [ "dler" "mielink" "bywave" ];
         proxyProviders = lib.genAttrs providers (name: {
           type = "http";
@@ -94,7 +95,7 @@ in
           interval = 3600;
           health-check = {
             enable = true;
-            url = "http://www.gstatic.com/generate_204";
+            url = generate_204;
             interval = 300;
           };
         });
@@ -113,7 +114,7 @@ in
             type = "url-test";
             use = providers;
             proxies = [ "DIRECT" ];
-            url = "http://cp.cloudflare.com/generate_204";
+            url = generate_204;
             interval = "3600";
           }
         ] ++ builtins.fromJSON (builtins.readFile ./proxy-groups.json);
