@@ -6,7 +6,6 @@
 with lib;
 let
   cfg = config.services.clash;
-  defaultUser = "clash";
 in
 {
   options.services.clash = {
@@ -26,59 +25,97 @@ in
     configPath = mkOption {
       type = types.path;
     };
-    user = mkOption {
-      default = defaultUser;
-      example = "john";
-      type = types.str;
-    };
-
-    group = mkOption {
-      default = defaultUser;
-      example = "users";
-      type = types.str;
+    rule = {
+      enable = mkEnableOption "clash rule generation";
+      enableTUN = mkEnableOption "TUN interface";
     };
   };
-  config =
-    mkIf cfg.enable {
-
-      users.users = optionalAttrs (cfg.user == defaultUser) {
-        ${defaultUser} =
-          {
-            description = "clash user";
-            group = defaultUser;
-            uid = config.ids.uids.znc;
-            isSystemUser = true;
-          };
-      };
-
-      users.groups = optionalAttrs (cfg.user == defaultUser) {
-        ${defaultUser} =
-          {
-            gid = config.ids.gids.znc;
-            members = [ defaultUser ];
-          };
-      };
-
+  config = lib.mkMerge [
+    (mkIf cfg.enable {
       systemd.services.clash = {
-
         wantedBy = [ "multi-user.target" ];
         after = [ "systemd-networkd-wait-online.service" ];
         description = "Clash Daemon";
-
         serviceConfig = rec {
           Type = "simple";
-          User = cfg.user;
-          Group = cfg.group;
-          PrivateTmp = true;
+          DynamicUser = "yes";
+          LoadCredential = "config.yaml:${cfg.configPath}";
           WorkingDirectory = "${cfg.workingDirectory}";
           ExecStartPre = "${pkgs.coreutils}/bin/ln -s ${pkgs.clash-geoip}/etc/clash/Country.mmdb ${cfg.configDirectory}";
           ExecStart = "${lib.getExe cfg.package}"
             + " -d ${cfg.configDirectory}"
-            + " -f ${cfg.configPath}";
+            + " -f %d/config.yaml";
           Restart = "on-failure";
           CapabilityBoundingSet = [ "CAP_NET_ADMIN" "CAP_NET_RAW" "CAP_NET_BIND_SERVICE" ];
           AmbientCapabilities = CapabilityBoundingSet;
+          ProtectSystem = "strict";
+          ProtectHome = "yes";
+          PrivateDevices = "yes";
+          PrivateUsers = "yes";
+          ProtectHostname = "yes";
+          ProtectClock = "yes";
+          ProtectKernelTunables = "yes";
+          ProtectKernelModules = "yes";
+          ProtectKernelLogs = "yes";
+          ProtectControlGroups = "yes";
+          ProtectProc = "yes";
+          LockPersonality = "yes";
         };
       };
-    };
+    })
+    (mkIf cfg.rule.enable (
+      let
+        generate_204 = "http://www.gstatic.com/generate_204";
+        providers = [ "dler" "mielink" "bywave" ];
+        proxyProviders = lib.genAttrs providers (name: {
+          type = "http";
+          path = "./${name}.yaml";
+          url = "${config.sops.placeholder."clash-provider/${name}"}";
+          interval = 3600;
+          health-check = {
+            enable = true;
+            url = generate_204;
+            interval = 300;
+          };
+        });
+        proxyGroups = [
+          {
+            name = "Proxy";
+            type = "select";
+            use = providers;
+            proxies = [
+              "Auto"
+              "DIRECT"
+            ];
+          }
+          {
+            name = "Auto";
+            type = "url-test";
+            use = providers;
+            proxies = [ "DIRECT" ];
+            url = generate_204;
+            interval = "3600";
+          }
+        ] ++ builtins.fromJSON (builtins.readFile ./proxy-groups.json);
+      in
+      {
+        services.clash.configPath = lib.mkDefault config.sops.templates."clash-config.yaml".path;
+        sops.secrets = lib.attrsets.mergeAttrsList (map
+          (name: {
+            "clash-provider/${name}" = { };
+          })
+          providers);
+        sops.templates."clash-config.yaml".content = builtins.readFile ./rule.yaml + ''
+          proxy-groups: ${builtins.toJSON proxyGroups}
+          proxy-providers: ${builtins.toJSON proxyProviders}
+        '' + (lib.optionalString cfg.rule.enableTUN ''
+          tun:
+              enable: true
+              stack: system
+              auto-route: true
+              auto-detect-interface: true
+        '');
+      }
+    ))
+  ];
 }

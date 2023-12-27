@@ -31,7 +31,7 @@
 
   services.clash = {
     enable = true;
-    configPath = config.sops.templates."clash-config.yaml".path;
+    rule.enable = true;
   };
 
   services.resolved.enable = true;
