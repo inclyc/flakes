@@ -37,10 +37,13 @@ in
       example = "users";
       type = types.str;
     };
+    rule = {
+      enable = mkEnableOption "clash rule generation";
+      enableTUN = mkEnableOption "TUN interface";
+    };
   };
-  config =
-    mkIf cfg.enable {
-
+  config = lib.mkMerge [
+    (mkIf cfg.enable {
       users.users = optionalAttrs (cfg.user == defaultUser) {
         ${defaultUser} =
           {
@@ -80,5 +83,62 @@ in
           AmbientCapabilities = CapabilityBoundingSet;
         };
       };
-    };
+    })
+    (mkIf cfg.rule.enable (
+      let
+        providers = [ "dler" "mielink" "bywave" ];
+        proxyProviders = lib.genAttrs providers (name: {
+          type = "http";
+          path = "./${name}.yaml";
+          url = "${config.sops.placeholder."clash-provider/${name}"}";
+          interval = 3600;
+          health-check = {
+            enable = true;
+            url = "http://www.gstatic.com/generate_204";
+            interval = 300;
+          };
+        });
+        proxyGroups = [
+          {
+            name = "Proxy";
+            type = "select";
+            use = providers;
+            proxies = [
+              "Auto"
+              "DIRECT"
+            ];
+          }
+          {
+            name = "Auto";
+            type = "url-test";
+            use = providers;
+            proxies = [ "DIRECT" ];
+            url = "http://cp.cloudflare.com/generate_204";
+            interval = "3600";
+          }
+        ] ++ builtins.fromJSON (builtins.readFile ./proxy-groups.json);
+      in
+      {
+        services.clash.configPath = lib.mkDefault config.sops.templates."clash-config.yaml".path;
+        sops.secrets = lib.attrsets.mergeAttrsList (map
+          (name: {
+            "clash-provider/${name}" = { };
+          })
+          providers);
+        sops.templates."clash-config.yaml".content = builtins.readFile ./rule.yaml + ''
+          proxy-groups: ${builtins.toJSON proxyGroups}
+          proxy-providers: ${builtins.toJSON proxyProviders}
+        '' + (lib.optionalString cfg.rule.enableTUN ''
+          tun:
+              enable: true
+              stack: system
+              auto-route: true
+              auto-detect-interface: true
+        '');
+
+        sops.templates."clash-config.yaml".owner = cfg.user;
+        sops.templates."clash-config.yaml".group = cfg.group;
+      }
+    ))
+  ];
 }
