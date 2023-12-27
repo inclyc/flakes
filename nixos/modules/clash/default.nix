@@ -6,7 +6,6 @@
 with lib;
 let
   cfg = config.services.clash;
-  defaultUser = "clash";
 in
 {
   options.services.clash = {
@@ -26,17 +25,6 @@ in
     configPath = mkOption {
       type = types.path;
     };
-    user = mkOption {
-      default = defaultUser;
-      example = "john";
-      type = types.str;
-    };
-
-    group = mkOption {
-      default = defaultUser;
-      example = "users";
-      type = types.str;
-    };
     rule = {
       enable = mkEnableOption "clash rule generation";
       enableTUN = mkEnableOption "TUN interface";
@@ -44,43 +32,34 @@ in
   };
   config = lib.mkMerge [
     (mkIf cfg.enable {
-      users.users = optionalAttrs (cfg.user == defaultUser) {
-        ${defaultUser} =
-          {
-            description = "clash user";
-            group = defaultUser;
-            uid = config.ids.uids.znc;
-            isSystemUser = true;
-          };
-      };
-
-      users.groups = optionalAttrs (cfg.user == defaultUser) {
-        ${defaultUser} =
-          {
-            gid = config.ids.gids.znc;
-            members = [ defaultUser ];
-          };
-      };
-
       systemd.services.clash = {
-
         wantedBy = [ "multi-user.target" ];
         after = [ "systemd-networkd-wait-online.service" ];
         description = "Clash Daemon";
-
         serviceConfig = rec {
           Type = "simple";
-          User = cfg.user;
-          Group = cfg.group;
-          PrivateTmp = true;
+          DynamicUser = "yes";
+          LoadCredential = "config.yaml:${cfg.configPath}";
           WorkingDirectory = "${cfg.workingDirectory}";
           ExecStartPre = "${pkgs.coreutils}/bin/ln -s ${pkgs.clash-geoip}/etc/clash/Country.mmdb ${cfg.configDirectory}";
           ExecStart = "${lib.getExe cfg.package}"
             + " -d ${cfg.configDirectory}"
-            + " -f ${cfg.configPath}";
+            + " -f %d/config.yaml";
           Restart = "on-failure";
           CapabilityBoundingSet = [ "CAP_NET_ADMIN" "CAP_NET_RAW" "CAP_NET_BIND_SERVICE" ];
           AmbientCapabilities = CapabilityBoundingSet;
+          ProtectSystem = "strict";
+          ProtectHome = "yes";
+          PrivateDevices = "yes";
+          PrivateUsers = "yes";
+          ProtectHostname = "yes";
+          ProtectClock = "yes";
+          ProtectKernelTunables = "yes";
+          ProtectKernelModules = "yes";
+          ProtectKernelLogs = "yes";
+          ProtectControlGroups = "yes";
+          ProtectProc = "yes";
+          LockPersonality = "yes";
         };
       };
     })
@@ -136,9 +115,6 @@ in
               auto-route: true
               auto-detect-interface: true
         '');
-
-        sops.templates."clash-config.yaml".owner = cfg.user;
-        sops.templates."clash-config.yaml".group = cfg.group;
       }
     ))
   ];
