@@ -25,8 +25,6 @@
   inclyc.user.enable = true;
   inclyc.user.zsh = true;
 
-  inclyc.tailscale.enable = true;
-
   # Proxmox-VE container, running LXC
   boot.isContainer = true;
 
