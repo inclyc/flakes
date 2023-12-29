@@ -7,6 +7,7 @@
 {
   imports = [
     ./wireguard.nix
+    ./minecraft
   ];
   nixpkgs.hostPlatform = "x86_64-linux";
   nix.registry.sys = {
