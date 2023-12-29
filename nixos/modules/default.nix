@@ -8,7 +8,6 @@
     ./nix-ld.nix
     ./gui.nix
     ./user.nix
-    ./tailscale.nix
     ./dae
     ./sops.nix
   ];
