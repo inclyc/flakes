@@ -48,10 +48,9 @@ in
           Restart = "on-failure";
           CapabilityBoundingSet = [ "CAP_NET_ADMIN" "CAP_NET_RAW" "CAP_NET_BIND_SERVICE" ];
           AmbientCapabilities = CapabilityBoundingSet;
+          DeviceAllowed = [ "/dev/net/tun" ];
           ProtectSystem = "strict";
           ProtectHome = "yes";
-          PrivateDevices = "yes";
-          PrivateUsers = "yes";
           ProtectHostname = "yes";
           ProtectClock = "yes";
           ProtectKernelTunables = "yes";
