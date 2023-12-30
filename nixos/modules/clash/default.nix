@@ -27,7 +27,6 @@ in
     };
     rule = {
       enable = mkEnableOption "clash rule generation";
-      enableTUN = mkEnableOption "TUN interface";
     };
   };
   config = lib.mkMerge [
@@ -46,9 +45,11 @@ in
             + " -d ${cfg.configDirectory}"
             + " -f %d/config.yaml";
           Restart = "on-failure";
-          CapabilityBoundingSet = [ "CAP_NET_ADMIN" "CAP_NET_RAW" "CAP_NET_BIND_SERVICE" ];
-          AmbientCapabilities = CapabilityBoundingSet;
-          DeviceAllowed = [ "/dev/net/tun" ];
+          CapabilityBoundingSet = [ "" ];
+          DeviceAllow = [ "" ];
+          PrivateDevices = true;
+          PrivateTmp = true;
+          PrivateUsers = true;
           ProtectSystem = "strict";
           ProtectHome = "yes";
           ProtectHostname = "yes";
@@ -57,8 +58,13 @@ in
           ProtectKernelModules = "yes";
           ProtectKernelLogs = "yes";
           ProtectControlGroups = "yes";
-          ProtectProc = "yes";
+          ProtectProc = "invisible";
           LockPersonality = "yes";
+          RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+          RestrictNamespaces = true;
+          RestrictRealtime = true;
+          RestrictSUIDSGID = true;
+          SystemCallArchitectures = "native";
         };
       };
     })
@@ -107,13 +113,7 @@ in
         sops.templates."clash-config.yaml".content = builtins.readFile ./rule.yaml + ''
           proxy-groups: ${builtins.toJSON proxyGroups}
           proxy-providers: ${builtins.toJSON proxyProviders}
-        '' + (lib.optionalString cfg.rule.enableTUN ''
-          tun:
-              enable: true
-              stack: system
-              auto-route: true
-              auto-detect-interface: true
-        '');
+        '';
       }
     ))
   ];

@@ -8,8 +8,12 @@
   imports = [
     ./wireguard.nix
     ./minecraft
+    ./hardware-configuration.nix
   ];
-  nixpkgs.hostPlatform = "x86_64-linux";
+
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
   nix.registry.sys = {
     from = { type = "indirect"; id = "sys"; };
     flake = inputs.nixpkgs-stable;
@@ -20,14 +24,12 @@
   services.clash = {
     enable = true;
     rule.enable = true;
-    rule.enableTUN = true;
   };
+
+  services.dae.enable = true;
 
   inclyc.user.enable = true;
   inclyc.user.zsh = true;
-
-  # Proxmox-VE container, running LXC
-  boot.isContainer = true;
 
   networking.hostName = "metis";
 
@@ -38,13 +40,13 @@
   systemd.network.enable = true;
 
   systemd.network.networks = {
-    "20-eth0@if72" = {
-      matchConfig.Name = "eth0@if72";
+    "enp6s18" = {
+      matchConfig.Name = "enp6s18";
       networkConfig = {
         DHCP = "no";
         Address = "192.168.31.6/24";
         Gateway = "192.168.31.1";
-        DNS = "159.226.39.1";
+        DNS = "223.5.5.5";
       };
     };
   };
