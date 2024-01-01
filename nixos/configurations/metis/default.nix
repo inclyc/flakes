@@ -78,8 +78,8 @@
     meson
     cmake
     lldb
-    llvmPackages_15.clang
-    llvmPackages_15.bintools
+    llvmPackages_16.clang
+    llvmPackages_16.bintools
     rr
     ccache
     ninja
@@ -92,9 +92,6 @@
 
     mtr
     dig
-
-    llvmPackages_13.clang
-    llvmPackages_13.bintools
   ];
 
 
