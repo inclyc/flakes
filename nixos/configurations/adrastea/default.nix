@@ -70,9 +70,9 @@
     meson
     cmake
     lldb
-    llvmPackages_15.clang
-    llvmPackages_15.bintools
-    (lib.meta.hiPrio clang-tools_15)
+    llvmPackages_16.clang
+    llvmPackages_16.bintools
+    (lib.meta.hiPrio clang-tools_16)
     rr
     ccache
 

@@ -121,8 +121,8 @@
     meson
     cmake
     lldb
-    llvmPackages_15.clang
-    llvmPackages_15.bintools
+    llvmPackages_16.clang
+    llvmPackages_16.bintools
     rr
     ccache
     ninja

@@ -8,7 +8,7 @@
     rnix-lsp
     ccache
     ninja
-  ] ++ (with pkgs.llvmPackages_15; [
+  ] ++ (with pkgs.llvmPackages_16; [
     clang
     llvm
     lld
