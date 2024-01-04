@@ -11,7 +11,10 @@ stdenv.mkDerivation rec {
   pname = "topsap";
   version = "3.5.2.36.2";
   src = fetchurl {
-    url = "https://app.topsec.com.cn/vpn/sslvpnclient/TopSAP-${version}-x86_64.deb";
+    urls =  [
+      "https://github.com/inclyc/containerized-topsap/releases/download/topsec-v${version}/TopSAP-${version}-x86_64.deb"
+      "https://app.topsec.com.cn/vpn/sslvpnclient/TopSAP-${version}-x86_64.deb"
+    ];
     sha256 = "sha256-I859oVKa7n3VGIZvzu0h0bYXGFg27jxd5GHsnX7Y+yE=";
   };
 
