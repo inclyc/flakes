@@ -1,10 +1,14 @@
-{ inputs, lib, pkgs, ... }:
+{ inputs, lib, pkgs, outputs, ... }:
 {
   nixpkgs = {
     config = {
       allowUnfree = true;
       allowUnfreePredicate = (_: true);
     };
+    overlays = [
+      outputs.overlays.modifications
+      outputs.overlays.additions
+    ];
   };
 
   nix = {
