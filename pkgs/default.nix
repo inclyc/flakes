@@ -1,1 +1,3 @@
-{ pkgs ? (import ../nixpkgs.nix) { } }: { }
+{ pkgs ? (import ../nixpkgs.nix) { } }: {
+  topsap = pkgs.callPackage ./topsap { };
+}
