@@ -52,6 +52,7 @@
   inclyc.gui.enable = true;
   inclyc.user.enable = true;
   inclyc.user.zsh = true;
+  inclyc.development.rust.enable = true;
 
   i18n = {
     defaultLocale = "C.UTF-8";
