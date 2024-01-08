@@ -10,6 +10,7 @@
     ./user.nix
     ./dae
     ./sops.nix
+    ./rust.nix
   ];
 
   home-manager = {
