@@ -45,6 +45,11 @@
         user = "lyc";
         port = 22;
       };
+      ict-sw = {
+        hostname = "10.208.130.239";
+        user = "lyc";
+        port = 22;
+      };
     };
   };
 }
