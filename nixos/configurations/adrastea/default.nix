@@ -12,6 +12,7 @@
       zsh = true;
       ssh = true;
     };
+    development.rust.enable = true;
   };
 
   imports = [
