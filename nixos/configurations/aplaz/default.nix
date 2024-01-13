@@ -47,7 +47,7 @@
 
 
   systemd.oomd.enableRootSlice = true;
-  systemd.oomd.enableUserServices = true;
+  systemd.oomd.enableUserSlices = true;
 
   inclyc.gui.enable = true;
   inclyc.user.enable = true;
