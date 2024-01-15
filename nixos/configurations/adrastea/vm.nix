@@ -12,10 +12,7 @@
   */
 { pkgs, lib, config, ... }:
 let
-  addVFIO = pkgs.writeShellScriptBin "addVFIO" (builtins.readFile ./add-vfio.sh);
-
-  vmDir = "${config.users.users.lyc.home}/VM";
-  machineDir = "${vmDir}/machines";
+  vmDir = "vm";
 
   mkVMCmd =
     { qemu ? pkgs.qemu
@@ -24,7 +21,6 @@ let
     , enableGPUPassthrough ? true
     , enableEvdevInputs ? true
     , enableUSB ? true
-    , disk ? "data.qcow2"
     , memory
     }:
     let
@@ -61,11 +57,13 @@ let
         (mkTap "vmtap0")
         + (mkTap "vmtap1");
     in
-    pkgs.writeShellScriptBin "vm-launch.sh" ''
+    pkgs.writeShellScript "vm-launch.sh" ''
       cmd=(
         ${lib.getExe qemu}
         -machine q35
         -accel kvm
+
+        -snapshot
 
         -rtc base=localtime,clock=host
         -smp 16
@@ -75,10 +73,10 @@ let
 
         -serial none
 
-        -drive "if=pflash,format=raw,readonly=on,file=${vmDir}/share/OVMF/OVMF_CODE.fd"
-        -drive "if=pflash,format=raw,file=./OVMF_VARS.fd"
+        -drive "if=pflash,format=raw,readonly=on,file=${pkgs.OVMF.fd}/FV/OVMF_CODE.fd"
+        -drive "if=pflash,format=raw,file=$STATE_DIRECTORY/OVMF_VARS.fd"
 
-        -monitor unix:./monitor.sock,server,nowait
+        -monitor unix:$RUNTIME_DIRECTORY/monitor.sock,server,nowait
 
 
         -device qemu-xhci,id=xhci
@@ -90,7 +88,7 @@ let
         ${GPUPassthrough}
         ${EvdevInputs}
         ${Network}
-        ${disk}
+        $STATE_DIRECTORY/data.qcow2
       )
 
       exec "''${cmd[@]}"
@@ -98,17 +96,25 @@ let
   ;
 
   mkVM = { name, cmd }:
+    let
+      directory = "${vmDir}/${name}";
+      caps = [ "CAP_NET_ADMIN" ];
+    in
     {
       "vm-${name}" = {
         after = [ "add-vfio.service" ];
         requires = [ "add-vfio.service" ];
         serviceConfig = {
-          WorkingDirectory = "${machineDir}/${name}";
-          User = config.users.users.lyc.name;
-          ExecStart = lib.getExe cmd;
+          WorkingDirectory = "%S/${directory}";
+          StateDirectory = directory;
+          RuntimeDirectory = directory;
+          DynamicUser = true;
+          SupplementaryGroups = "wheel";
+          ExecStart = cmd;
           Type = "simple";
           LimitMEMLOCK = "infinity";
           TimeoutStopSec = 15;
+          AmbientCapabilities = caps;
         };
       };
     };
@@ -121,7 +127,7 @@ in
 
       serviceConfig = rec {
         Type = "oneshot";
-        ExecStart = "${lib.getExe addVFIO}  0000:01:00.0";
+        ExecStart = "${pkgs.writeShellScript "addVFIO" (builtins.readFile ./add-vfio.sh)}  0000:01:00.0";
       };
     };
   } // mkVM {
