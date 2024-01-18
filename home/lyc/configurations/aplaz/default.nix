@@ -1,5 +1,10 @@
 { pkgs, config, lib, ... }:
 {
+
+  imports = [
+    ./ssh-proxy.nix
+  ];
+
   services.kdeconnect.enable = true;
 
   programs.vscode = {
