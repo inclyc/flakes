@@ -45,6 +45,8 @@
     "/nix".options = [ "compress=zstd" "noatime" ];
   };
 
+  boot.kernelParams = [ "hid_apple.fnmode=2" ];
+
 
   systemd.oomd.enableRootSlice = true;
   systemd.oomd.enableUserSlices = true;
