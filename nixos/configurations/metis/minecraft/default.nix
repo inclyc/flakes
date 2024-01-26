@@ -3,6 +3,7 @@
   imports = [
     ./msd.nix
     ./dawncraft.nix
+    ./construct.nix
   ];
 
   lib.pkgs = {
