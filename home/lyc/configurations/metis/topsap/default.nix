@@ -1,6 +1,6 @@
 { config, pkgs, hostName, rootPath, outputs, lib, ... }:
 let
-  proxyHost = "127.0.0.1";
+  proxyHost = "0.0.0.0";
   proxyPort = "1081";
 
   autologin = pkgs.writeShellScript "autologin" ''
