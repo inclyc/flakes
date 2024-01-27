@@ -14,6 +14,15 @@ in
   };
 
   config = mkIf cfg.enable {
+
+    # Let chromium use wayland, however not apply to all chromium-based apps.
+    nixpkgs.config.chromium.commandLineArgs = lib.concatStringsSep " " [
+      "--ozone-platform-hint=auto"
+      "--enable-features=WaylandWindowDecorations"
+      "--enable-wayland-ime"
+      "--disable-features=WaylandFractionalScaleV1"
+    ];
+
     programs.nix-ld.libraries = with pkgs; [
       alsa-lib
       at-spi2-atk
