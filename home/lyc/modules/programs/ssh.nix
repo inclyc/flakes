@@ -2,6 +2,7 @@
 {
   programs.ssh = {
     enable = lib.mkDefault true;
+    serverAliveInterval = 60;
     matchBlocks = {
       hitmc = {
         hostname = "lan.hitmc.cc";
