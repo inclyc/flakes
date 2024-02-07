@@ -146,6 +146,8 @@
     libreoffice-qt
     bubblewrap
     tigervnc
+
+    texlive.combined.scheme-full
   ];
 
   hardware.bluetooth.enable = true;
