@@ -28,7 +28,7 @@
     nur.url = "github:nix-community/NUR";
 
     nixos-apple-silicon = {
-      url = "github:tpwrules/nixos-apple-silicon/28e82d416ebc96dee558f9c81f2335f8eaa06450";
+      url = "github:tpwrules/nixos-apple-silicon/17adff0d4ee0e366e24eac0eb15da30eaa4a2478";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
