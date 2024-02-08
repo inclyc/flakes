@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
+    ./caketower.nix
     ./msd.nix
     ./dawncraft.nix
     ./construct.nix
