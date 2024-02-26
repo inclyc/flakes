@@ -3,6 +3,7 @@
 
   home.packages = with pkgs; [
     pinentry_mac
+    clash-meta
   ];
 
   home.homeDirectory = "/Users/${config.home.username}";
