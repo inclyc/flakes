@@ -1,6 +1,10 @@
 { pkgs, lib, config, ... }:
 {
 
+  imports = [
+    ./ssh-proxy.nix
+  ];
+
   home.packages = with pkgs; [
     pinentry_mac
     clash-meta
@@ -14,6 +18,4 @@
     enable = true;
     userSettings = (builtins.fromJSON (builtins.readFile ./vscode-settings.json));
   };
-
-  programs.ssh.matchBlocks.swyjs.proxyCommand = "nc -x 127.0.0.1:1081 %h %p";
 }
