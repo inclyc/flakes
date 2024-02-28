@@ -108,7 +108,7 @@ let
           WorkingDirectory = "%S/${directory}";
           StateDirectory = directory;
           RuntimeDirectory = directory;
-          DynamicUser = true;
+          User = config.users.users.lyc.name;
           SupplementaryGroups = "wheel";
           ExecStart = cmd;
           Type = "simple";
