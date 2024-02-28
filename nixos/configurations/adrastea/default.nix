@@ -51,11 +51,9 @@
   environment.systemPackages = with pkgs.libsForQt5; [
     ark
   ] ++ (with pkgs; [
-    musescore
     gnumake
     qemu
     virt-viewer
-    config.nur.repos.linyinfeng.wemeet
 
     gdb
     file
