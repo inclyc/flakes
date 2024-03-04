@@ -6,17 +6,6 @@
     ./topsap.nix
   ];
 
-  home.packages = with pkgs; [
-    # Web browser
-    chromium
-
-    # Phabricator CLI tools
-    # For llvm-project
-    arcanist
-    graphviz
-    kgraphviewer
-  ];
-
   services.kdeconnect.enable = true;
 
   inclyc.tex.enable = true;
