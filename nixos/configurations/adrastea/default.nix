@@ -78,7 +78,13 @@
     pciutils
     usbutils
 
-    python3
+    (python311.withPackages
+      (ps: with ps; [
+        numpy
+        requests
+        matplotlib
+        scipy
+      ]))
 
 
     jdk17
