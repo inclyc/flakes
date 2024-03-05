@@ -8,6 +8,7 @@
   home.packages = with pkgs; [
     pinentry_mac
     clash-meta
+    qemu
   ];
 
   home.homeDirectory = "/Users/${config.home.username}";
