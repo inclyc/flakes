@@ -40,9 +40,19 @@
         user = "lyc";
         port = 22;
       };
+      ict-malcon-pub = {
+        hostname = "101.43.242.13";
+        user = "lyc";
+        port = 10179;
+      };
       ict-repo = {
         hostname = "10.3.2.104";
         user = "lyc";
+        port = 22;
+      };
+      ict-sw-git = {
+        hostname = "10.208.130.239";
+        user = "git";
         port = 22;
       };
       ict-sw = {
