@@ -29,6 +29,11 @@
         user = "lyc";
         port = 22;
       };
+      adrastea-pub = {
+        hostname = "t.lyc.dev";
+        user = "lyc";
+        port = 10120;
+      };
       # HPC, 神威.
       swyjs = {
         hostname = "40.0.1.110";
