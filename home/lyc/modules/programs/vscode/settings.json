@@ -205,6 +205,7 @@
         "metis": "linux",
         "ict-malcon": "linux",
         "swyjs": "linux",
-        "adrastea": "linux"
+        "adrastea": "linux",
+        "adrastea-pub": "linux"
     }
 }
