@@ -26,6 +26,14 @@
             PersistentKeepalive = 25;
           };
         }
+        {
+          wireguardPeerConfig = {
+            PublicKey = "GcR4Wx7JUJOCO5Rs+gs0S4xbnC4NqU4ltCsSowjwEyg=";
+            AllowedIPs = [ "0.0.0.0/0" ];
+            Endpoint = "t.lyc.dev:45229";
+            PersistentKeepalive = 25;
+          };
+        }
       ];
     };
   };
@@ -33,7 +41,7 @@
   systemd.network.networks = {
     wg0 = {
       matchConfig.Name = "wg0";
-      address = [ "10.231.0.2/16" ];
+      address = [ "10.164.2.8/16" ];
       DHCP = "no";
       networkConfig = {
         IPv6AcceptRA = false;
