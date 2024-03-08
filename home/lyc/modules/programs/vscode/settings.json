@@ -197,7 +197,6 @@
     "window.titleBarStyle": "custom",
     "window.zoomLevel": -1,
     "workbench.colorTheme": "Nord",
-    "workbench.editor.untitled.hint": "hidden",
     "workbench.editorAssociations": {
         "*.md": "default",
         "git-rebase-todo": "default"
