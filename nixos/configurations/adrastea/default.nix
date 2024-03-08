@@ -126,9 +126,9 @@
   services.xserver.displayManager.setupCommands = lib.mkForce "";
 
   # Configure keymap in X11
-  services.xserver = {
+  services.xserver.xkb = {
     layout = "us";
-    xkbVariant = "";
+    variant = "";
   };
 
   # virtualisation.virtualbox.host.enableExtensionPack = true;
