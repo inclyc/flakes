@@ -17,7 +17,6 @@
         "-j=20",
         "--clang-tidy"
     ],
-    "cmake.configureOnOpen": false,
     "diffEditor.codeLens": true,
     "diffEditor.ignoreTrimWhitespace": false,
     "editor.cursorBlinking": "smooth",
