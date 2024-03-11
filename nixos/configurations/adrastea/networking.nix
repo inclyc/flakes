@@ -52,9 +52,9 @@ in
     "20-br0" = {
       matchConfig.Name = "br0";
       networkConfig = {
-        DHCP = "no";
-        Address = "10.12.150.59/24";
-        Gateway = "10.12.150.254";
+        DHCP = "ipv6";
+        Address = "10.3.150.69/24";
+        Gateway = "10.3.150.254";
         DNS = "159.226.39.1";
       };
     };
