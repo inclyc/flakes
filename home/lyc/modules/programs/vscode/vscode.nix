@@ -13,6 +13,9 @@
         let
           nvimPath = "${pkgs.neovim}/bin/nvim";
           zshPath = "${pkgs.zsh}/bin/zsh";
+          clang-tools = pkgs.clang-tools.override {
+            llvmPackages = pkgs.llvmPackages_latest;
+          };
         in
         {
           # path.linux may specified "incorrectly" on darwin
@@ -20,6 +23,7 @@
           # should be evaulated on corresponding platform, and chosed by vscode.
           "vscode-neovim.neovimExecutablePaths.linux" = nvimPath;
           "vscode-neovim.neovimExecutablePaths.darwin" = nvimPath;
+          "clangd.path" = "${clang-tools}/bin/clangd";
 
           "terminal.integrated.profiles.osx".zsh.path = zshPath;
           "terminal.integrated.profiles.linux".zsh.path = zshPath;
