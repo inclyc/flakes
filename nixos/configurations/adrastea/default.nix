@@ -117,9 +117,7 @@
     "electron-19.0.7"
   ];
 
-  services.xserver.displayManager.sddm.enable = lib.mkForce false;
-
-  services.greetd.enable = true;
+  services.greetd.enable = false;
 
 
   # Workaround of nixpkgs#187963 and nixpkgs#199881
