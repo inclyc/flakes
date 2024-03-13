@@ -6,8 +6,6 @@
     ./topsap.nix
   ];
 
-  services.kdeconnect.enable = true;
-
   inclyc.tex.enable = true;
 
   programs.vscode = {
