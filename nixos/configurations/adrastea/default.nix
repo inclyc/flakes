@@ -93,6 +93,12 @@
     chromium
 
     libreoffice-qt
+
+    # VNC client
+    krdc
+
+    # better frp
+    rathole
   ]);
 
   virtualisation.spiceUSBRedirection.enable = true;
