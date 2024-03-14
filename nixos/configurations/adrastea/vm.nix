@@ -31,8 +31,9 @@ let
       '';
       EmulatedGPU =
         if enableEmulatedGPU then ''
-          -device "virtio-vga-gl"
-          -display "sdl,gl=on"
+          -display none
+          -vga virtio
+          -vnc :0
         '' else ''
           -nographic
           -vga none
@@ -134,6 +135,7 @@ in
     name = "Elara";
     cmd = mkVMCmd {
       memory = 32 * 1024;
+      enableEmulatedGPU = true;
     };
   };
 
