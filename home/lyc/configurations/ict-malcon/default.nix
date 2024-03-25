@@ -5,7 +5,6 @@
   home.username = "lyc";
 
   home.packages = with pkgs; [
-    rnix-lsp
     ccache
     ninja
   ] ++ (with pkgs.llvmPackages_16; [
