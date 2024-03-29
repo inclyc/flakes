@@ -10,9 +10,9 @@
       grep = "grep --color=auto";
     };
 
-    enableAutosuggestions = true;
+    syntaxHighlighting.enable = true;
+    autosuggestion.enable = true;
     enableCompletion = true;
-    enableSyntaxHighlighting = true;
     historySubstringSearch.enable = true;
     autocd = true;
     dotDir = ".config/zsh";
