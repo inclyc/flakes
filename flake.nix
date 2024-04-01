@@ -2,22 +2,14 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    home-manager-stable = {
-      url = "github:nix-community/home-manager/release-23.05";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
-
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nixpkgs-stable.follows = "nixpkgs-stable";
     };
 
     flake-parts = {
@@ -41,7 +33,6 @@
   outputs =
     { self
     , nixpkgs
-    , nixpkgs-stable
     , nur
     , home-manager
     , flake-utils
@@ -119,11 +110,6 @@
           // mkHomeConfig {
             hostName = "aplaz";
             system = "aarch64-linux";
-          }
-          // mkHomeConfig {
-            hostName = "metis";
-            nixpkgs = nixpkgs-stable;
-            home-manager = inputs.home-manager-stable;
           };
           homeManagerModules = {
             lyc = import ./home/lyc/modules;

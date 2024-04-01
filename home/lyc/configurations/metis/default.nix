@@ -11,11 +11,11 @@
 
   nix.registry.home = {
     from = { type = "indirect"; id = "home"; };
-    flake = inputs.nixpkgs-stable;
+    flake = inputs.nixpkgs;
   };
 
   services.gpg-agent = {
     enable = true;
-    pinentryFlavor = "curses";
+    pinentryPackage = pkgs.pinentry-curses;
   };
 }
