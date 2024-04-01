@@ -99,6 +99,8 @@
 
     # better frp
     rathole
+
+    fluent-icon-theme
   ]);
 
   virtualisation.spiceUSBRedirection.enable = true;
