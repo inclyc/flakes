@@ -108,6 +108,10 @@
             system = "aarch64-darwin";
           }
           // mkHomeConfig {
+            hostName = "aplax";
+            system = "aarch64-darwin";
+          }
+          // mkHomeConfig {
             hostName = "aplaz";
             system = "aarch64-linux";
           };
