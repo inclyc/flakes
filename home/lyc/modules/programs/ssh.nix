@@ -50,6 +50,11 @@
         user = "lyc";
         port = 10179;
       };
+      ict-altric = {
+        hostname = "10.3.2.130";
+        user = "lyc";
+        port = 22;
+      };
       ict-repo = {
         hostname = "10.3.2.104";
         user = "lyc";
