@@ -1,5 +1,9 @@
 { lib, ... }:
 {
+  imports = [
+    ./ssh-jump.nix
+  ];
+
   programs.ssh = {
     enable = lib.mkDefault true;
     serverAliveInterval = 3;

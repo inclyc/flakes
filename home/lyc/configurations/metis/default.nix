@@ -18,4 +18,6 @@
     enable = true;
     pinentryPackage = pkgs.pinentry-curses;
   };
+
+  inclyc.ssh.ICTProxy = true;
 }

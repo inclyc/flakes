@@ -1,10 +1,5 @@
 { pkgs, config, lib, ... }:
 {
-
-  imports = [
-    ./ssh-proxy.nix
-  ];
-
   services.kdeconnect.enable = true;
 
   programs.vscode = {
@@ -15,6 +10,8 @@
   programs.zsh.dirHashes = {
     flakes = "${config.home.homeDirectory}/workspace/flakes";
   };
+
+  inclyc.ssh.ICTProxy = true;
 
   services.gpg-agent = {
     enable = true;

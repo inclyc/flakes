@@ -1,10 +1,5 @@
 { pkgs, config, lib, ... }:
 {
-
-  imports = [
-    ./ssh-proxy.nix
-  ];
-
   programs.vscode.enable = true;
 
   home.homeDirectory = "/Users/${config.home.username}";
@@ -12,6 +7,8 @@
   programs.zsh.dirHashes = {
     flakes = "${config.home.homeDirectory}/flakes";
   };
+
+  inclyc.ssh.ICTProxy = true;
 
   home.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
