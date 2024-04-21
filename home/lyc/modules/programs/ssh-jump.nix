@@ -15,17 +15,7 @@ in
     };
   };
 
-  config = lib.mkIf cfg.ICTProxy (
-    let
-      settings = builtins.listToAttrs (builtins.map
-        (name: {
-          name = "${name}";
-          value = { proxyJump = ict-portal; };
-        })
-        ict-machines);
-    in
-    {
-      programs.ssh.matchBlocks = settings;
-    }
-  );
+  config = lib.mkIf cfg.ICTProxy {
+    programs.ssh.matchBlocks = lib.genAttrs ict-machines (_: { proxyJump = ict-portal; });
+  };
 }
