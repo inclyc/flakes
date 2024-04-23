@@ -17,4 +17,6 @@
     pinentry_mac
     qemu
   ];
+
+  programs.kitty.enable = true;
 }
