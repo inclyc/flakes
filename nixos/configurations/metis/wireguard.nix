@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 {
   sops.secrets."wireguard/privkeys/metis" = {
     owner = config.users.users.systemd-network.name;

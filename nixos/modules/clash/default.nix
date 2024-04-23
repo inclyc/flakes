@@ -35,7 +35,7 @@ in
         wantedBy = [ "multi-user.target" ];
         after = [ "systemd-networkd-wait-online.service" ];
         description = "Clash Daemon";
-        serviceConfig = rec {
+        serviceConfig = {
           Type = "simple";
           DynamicUser = "yes";
           LoadCredential = "config.yaml:${cfg.configPath}";

@@ -22,7 +22,7 @@ in
     after = [ "systemd-networkd-wait-online.service" ];
     description = "Minecraft Server (DawnCraft 1.33f)";
     requires = [ "${serviceName}.socket" ];
-    serviceConfig = rec {
+    serviceConfig = {
       Type = "simple";
       DynamicUser = true;
       StateDirectory = directory;
