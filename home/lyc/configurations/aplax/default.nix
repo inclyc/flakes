@@ -21,4 +21,6 @@
     qemu
     telegram-desktop
   ];
+
+  programs.kitty.enable = true;
 }
