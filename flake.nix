@@ -34,7 +34,6 @@
     { self
     , nixpkgs
     , nur
-    , home-manager
     , flake-utils
     , flake-parts
     , sops-nix

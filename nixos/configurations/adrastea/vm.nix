@@ -20,7 +20,6 @@ let
     , enableEmulatedGPU ? false
     , enableGPUPassthrough ? true
     , enableEvdevInputs ? true
-    , enableUSB ? true
     , memory
     }:
     let

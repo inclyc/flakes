@@ -22,7 +22,7 @@ in
     after = [ "systemd-networkd-wait-online.service" ];
     description = "Minecraft Server (Modern Skyblock 3: Departed)";
     requires = [ "${serviceName}.socket" ];
-    serviceConfig = rec {
+    serviceConfig = {
       Type = "simple";
       DynamicUser = true;
       StateDirectory = directory;

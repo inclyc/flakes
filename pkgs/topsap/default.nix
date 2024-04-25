@@ -3,7 +3,6 @@
 , perl
 , dpkg
 , libuuid
-, buildFHSUserEnvBubblewrap
 , autoPatchelfHook
 , ...
 }:
@@ -11,7 +10,7 @@ stdenv.mkDerivation rec {
   pname = "topsap";
   version = "3.5.2.36.2";
   src = fetchurl {
-    urls =  [
+    urls = [
       "https://github.com/inclyc/containerized-topsap/releases/download/topsec-v${version}/TopSAP-${version}-x86_64.deb"
       "https://app.topsec.com.cn/vpn/sslvpnclient/TopSAP-${version}-x86_64.deb"
     ];
