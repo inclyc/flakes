@@ -101,6 +101,8 @@
     rathole
 
     fluent-icon-theme
+
+    nodejs
   ]);
 
   virtualisation.spiceUSBRedirection.enable = true;
