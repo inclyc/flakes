@@ -21,6 +21,7 @@
     ./networking.nix
     ./vm.nix
     ./wireguard.nix
+    ./nvidia.nix
   ];
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" "riscv64-linux" ];
