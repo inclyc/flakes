@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, lib, f, ... }:
 {
   programs.vscode.enable = true;
 
