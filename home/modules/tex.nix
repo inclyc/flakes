@@ -1,7 +1,7 @@
 { lib, pkgs, config, ... }:
-with lib;
 let
   cfg = config.inclyc.tex;
+  inherit (lib) mkEnableOption mkIf;
 in
 {
   options = {

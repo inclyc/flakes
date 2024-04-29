@@ -1,7 +1,7 @@
 { config, lib, ... }:
-with lib;
 let
   cfg = config.inclyc.user;
+  inherit (lib) mkOption types;
 in
 {
   options = {
