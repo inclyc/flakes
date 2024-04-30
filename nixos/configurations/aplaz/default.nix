@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, config, lib, pkgs, ... }:
+{ inputs, lib, pkgs, ... }:
 
 {
   imports = [
@@ -19,7 +19,7 @@
   };
 
 
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.efi.canTouchEfiVariables = false;
 
   boot.kernel.sysctl = {
     "vm.swappiness" = 100;
@@ -44,12 +44,6 @@
   # Set your time zone.
   time.timeZone = "Asia/Shanghai";
 
-  fileSystems = {
-    "/".options = [ "compress=zstd" ];
-    "/home".options = [ "compress=zstd" ];
-    "/nix".options = [ "compress=zstd" "noatime" ];
-  };
-
   boot.kernelParams = [ "hid_apple.fnmode=2" ];
 
 
@@ -71,17 +65,6 @@
   };
 
   zramSwap.enable = true;
-
-
-  services.xserver.displayManager.sddm.settings = {
-    General = {
-      DisplayServer = "wayland";
-      InputMethod = "";
-    };
-    Wayland = {
-      CompositorCommand = "${pkgs.weston}/bin/weston --shell=fullscreen-shell.so";
-    };
-  };
 
   services.openssh.enable = true;
 
@@ -146,6 +129,8 @@
     libreoffice-qt
     bubblewrap
     tigervnc
+
+    fluent-icon-theme
   ];
 
   hardware.bluetooth.enable = true;
@@ -163,9 +148,8 @@
     sudo.u2fAuth = true;
   };
 
-  services.xserver.displayManager.sddm.enable = lib.mkForce false;
-
-  services.greetd.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
 
   virtualisation.podman.enable = true;
 
