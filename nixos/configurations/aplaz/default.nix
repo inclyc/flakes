@@ -10,6 +10,7 @@ in
 {
   imports = [
     # Include the results of the hardware scan.
+    ./cross.nix
     ./hardware-configuration.nix
     ./wireguard.nix
     inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
