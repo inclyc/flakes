@@ -23,6 +23,7 @@
       warn-dirty = false;
       system-features = [ "kvm" "big-parallel" ];
       use-xdg-base-directories = true;
+      builders-use-substitutes = true;
     };
     package = pkgs.nixUnstable;
     gc = {
