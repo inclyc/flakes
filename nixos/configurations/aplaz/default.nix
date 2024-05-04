@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, lib, pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 let
   proxy = "socks5://localhost:8899";
@@ -121,7 +121,7 @@ in
     rr
     ccache
     ninja
-    (lib.meta.hiPrio clang-tools_16)
+    (hiPrio clang-tools_16)
 
     python3
 
