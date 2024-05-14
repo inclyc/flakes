@@ -29,9 +29,9 @@
         port = 20122;
       };
       adrastea = {
-        hostname = "10.231.0.2";
+        hostname = "llvmws.lyc.dev";
         user = "lyc";
-        port = 22;
+        port = 20156;
       };
       adrastea-pub = {
         hostname = "t.lyc.dev";
