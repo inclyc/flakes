@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, ... }:
 {
   programs.vscode.enable = true;
 
@@ -12,7 +12,10 @@
 
   home.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
-    (lib.hiPrio clang-tools_16)
+    (hiPrio clang-tools_16)
+    (texlive.combine {
+      inherit (texlive) scheme-full;
+    })
     clash-meta
     pinentry_mac
     qemu
