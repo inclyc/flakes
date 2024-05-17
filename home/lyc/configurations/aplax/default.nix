@@ -19,5 +19,6 @@
     clash-meta
     pinentry_mac
     qemu
+    telegram-desktop
   ];
 }
