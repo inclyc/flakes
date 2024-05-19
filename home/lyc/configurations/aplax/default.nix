@@ -30,6 +30,10 @@
     code = "codium";
   };
 
+  home.sessionVariables = {
+    EDITOR = "codium --wait";
+  };
+
   programs.kitty.enable = true;
   programs.kitty.font = {
     name = "FiraCode Nerd Font Mono";
