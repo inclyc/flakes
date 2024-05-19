@@ -22,6 +22,14 @@
     telegram-desktop
   ];
 
+  # How about use vscodium for a while?
+  # Let's just give it a try then.
+  programs.vscode.package = pkgs.vscodium;
+  programs.zsh.shellAliases = {
+    # Alias the name "code" to codium, for current switching
+    code = "codium";
+  };
+
   programs.kitty.enable = true;
   programs.kitty.font = {
     name = "FiraCode Nerd Font Mono";
