@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 
 {
   inclyc = {
@@ -216,6 +216,17 @@
     authFile = pkgs.writeText "u2f_keys" ''
       lyc:C0V54BSOmQQKAA1viuQx4qsQs2WdQhOIxrXiny/LUjZGYakFilKeZG0mJwl4lfLwfZr681jJ7dQSRh8WPm/8dP////k=,aCqQlCY+XOJzHHisvlMf4lZi7shNO6ARRuBsHoFzDpEB+p3pPMsIGEVYMLql/KWn0fV+l/uhAgqkPJ73F8y59w==,es256,+presence
     '';
+  };
+
+  users.users = {
+    zxy = {
+      isNormalUser = true;
+      description = "Xiaoyu Zhang";
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAChPZIziXRA0i7/A5Q5JuQf0rh2tfIuQ/lE7gxoxyUv zhang@hhh"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG6MKXjYOkBEo7Ex6qTczyxS/jbYekBOs7klT6l62v+f dell@DESKTOP-SI7T7BL"
+      ] ++ config.users.users.lyc.openssh.authorizedKeys.keys;
+    };
   };
 
   security.pam.services = {
