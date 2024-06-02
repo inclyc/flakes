@@ -25,7 +25,7 @@
       use-xdg-base-directories = true;
       builders-use-substitutes = true;
     };
-    package = pkgs.nixUnstable;
+    package = pkgs.nix;
     registry.sys = lib.mkDefault {
       from = { type = "indirect"; id = "sys"; };
       flake = inputs.nixpkgs;

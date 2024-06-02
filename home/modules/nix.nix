@@ -12,7 +12,7 @@
   };
 
   nix = {
-    package = lib.mkDefault pkgs.nixUnstable;
+    package = pkgs.nix;
     settings = {
       substituters = [
         "https://mirrors.bfsu.edu.cn/nix-channels/store"
