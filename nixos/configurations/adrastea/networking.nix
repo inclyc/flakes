@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 let
   mkTapDev = name: {
     "20-${name}" = {
@@ -96,4 +96,23 @@ in
     enable = true;
     rule.enable = true;
   };
+
+  services.rathole.enable = true;
+  sops.secrets."rathole-ssh-token" = { };
+  sops.templates."rathole-client.toml".content = ''
+    [client]
+    remote_addr = "llvmws.lyc.dev:20155" # The address of the server. The port must be the same with the port in `server.bind_addr`
+
+    [client.transport]
+    type = "noise"
+
+    [client.transport.noise]
+    remote_public_key = "DVH4EM3P5phh5yzU7cOEDrDvdvahsiSSyeML+okHHx0="
+
+    [client.services.adrastea-ssh]
+    token = "${config.sops.placeholder.rathole-ssh-token}" # Must be the same with the server to pass the validation
+    local_addr = "0.0.0.0:22" # The address of the service that needs to be forwarded
+  '';
+
+  services.rathole.configFile = config.sops.templates."rathole-client.toml".path;
 }
