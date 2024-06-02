@@ -5,6 +5,9 @@
 {
   programs.vscode = {
     enable = lib.mkDefault false;
+
+    # Use open-source version of microsoft/vscode
+    package = pkgs.vscodium;
     userSettings = (builtins.fromJSON (builtins.readFile ./settings.json)) //
       (
         let
