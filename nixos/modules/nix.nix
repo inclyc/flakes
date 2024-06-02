@@ -26,10 +26,6 @@
       builders-use-substitutes = true;
     };
     package = pkgs.nixUnstable;
-    gc = {
-      automatic = true;
-      dates = "weekly";
-    };
     registry.sys = lib.mkDefault {
       from = { type = "indirect"; id = "sys"; };
       flake = inputs.nixpkgs;
