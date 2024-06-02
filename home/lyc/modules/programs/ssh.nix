@@ -33,6 +33,11 @@
         user = "lyc";
         port = 20156;
       };
+      adrastea-zxy = {
+        hostname = "llvmws.lyc.dev";
+        user = "zxy";
+        port = 20156;
+      };
       adrastea-pub = {
         hostname = "t.lyc.dev";
         user = "lyc";
