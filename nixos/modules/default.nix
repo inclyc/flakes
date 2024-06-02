@@ -5,6 +5,7 @@
     inputs.home-manager.nixosModules.home-manager
     ./clash
     ./nix.nix
+    ./rathole.nix
     ./nix-ld.nix
     ./gui.nix
     ./user.nix
