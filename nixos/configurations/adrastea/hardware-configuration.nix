@@ -27,8 +27,6 @@
   # These modules are required for PCI passthrough, and must come before early modesetting stuff
   boot.kernelModules = [ "vfio" "vfio_iommu_type1" "vfio_pci" "vfio_virqfd" "kvm-intel" ];
 
-  boot.extraModprobeConfig = "options vfio-pci ids=10de:1f06,10de:10f9,10de:1ada,10de:1adb";
-  boot.extraModulePackages = [ ];
 
   fileSystems."/" =
     {
