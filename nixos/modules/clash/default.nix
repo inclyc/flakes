@@ -3,9 +3,10 @@
 , lib
 , ...
 }:
-with lib;
+
 let
   cfg = config.services.clash;
+  inherit (lib) mkEnableOption mkOption mkIf types;
 in
 {
   options.services.clash = {
@@ -27,6 +28,12 @@ in
     };
     rule = {
       enable = mkEnableOption "clash rule generation";
+    };
+    allowTUN = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Allow clash using TUN device";
+      example = true;
     };
   };
   config = lib.mkMerge [
@@ -65,7 +72,14 @@ in
           RestrictRealtime = true;
           RestrictSUIDSGID = true;
           SystemCallArchitectures = "native";
-        };
+        } // (lib.optionalAttrs cfg.allowTUN {
+          DynamicUser = false;
+          PrivateDevices = false;
+          PrivateUsers = false;
+          CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];
+          DeviceAllow = [ "/dev/net/tun" ];
+          RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_NETLINK" ];
+        });
       };
     })
     (mkIf cfg.rule.enable (
