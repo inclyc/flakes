@@ -137,6 +137,9 @@ in
     tigervnc
 
     fluent-icon-theme
+
+    nodejs
+    yarn
   ];
 
   hardware.bluetooth.enable = true;
