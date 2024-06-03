@@ -42,6 +42,7 @@ in
   services.clash = {
     enable = true;
     rule.enable = true;
+    allowTUN = true;
   };
 
   services.resolved.enable = true;
