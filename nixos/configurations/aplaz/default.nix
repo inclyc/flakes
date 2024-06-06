@@ -121,7 +121,6 @@ in
     llvmPackages_16.clang
     llvmPackages_16.bintools
     rr
-    ccache
     ninja
     (hiPrio clang-tools_16)
 

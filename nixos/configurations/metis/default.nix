@@ -80,7 +80,6 @@
     llvmPackages_16.clang
     llvmPackages_16.bintools
     rr
-    ccache
     ninja
     (lib.meta.hiPrio clang-tools_16)
 
