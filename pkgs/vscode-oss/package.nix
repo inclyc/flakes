@@ -83,7 +83,7 @@ let
       export HOME=$PWD
       yarn config set yarn-offline-mirror $out
       find "$PWD" -name "yarn.lock" -printf "%h\n" | \
-        xargs -I {}
+        xargs -I {}                                                            \
           yarn --cwd {}                                                        \
           --frozen-lockfile                                                    \
           --ignore-scripts                                                     \
