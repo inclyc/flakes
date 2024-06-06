@@ -15,7 +15,7 @@
 
   nix.registry.sys = {
     from = { type = "indirect"; id = "sys"; };
-    flake = inputs.nixpkgs-stable;
+    flake = inputs.nixpkgs;
   };
 
   nix.settings.extra-platforms = [ "aarch64-linux" ];
