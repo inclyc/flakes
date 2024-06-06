@@ -24,7 +24,7 @@ jobs:
   build-packages:
     strategy:
       matrix:
-        package: [ topsap, vscode-oss.all ]
+        package: [ topsap, vscode-oss ]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
