@@ -9,7 +9,7 @@
     serverAliveInterval = 3;
     controlMaster = "auto";
     controlPersist = "10m";
-    matchBlocks = {
+    matchBlocks = rec {
       hitmc = {
         hostname = "lan.hitmc.cc";
         user = "inclyc";
@@ -35,11 +35,7 @@
         user = "lyc";
         port = 20156;
       };
-      adrastea-zxy = {
-        hostname = "llvmws.lyc.dev";
-        user = "zxy";
-        port = 20156;
-      };
+      adrastea-zxy = adrastea // { user = "zxy"; };
       adrastea-pub = {
         hostname = "t.lyc.dev";
         user = "lyc";
