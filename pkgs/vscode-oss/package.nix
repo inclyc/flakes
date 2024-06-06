@@ -17,6 +17,7 @@
 , ripgrep
 , xorg
 , yarn
+, darwin
 , product ? (import ./product.nix { inherit lib; })
 }:
 
@@ -43,33 +44,22 @@ let
     sha256 = "sha256-z4VA1pv+RPAzUOH/yK6EB84h4DOFG5TcRH443N7EIL0=";
   };
 
-  vscodePlatforms =
+  # Give all platform related information in this lambda.
+  vscodePlatforms = hostPlatform:
     let
-      msName = { os, arch }:
-        let
-          select = attrs: name: attrs.${name} or name;
-          msOS = { darwin = "macOS"; };
-          msArch = { x86_64 = "x64"; aarch64 = "arm64"; };
-        in
-        "${select msOS os}-${select msArch arch}";
-      nixSystem = { os, arch }: "${arch}-${os}";
-      supported = [
-        { os = "linux"; arch = "x86_64"; }
-        { os = "linux"; arch = "aarch64"; }
-      ];
+      select = attrs: name: attrs.${name} or name;
     in
-    system: {
-      # The name suitable for vscode gulp
-      name =
-        let
-          supportedName = lib.mergeAttrsList
-            (builtins.map (arg: { ${nixSystem arg} = msName arg; }) supported);
-        in
-          supportedName.${system} or (throw "Unsupported platform: ${system}");
+    {
+      ms = rec {
+        # Map Microsoft system names.
+        os = select { Darwin = "darwin"; Linux = "linux"; } hostPlatform.uname.system;
+        arch = select { x86_64 = "x64"; aarch64 = "arm64"; } hostPlatform.uname.processor;
+        # The name, interpolate it in gulp build tasks
+        name = "${os}-${arch}";
+      };
     };
-  system = stdenv.hostPlatform.system;
 
-  platform = vscodePlatforms system;
+  platform = vscodePlatforms stdenv.hostPlatform;
 
   yarnCache = stdenv.mkDerivation {
     name = "${pname}-${version}-yarn-cache";
@@ -143,6 +133,8 @@ stdenv.mkDerivation {
     moreutils
     pkg-config
     makeWrapper
+  ] ++ lib.optionals stdenv.isDarwin [
+    darwin.cctools
   ];
 
   buildInputs = [
@@ -150,6 +142,8 @@ stdenv.mkDerivation {
     libsecret
     xorg.libX11
     xorg.libxkbfile
+  ] ++ lib.optionals stdenv.isDarwin [
+    darwin.apple_sdk.frameworks.Cocoa
   ];
 
   patches = map (name: ./patches/${name})
@@ -201,7 +195,8 @@ stdenv.mkDerivation {
     yarn --offline                                                             \
          --ignore-scripts                                                      \
          --no-progress                                                         \
-         --non-interactive
+         --non-interactive                                                     \
+         --frozen-lockfile
 
     # run yarn install everywhere, skipping postinstall so we can patch esbuild
     find . -path "*node_modules" -prune -o \
@@ -239,27 +234,35 @@ stdenv.mkDerivation {
     yarn --offline gulp core-ci
     yarn --offline gulp compile-extensions-build
     yarn --offline gulp compile-extension-media-build
-    yarn --offline gulp vscode-reh-${platform.name}-min-ci
-    yarn --offline gulp vscode-reh-web-${platform.name}-min-ci
-    yarn --offline gulp vscode-${platform.name}-min-ci
+    yarn --offline gulp vscode-reh-${platform.ms.name}-min-ci
+    yarn --offline gulp vscode-reh-web-${platform.ms.name}-min-ci
+    yarn --offline gulp vscode-${platform.ms.name}-min-ci
     runHook postBuild
   '';
 
-  installPhase = ''
-    runHook preInstall
-    mkdir -p $out/lib $out/bin
-    mv ../VSCode-${platform.name} $out/lib/vscode
-    mv -T ../vscode-reh-${platform.name} $reh
-    mv -T ../vscode-reh-web-${platform.name} $rehweb
+  installPhase =
+    let
+      binName =
+        if stdenv.isDarwin then
+          "resources/app/bin/code"
+        else
+          "bin/code-oss";
+    in
+    ''
+      runHook preInstall
+      mkdir -p $out/lib $out/bin
+      mv ../VSCode-${platform.ms.name} $out/lib/vscode
+      mv -T ../vscode-reh-${platform.ms.name} $reh
+      mv -T ../vscode-reh-web-${platform.ms.name} $rehweb
 
-    ln -s ${nodejs}/bin/node $reh/
-    ln -s ${nodejs}/bin/node $rehweb/
+      ln -s ${nodejs}/bin/node $reh/
+      ln -s ${nodejs}/bin/node $rehweb/
 
-    # Make a wrapper script, setting the electron path, and vscode path
-    makeWrapper "$out/lib/vscode/bin/code-oss" "$out/bin/code-oss"             \
-      --set ELECTRON '${lib.getExe electron}'                                  \
-      --set VSCODE_PATH "$out/lib/vscode"
+      # Make a wrapper script, setting the electron path, and vscode path
+      makeWrapper "$out/lib/vscode/${binName}" "$out/bin/code-oss"             \
+        --set ELECTRON '${lib.getExe electron}'                                \
+        --set VSCODE_PATH "$out/lib/vscode"
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 }
