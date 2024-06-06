@@ -104,6 +104,8 @@
     fluent-icon-theme
 
     nodejs
+
+    vscode-oss
   ]);
 
   virtualisation.spiceUSBRedirection.enable = true;
