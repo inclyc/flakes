@@ -74,7 +74,6 @@
     llvmPackages_16.bintools
     (lib.meta.hiPrio clang-tools_16)
     rr
-    ccache
 
     pciutils
     usbutils
