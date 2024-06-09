@@ -7,6 +7,7 @@
 , jq
 , krb5
 , libsecret
+, makeDesktopItem
 , makeWrapper
 , moreutils
 , nodejs_18
@@ -19,16 +20,54 @@
 , yarn
 , darwin
 , product ? (import ./product.nix { inherit lib; })
+, productOverrides ? { }
 }:
 
 let
   inherit (nodePackages) node-gyp;
-  pname = "vscode";
+
+  shortName = productOverrides.nameShort or "Code - OSS";
+  longName = productOverrides.nameLong or "Code - OSS";
+  executableName = productOverrides.applicationName or "code-oss";
+
+  pname = executableName;
   version = "1.89.1";
   commit = "dc96b837cf6bb4af9cd736aa3af08cf8279f7685";
 
   product' = product // {
     inherit version;
+  } // productOverrides;
+
+  desktopItem = makeDesktopItem {
+    name = executableName;
+    desktopName = longName;
+    comment = "Code Editing. Redefined.";
+    genericName = "Text Editor";
+    exec = executableName;
+    icon = executableName;
+    startupNotify = true;
+    categories = [ "Utility" "TextEditor" "Development" "IDE" ];
+    mimeTypes = [ "text/plain" "inode/directory" ];
+    actions.new-empty-window = {
+      name = "New Empty Window";
+      exec = "${executableName} --new-window %F";
+      icon = executableName;
+    };
+    startupWMClass = shortName;
+  };
+
+  urlHandlerDesktopItem = makeDesktopItem {
+    name = executableName + "-url-handler";
+    desktopName = longName + " - URL Handler";
+    comment = "Code Editing. Redefined.";
+    genericName = "Text Editor";
+    exec = executableName + " --open-url %U";
+    icon = executableName;
+    startupNotify = true;
+    categories = [ "Utility" "TextEditor" "Development" "IDE" ];
+    mimeTypes = [ "x-scheme-handler/vscode" ];
+    keywords = [ "vscode" ];
+    noDisplay = true;
   };
 
   nodejs = nodejs_18;
@@ -257,12 +296,17 @@ stdenv.mkDerivation {
 
       ln -s ${nodejs}/bin/node $reh/
       ln -s ${nodejs}/bin/node $rehweb/
-
+    '' + lib.optionalString stdenv.isLinux ''
+      mkdir -p $out/share/applications
+      ln -s ${desktopItem}/share/applications/${executableName}.desktop $out/share/applications/${executableName}.desktop
+      ln -s ${urlHandlerDesktopItem}/share/applications/${executableName}-url-handler.desktop $out/share/applications/${executableName}-url-handler.desktop
+      mkdir -p $out/share/pixmaps
+      cp $out/lib/vscode/resources/app/resources/linux/${executableName}.png $out/share/pixmaps/${executableName}.png
+    '' + ''
       # Make a wrapper script, setting the electron path, and vscode path
       makeWrapper "$out/lib/vscode/${binName}" "$out/bin/code-oss"             \
         --set ELECTRON '${lib.getExe electron}'                                \
         --set VSCODE_PATH "$out/lib/vscode"
-
       runHook postInstall
     '';
 }
