@@ -20,6 +20,9 @@
     pinentry_mac
     qemu
     telegram-desktop
+
+    vscode-oss.rehweb
+    vscode-oss
   ];
 
   programs.kitty.enable = true;
