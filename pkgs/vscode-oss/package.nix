@@ -25,6 +25,7 @@
 
 let
   inherit (nodePackages) node-gyp;
+  inherit (darwin) autoSignDarwinBinariesHook;
 
   shortName = productOverrides.nameShort or "Code - OSS";
   longName = productOverrides.nameLong or "Code - OSS";
@@ -174,6 +175,8 @@ stdenv.mkDerivation {
     makeWrapper
   ] ++ lib.optionals stdenv.isDarwin [
     darwin.cctools
+  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+    autoSignDarwinBinariesHook
   ];
 
   buildInputs = [
