@@ -1,15 +1,13 @@
-{ pkgs
-, lib
-, ...
-}:
+{ pkgs, lib, ... }:
 {
   programs.vscode = {
     enable = lib.mkDefault false;
 
     # Use open-source version of microsoft/vscode
     package = pkgs.vscodium;
-    userSettings = (builtins.fromJSON (builtins.readFile ./settings.json)) //
-      (
+    userSettings =
+      (builtins.fromJSON (builtins.readFile ./settings.json))
+      // (
         let
           nvimPath = "${pkgs.neovim}/bin/nvim";
           zshPath = "${pkgs.zsh}/bin/zsh";
@@ -25,13 +23,14 @@
           "terminal.integrated.profiles.linux".zsh.path = zshPath;
           "nix.enableLanguageServer" = true;
           "nix.serverPath" = "${lib.getExe pkgs.nixd}";
+          "nix.serverSettings" = {
+            nixd = {
+              formatting.command = [ "nixfmt" ];
+            };
+          };
         }
       );
-
   };
 
-  home.packages = with pkgs; [
-    nil
-    nixpkgs-fmt
-  ];
+  home.packages = with pkgs; [ nixfmt-rfc-style ];
 }
