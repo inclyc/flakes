@@ -64,7 +64,7 @@
     },
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
-    "git.autofetch": true,
+    "git.autofetch": false,
     "git.enableCommitSigning": true,
     "git.mergeEditor": false,
     "latex-workshop.latex.autoBuild.run": "onSave",
