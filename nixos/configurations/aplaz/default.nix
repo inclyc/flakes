@@ -137,6 +137,8 @@ in
 
     nodejs
     yarn
+
+    vscode-oss
   ];
 
   hardware.bluetooth.enable = true;
