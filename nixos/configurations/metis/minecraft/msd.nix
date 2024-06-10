@@ -15,7 +15,6 @@ let
       sleep 1s
     done
   '';
-
 in
 {
   systemd.services.${serviceName} = {

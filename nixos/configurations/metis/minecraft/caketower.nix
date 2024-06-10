@@ -1,4 +1,9 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 let
   name = "caketower";
   serviceName = "minecraft-${name}";
@@ -15,7 +20,6 @@ let
       sleep 1s
     done
   '';
-
 in
 {
   systemd.services.${serviceName} = {

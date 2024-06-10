@@ -10,7 +10,9 @@ in
     Unit = { };
     Service =
       let
-        podmancli = "${outputs.nixosConfigurations."${hostName}".config.virtualisation.podman.package}/bin/podman";
+        podmancli = "${
+          outputs.nixosConfigurations."${hostName}".config.virtualisation.podman.package
+        }/bin/podman";
         podname = "topsap";
       in
       {
@@ -18,7 +20,8 @@ in
           "${podmancli} stop -i ${podname}"
           "${podmancli} rm -i ${podname}"
         ];
-        ExecStart = "${podmancli} run"
+        ExecStart =
+          "${podmancli} run"
           + " --rm"
           + " --privileged"
           + " --device /dev/net/tun"
@@ -35,7 +38,10 @@ in
         Type = "notify";
         NotifyAccess = "all";
         TimeoutStopSec = 15;
-        After = [ "sops-nix.service" "network.target" ];
+        After = [
+          "sops-nix.service"
+          "network.target"
+        ];
       };
     Install.WantedBy = [ "default.target" ];
   };

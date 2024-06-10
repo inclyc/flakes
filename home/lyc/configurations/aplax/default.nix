@@ -13,9 +13,7 @@
   home.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
     (hiPrio clang-tools_16)
-    (texlive.combine {
-      inherit (texlive) scheme-full;
-    })
+    (texlive.combine { inherit (texlive) scheme-full; })
     clash-meta
     pinentry_mac
     qemu

@@ -35,9 +35,7 @@
   systemd.network.networks = {
     wg0 = {
       matchConfig.Name = "wg0";
-      address = [
-        "10.231.0.3/16"
-      ];
+      address = [ "10.231.0.3/16" ];
       DHCP = "no";
       networkConfig = {
         IPv6AcceptRA = false;

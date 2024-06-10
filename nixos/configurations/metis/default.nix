@@ -1,7 +1,8 @@
-{ pkgs
-, lib
-, inputs
-, ...
+{
+  pkgs,
+  lib,
+  inputs,
+  ...
 }:
 {
   imports = [
@@ -14,7 +15,10 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   nix.registry.sys = {
-    from = { type = "indirect"; id = "sys"; };
+    from = {
+      type = "indirect";
+      id = "sys";
+    };
     flake = inputs.nixpkgs;
   };
 
@@ -72,7 +76,6 @@
 
     vim
 
-
     valgrind
     meson
     cmake
@@ -91,7 +94,6 @@
     mtr
     dig
   ];
-
 
   virtualisation.podman = {
     enable = true;

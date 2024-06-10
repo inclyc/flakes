@@ -1,5 +1,11 @@
 # Specify cross-builds on aplaz.
-{ pkgs, inputs, lib, config, ... }:
+{
+  pkgs,
+  inputs,
+  lib,
+  config,
+  ...
+}:
 let
   pkgsX86Cross = import pkgs.path {
     crossSystem.system = "aarch64-linux";
@@ -13,7 +19,12 @@ in
       hostName = "metis";
       system = "x86_64-linux";
       protocol = "ssh";
-      supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+      supportedFeatures = [
+        "nixos-test"
+        "benchmark"
+        "big-parallel"
+        "kvm"
+      ];
       mandatoryFeatures = [ ];
     }
   ];
@@ -21,8 +32,10 @@ in
   nix.distributedBuilds = true;
 
   # Use x86_64 linux cross-compiled kernel.
-  boot.kernelPackages = lib.mkForce (pkgsX86Cross.linux-asahi.override {
-    _kernelPatches = config.boot.kernelPatches;
-    withRust = config.hardware.asahi.withRust;
-  });
+  boot.kernelPackages = lib.mkForce (
+    pkgsX86Cross.linux-asahi.override {
+      _kernelPatches = config.boot.kernelPatches;
+      withRust = config.hardware.asahi.withRust;
+    }
+  );
 }

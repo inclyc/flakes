@@ -1,7 +1,8 @@
-{ pkgs
-, config
-, lib
-, ...
+{
+  pkgs,
+  config,
+  lib,
+  ...
 }:
 let
   inherit (lib) mkOption types mkIf;
@@ -17,9 +18,7 @@ in
       type = types.package;
       default = pkgs.rathole;
     };
-    configFile = mkOption {
-      type = types.path;
-    };
+    configFile = mkOption { type = types.path; };
 
     name = mkOption {
       type = types.str;
@@ -60,7 +59,10 @@ in
           ProtectControlGroups = "yes";
           ProtectProc = "invisible";
           LockPersonality = "yes";
-          RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+          RestrictAddressFamilies = [
+            "AF_INET"
+            "AF_INET6"
+          ];
           RestrictNamespaces = true;
           RestrictRealtime = true;
           RestrictSUIDSGID = true;

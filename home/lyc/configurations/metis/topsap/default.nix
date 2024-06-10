@@ -1,4 +1,12 @@
-{ config, pkgs, hostName, rootPath, outputs, lib, ... }:
+{
+  config,
+  pkgs,
+  hostName,
+  rootPath,
+  outputs,
+  lib,
+  ...
+}:
 let
   proxyHost = "0.0.0.0";
   proxyPort = "1081";
@@ -83,18 +91,26 @@ in
   sops.defaultSopsFile = rootPath + /secrets/general.yaml;
   sops.age.keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
   systemd.user.services.podman-topsap = {
-    Unit.After = [ "sops-nix.service" "network.target" ];
+    Unit.After = [
+      "sops-nix.service"
+      "network.target"
+    ];
     Service =
       let
-        podmancli = "${outputs.nixosConfigurations."${hostName}".config.virtualisation.podman.package}/bin/podman";
+        podmancli = "${
+          outputs.nixosConfigurations."${hostName}".config.virtualisation.podman.package
+        }/bin/podman";
         podname = "topsap";
-        path = lib.makeBinPath (with pkgs; [
-          coreutils
-          gnused
-          gnugrep
-          iproute2
-          nettools
-        ]);
+        path = lib.makeBinPath (
+          with pkgs;
+          [
+            coreutils
+            gnused
+            gnugrep
+            iproute2
+            nettools
+          ]
+        );
       in
       {
         ExecStartPre = [
@@ -102,7 +118,8 @@ in
           "${podmancli} rm -i ${podname}"
         ];
         RuntimeDirectory = "podman/${podname}";
-        ExecStart = "${podmancli} run"
+        ExecStart =
+          "${podmancli} run"
           + " --rm"
           + " -it"
           + " --privileged" # Allow sv_websrv write MTU.

@@ -11,5 +11,7 @@ in
   environment.systemPackages = [ nvidia ];
 
   # Set "NVIDIA_KERNEL" for furthur references.
-  environment.sessionVariables = { NVIDIA_KERNEL = nvidia; };
+  environment.sessionVariables = {
+    NVIDIA_KERNEL = nvidia;
+  };
 }

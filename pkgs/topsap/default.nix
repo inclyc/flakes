@@ -1,10 +1,11 @@
-{ stdenv
-, fetchurl
-, perl
-, dpkg
-, libuuid
-, autoPatchelfHook
-, ...
+{
+  stdenv,
+  fetchurl,
+  perl,
+  dpkg,
+  libuuid,
+  autoPatchelfHook,
+  ...
 }:
 stdenv.mkDerivation rec {
   pname = "topsap";
@@ -26,7 +27,6 @@ stdenv.mkDerivation rec {
     stdenv.cc.cc
     libuuid
   ];
-
 
   unpackCmd = "dpkg -x $curSrc source";
 

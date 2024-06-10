@@ -81,15 +81,9 @@
     "^https:\\/\\/github\\.com\\/[^/]+\\/[^/]+\\/(actions\\/)?workflows\\/.*badge\\.svg"
   ];
   extensionEnabledApiProposals = {
-    "ms-vscode.vscode-selfhost-test-provider" = [
-      "testObserver"
-    ];
-    "VisualStudioExptTeam.vscodeintellicode-completions" = [
-      "inlineCompletionsAdditions"
-    ];
-    "ms-toolsai.datawrangler" = [
-      "debugFocus"
-    ];
+    "ms-vscode.vscode-selfhost-test-provider" = [ "testObserver" ];
+    "VisualStudioExptTeam.vscodeintellicode-completions" = [ "inlineCompletionsAdditions" ];
+    "ms-toolsai.datawrangler" = [ "debugFocus" ];
     "ms-vsliveshare.vsliveshare" = [
       "contribMenuBarHome"
       "contribShareMenu"
@@ -110,9 +104,7 @@
       "workspaceTrust"
       "tunnels"
     ];
-    "ms-toolsai.vscode-ai-remote" = [
-      "resolvers"
-    ];
+    "ms-toolsai.vscode-ai-remote" = [ "resolvers" ];
     "ms-python.python" = [
       "contribEditorContentMenu"
       "quickPickSortByLabel"
@@ -124,9 +116,7 @@
       "contribIssueReporter"
       "terminalShellIntegration"
     ];
-    "ms-dotnettools.dotnet-interactive-vscode" = [
-      "notebookMessaging"
-    ];
+    "ms-dotnettools.dotnet-interactive-vscode" = [ "notebookMessaging" ];
     "GitHub.codespaces" = [
       "contribEditSessions"
       "contribMenuBarHome"
@@ -204,12 +194,8 @@
       "workspaceTrust"
       "tunnels"
     ];
-    "ms-vscode.lsif-browser" = [
-      "documentFiltersExclusive"
-    ];
-    "ms-vscode.vscode-speech" = [
-      "speech"
-    ];
+    "ms-vscode.lsif-browser" = [ "documentFiltersExclusive" ];
+    "ms-vscode.vscode-speech" = [ "speech" ];
     "GitHub.vscode-pull-request-github" = [
       "activeComment"
       "codiconDecoration"
@@ -232,12 +218,8 @@
       "tokenInformation"
       "treeViewMarkdownMessage"
     ];
-    "GitHub.copilot" = [
-      "inlineCompletionsAdditions"
-    ];
-    "GitHub.copilot-nightly" = [
-      "inlineCompletionsAdditions"
-    ];
+    "GitHub.copilot" = [ "inlineCompletionsAdditions" ];
+    "GitHub.copilot-nightly" = [ "inlineCompletionsAdditions" ];
     "GitHub.copilot-chat" = [
       "interactive"
       "terminalDataWriteEvent"
@@ -276,20 +258,14 @@
       "textSearchProvider"
       "timeline"
     ];
-    "ms-python.gather" = [
-      "notebookCellExecutionState"
-    ];
-    "ms-python.vscode-pylance" = [
-      "notebookCellExecutionState"
-    ];
+    "ms-python.gather" = [ "notebookCellExecutionState" ];
+    "ms-python.vscode-pylance" = [ "notebookCellExecutionState" ];
     "ms-python.debugpy" = [
       "portsAttributes"
       "contribIssueReporter"
       "debugVisualization"
     ];
-    "ms-toolsai.jupyter-renderers" = [
-      "contribNotebookStaticPreloads"
-    ];
+    "ms-toolsai.jupyter-renderers" = [ "contribNotebookStaticPreloads" ];
     "ms-toolsai.jupyter" = [
       "notebookDeprecated"
       "notebookMessaging"
@@ -306,33 +282,15 @@
       "notebookCellExecution"
       "notebookVariableProvider"
     ];
-    "dbaeumer.vscode-eslint" = [
-      "notebookCellExecutionState"
-    ];
-    "ms-vscode.azure-sphere-tools-ui" = [
-      "tunnels"
-    ];
-    "ms-azuretools.vscode-azureappservice" = [
-      "terminalDataWriteEvent"
-    ];
-    "ms-azuretools.vscode-azureresourcegroups" = [
-      "authGetSessions"
-    ];
-    "ms-vscode.anycode" = [
-      "extensionsAny"
-    ];
-    "ms-vscode.cpptools" = [
-      "terminalDataWriteEvent"
-    ];
-    "redhat.java" = [
-      "documentPaste"
-    ];
-    "ms-dotnettools.csdevkit" = [
-      "inlineCompletionsAdditions"
-    ];
-    "ms-dotnettools.vscodeintellicode-csharp" = [
-      "inlineCompletionsAdditions"
-    ];
+    "dbaeumer.vscode-eslint" = [ "notebookCellExecutionState" ];
+    "ms-vscode.azure-sphere-tools-ui" = [ "tunnels" ];
+    "ms-azuretools.vscode-azureappservice" = [ "terminalDataWriteEvent" ];
+    "ms-azuretools.vscode-azureresourcegroups" = [ "authGetSessions" ];
+    "ms-vscode.anycode" = [ "extensionsAny" ];
+    "ms-vscode.cpptools" = [ "terminalDataWriteEvent" ];
+    "redhat.java" = [ "documentPaste" ];
+    "ms-dotnettools.csdevkit" = [ "inlineCompletionsAdditions" ];
+    "ms-dotnettools.vscodeintellicode-csharp" = [ "inlineCompletionsAdditions" ];
     "microsoft-IsvExpTools.powerplatform-vscode" = [
       "fileSearchProvider"
       "textSearchProvider"
@@ -359,18 +317,10 @@
     ];
   };
   extensionKind = {
-    "Shan.code-settings-sync" = [
-      "ui"
-    ];
-    "shalldie.background" = [
-      "ui"
-    ];
-    "techer.open-in-browser" = [
-      "ui"
-    ];
-    "CoenraadS.bracket-pair-colorizer-2" = [
-      "ui"
-    ];
+    "Shan.code-settings-sync" = [ "ui" ];
+    "shalldie.background" = [ "ui" ];
+    "techer.open-in-browser" = [ "ui" ];
+    "CoenraadS.bracket-pair-colorizer-2" = [ "ui" ];
     "CoenraadS.bracket-pair-colorizer" = [
       "ui"
       "workspace"
@@ -391,22 +341,14 @@
       "ui"
       "workspace"
     ];
-    "vscodevim.vim" = [
-      "ui"
-    ];
-    "ollyhayes.colmak-vim" = [
-      "ui"
-    ];
+    "vscodevim.vim" = [ "ui" ];
+    "ollyhayes.colmak-vim" = [ "ui" ];
   };
   extensionPointExtensionKind = {
-    typescriptServerPlugins = [
-      "workspace"
-    ];
+    typescriptServerPlugins = [ "workspace" ];
   };
   extensionSyncedKeys = {
-    "ritwickdey.liveserver" = [
-      "liveServer.setup.version"
-    ];
+    "ritwickdey.liveserver" = [ "liveServer.setup.version" ];
   };
   # Make a list of extensions with special virtual workspace defaults.
   extensionVirtualWorkspacesSupport =
@@ -456,8 +398,9 @@
         "gruntfuggly.todo-tree"
       ];
     in
-    lib.genAttrs defaultDefault (name: { default = false; });
-
+    lib.genAttrs defaultDefault (name: {
+      default = false;
+    });
 
   builtInExtensions = [ ];
 

@@ -1,8 +1,6 @@
 { modulesPath, pkgs, ... }:
 {
-  imports = [
-    (modulesPath + "/installer/sd-card/sd-image-aarch64.nix")
-  ];
+  imports = [ (modulesPath + "/installer/sd-card/sd-image-aarch64.nix") ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
@@ -39,7 +37,6 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPVWQfblaorj5/4blfnDTFNl/fY5Xp8vBHDdSZriWZ2Q"
     ];
   };
-
 
   system.stateVersion = "23.05";
 }

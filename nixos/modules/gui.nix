@@ -1,7 +1,8 @@
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 
 with lib;
@@ -23,49 +24,50 @@ in
       "--disable-features=WaylandFractionalScaleV1"
     ];
 
-    programs.nix-ld.libraries = with pkgs; [
-      alsa-lib
-      at-spi2-atk
-      at-spi2-core
-      atk
-      cairo
-      cups
-      fontconfig
-      freetype
-      gdk-pixbuf
-      glib
-      gtk3
-      libGL
-      libappindicator-gtk3
-      libdrm
-      libnotify
-      libpulseaudio
-      pango
-      pipewire
-      mesa
-    ] ++ (with xorg; [
-      libX11
-      libXScrnSaver
-      libXcomposite
-      libXcursor
-      libXdamage
-      libXext
-      libXfixes
-      libXi
-      libXrandr
-      libXrender
-      libXtst
-      libxkbfile
-      libxshmfence
-      libxcb
-      libxkbcommon
-      nspr
-    ]);
+    programs.nix-ld.libraries =
+      with pkgs;
+      [
+        alsa-lib
+        at-spi2-atk
+        at-spi2-core
+        atk
+        cairo
+        cups
+        fontconfig
+        freetype
+        gdk-pixbuf
+        glib
+        gtk3
+        libGL
+        libappindicator-gtk3
+        libdrm
+        libnotify
+        libpulseaudio
+        pango
+        pipewire
+        mesa
+      ]
+      ++ (with xorg; [
+        libX11
+        libXScrnSaver
+        libXcomposite
+        libXcursor
+        libXdamage
+        libXext
+        libXfixes
+        libXi
+        libXrandr
+        libXrender
+        libXtst
+        libxkbfile
+        libxshmfence
+        libxcb
+        libxkbcommon
+        nspr
+      ]);
     i18n.inputMethod = {
       enabled = "fcitx5";
-      fcitx5.addons = with pkgs; [
-        fcitx5-chinese-addons
-      ];
+      fcitx5.addons = with pkgs; [ fcitx5-chinese-addons ];
       fcitx5.waylandFrontend = true;
     };
 
@@ -78,7 +80,6 @@ in
         initial_session = default_session;
       };
     };
-
 
     services.xserver.enable = true;
 
@@ -117,12 +118,29 @@ in
         noto-fonts-emoji
         jetbrains-mono
         fira-code
-        (nerdfonts.override { fonts = [ "JetBrainsMono" "Noto" "FiraCode" ]; })
+        (nerdfonts.override {
+          fonts = [
+            "JetBrainsMono"
+            "Noto"
+            "FiraCode"
+          ];
+        })
       ];
       fontconfig.defaultFonts = pkgs.lib.mkForce {
-        serif = [ "Source Serif Pro" "Noto Serif CJK SC" "Noto Serif" ];
-        sansSerif = [ "Source Sans Pro" "Noto Sans CJK SC" "Noto Sans" ];
-        monospace = [ "FiraCode Nerd Font Mono" "JetBrains Mono" ];
+        serif = [
+          "Source Serif Pro"
+          "Noto Serif CJK SC"
+          "Noto Serif"
+        ];
+        sansSerif = [
+          "Source Sans Pro"
+          "Noto Sans CJK SC"
+          "Noto Sans"
+        ];
+        monospace = [
+          "FiraCode Nerd Font Mono"
+          "JetBrains Mono"
+        ];
         emoji = [ "Noto Color Emoji" ];
       };
     };

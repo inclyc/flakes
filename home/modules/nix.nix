@@ -1,4 +1,10 @@
-{ inputs, lib, pkgs, outputs, ... }:
+{
+  inputs,
+  lib,
+  pkgs,
+  outputs,
+  ...
+}:
 {
   nixpkgs = {
     config = {
@@ -28,12 +34,19 @@
         "inclyc.cachix.org-1:izGZ+f/JLPovKX1OKd3rQZ8nPOCpvPij3+bebjxdZ2k="
       ];
       auto-optimise-store = lib.mkDefault true;
-      experimental-features = [ "nix-command" "flakes" "repl-flake" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+        "repl-flake"
+      ];
       warn-dirty = false;
       use-xdg-base-directories = true;
     };
     registry.home = lib.mkDefault {
-      from = { type = "indirect"; id = "home"; };
+      from = {
+        type = "indirect";
+        id = "home";
+      };
       flake = inputs.nixpkgs;
     };
   };

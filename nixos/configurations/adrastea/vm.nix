@@ -1,5 +1,4 @@
 /**
-
   Virtual Machines Configuration
 
   My virtual machines are hypervised by QEMU, optionally accelarated by KVM.
@@ -8,19 +7,24 @@
   Virtual machines are located in $HOME/VM.
   Each virtual machine owns a private directory under "machines".
   Shared data, OVMF binaries, are located at "shared"
-
-  */
-{ pkgs, lib, config, ... }:
+*/
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   vmDir = "vm";
 
   mkVMCmd =
-    { qemu ? pkgs.qemu
-    , enableSystemSound ? false
-    , enableEmulatedGPU ? false
-    , enableGPUPassthrough ? true
-    , enableEvdevInputs ? true
-    , memory
+    {
+      qemu ? pkgs.qemu,
+      enableSystemSound ? false,
+      enableEmulatedGPU ? false,
+      enableGPUPassthrough ? true,
+      enableEvdevInputs ? true,
+      memory,
     }:
     let
       SystemSound = lib.optionalString enableSystemSound ''
@@ -29,14 +33,17 @@ let
         -device hda-output,audiodev=snd0
       '';
       EmulatedGPU =
-        if enableEmulatedGPU then ''
-          -display none
-          -vga virtio
-          -vnc :0
-        '' else ''
-          -nographic
-          -vga none
-        '';
+        if enableEmulatedGPU then
+          ''
+            -display none
+            -vga virtio
+            -vnc :0
+          ''
+        else
+          ''
+            -nographic
+            -vga none
+          '';
       GPUPassthrough = lib.optionalString enableGPUPassthrough ''
         # VGA compatible controller: NVIDIA Corporation AD102 [GeForce RTX 4090] (rev a1)
         -device vfio-pci,host=01:00.0,x-vga=on
@@ -54,8 +61,7 @@ let
             -netdev tap,id=net-${ifname},ifname=${ifname},script=no,downscript=no
           '';
         in
-        (mkTap "vmtap0")
-        + (mkTap "vmtap1");
+        (mkTap "vmtap0") + (mkTap "vmtap1");
     in
     pkgs.writeShellScript "vm-launch.sh" ''
       cmd=(
@@ -92,10 +98,10 @@ let
       )
 
       exec "''${cmd[@]}"
-    ''
-  ;
+    '';
 
-  mkVM = { name, cmd }:
+  mkVM =
+    { name, cmd }:
     let
       directory = "${vmDir}/${name}";
       caps = [ "CAP_NET_ADMIN" ];
@@ -120,23 +126,23 @@ let
     };
 in
 {
-  systemd.services = {
-    "add-vfio" = {
-      path = [ pkgs.pciutils ];
-      description = "override devices driver to vfio";
+  systemd.services =
+    {
+      "add-vfio" = {
+        path = [ pkgs.pciutils ];
+        description = "override devices driver to vfio";
 
-      serviceConfig = rec {
-        Type = "oneshot";
-        ExecStart = "${pkgs.writeShellScript "addVFIO" (builtins.readFile ./add-vfio.sh)}  0000:01:00.0";
+        serviceConfig = rec {
+          Type = "oneshot";
+          ExecStart = "${pkgs.writeShellScript "addVFIO" (builtins.readFile ./add-vfio.sh)}  0000:01:00.0";
+        };
+      };
+    }
+    // mkVM {
+      name = "Elara";
+      cmd = mkVMCmd {
+        memory = 32 * 1024;
+        enableEmulatedGPU = true;
       };
     };
-  } // mkVM {
-    name = "Elara";
-    cmd = mkVMCmd {
-      memory = 32 * 1024;
-      enableEmulatedGPU = true;
-    };
-  };
-
-
 }

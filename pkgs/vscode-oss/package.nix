@@ -1,26 +1,27 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, buildGoModule
-, cacert
-, esbuild
-, jq
-, krb5
-, libsecret
-, makeDesktopItem
-, makeWrapper
-, moreutils
-, nodejs_18
-, electron_28
-, nodePackages
-, pkg-config
-, python3
-, ripgrep
-, xorg
-, yarn
-, darwin
-, product ? (import ./product.nix { inherit lib; })
-, productOverrides ? { }
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildGoModule,
+  cacert,
+  esbuild,
+  jq,
+  krb5,
+  libsecret,
+  makeDesktopItem,
+  makeWrapper,
+  moreutils,
+  nodejs_18,
+  electron_28,
+  nodePackages,
+  pkg-config,
+  python3,
+  ripgrep,
+  xorg,
+  yarn,
+  darwin,
+  product ? (import ./product.nix { inherit lib; }),
+  productOverrides ? { },
 }:
 
 let
@@ -35,9 +36,7 @@ let
   version = "1.89.1";
   commit = "dc96b837cf6bb4af9cd736aa3af08cf8279f7685";
 
-  product' = product // {
-    inherit version;
-  } // productOverrides;
+  product' = product // { inherit version; } // productOverrides;
 
   desktopItem = makeDesktopItem {
     name = executableName;
@@ -47,8 +46,16 @@ let
     exec = executableName;
     icon = executableName;
     startupNotify = true;
-    categories = [ "Utility" "TextEditor" "Development" "IDE" ];
-    mimeTypes = [ "text/plain" "inode/directory" ];
+    categories = [
+      "Utility"
+      "TextEditor"
+      "Development"
+      "IDE"
+    ];
+    mimeTypes = [
+      "text/plain"
+      "inode/directory"
+    ];
     actions.new-empty-window = {
       name = "New Empty Window";
       exec = "${executableName} --new-window %F";
@@ -65,7 +72,12 @@ let
     exec = executableName + " --open-url %U";
     icon = executableName;
     startupNotify = true;
-    categories = [ "Utility" "TextEditor" "Development" "IDE" ];
+    categories = [
+      "Utility"
+      "TextEditor"
+      "Development"
+      "IDE"
+    ];
     mimeTypes = [ "x-scheme-handler/vscode" ];
     keywords = [ "vscode" ];
     noDisplay = true;
@@ -85,15 +97,22 @@ let
   };
 
   # Give all platform related information in this lambda.
-  vscodePlatforms = hostPlatform:
+  vscodePlatforms =
+    hostPlatform:
     let
       select = attrs: name: attrs.${name} or name;
     in
     {
       ms = rec {
         # Map Microsoft system names.
-        os = select { Darwin = "darwin"; Linux = "linux"; } hostPlatform.uname.system;
-        arch = select { x86_64 = "x64"; aarch64 = "arm64"; } hostPlatform.uname.processor;
+        os = select {
+          Darwin = "darwin";
+          Linux = "linux";
+        } hostPlatform.uname.system;
+        arch = select {
+          x86_64 = "x64";
+          aarch64 = "arm64";
+        } hostPlatform.uname.processor;
         # The name, interpolate it in gulp build tasks
         name = "${os}-${arch}";
       };
@@ -106,9 +125,7 @@ let
     inherit src;
     GIT_SSL_CAINFO = "${cacert}/etc/ssl/certs/ca-bundle.crt";
     NODE_EXTRA_CA_CERTS = "${cacert}/etc/ssl/certs/ca-bundle.crt";
-    nativeBuildInputs = [
-      yarn
-    ];
+    nativeBuildInputs = [ yarn ];
     buildPhase = ''
       export HOME=$PWD
       yarn config set yarn-offline-mirror $out
@@ -129,16 +146,21 @@ let
   };
 
   esbuild' = esbuild.override {
-    buildGoModule = args: buildGoModule (args // rec {
-      version = "0.17.14";
-      src = fetchFromGitHub {
-        owner = "evanw";
-        repo = "esbuild";
-        rev = "v${version}";
-        hash = "sha256-4TC1d5FOZHUMuEMTcTOBLZZM+sFUswhyblI5HVWyvPA=";
-      };
-      vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
-    });
+    buildGoModule =
+      args:
+      buildGoModule (
+        args
+        // rec {
+          version = "0.17.14";
+          src = fetchFromGitHub {
+            owner = "evanw";
+            repo = "esbuild";
+            rev = "v${version}";
+            hash = "sha256-4TC1d5FOZHUMuEMTcTOBLZZM+sFUswhyblI5HVWyvPA=";
+          };
+          vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
+        }
+      );
   };
 
   # replaces esbuild's download script with a binary from nixpkgs
@@ -148,8 +170,6 @@ let
     sed -i 's/${version}/${esbuild'.version}/g' ${path}/node_modules/esbuild/lib/main.js
     ln -s -f ${esbuild'}/bin/esbuild ${path}/node_modules/esbuild/bin/esbuild
   '';
-
-
 in
 
 stdenv.mkDerivation {
@@ -165,31 +185,27 @@ stdenv.mkDerivation {
     "rehweb"
   ];
 
-  nativeBuildInputs = [
-    yarn'
-    python3
-    nodejs
-    jq
-    moreutils
-    pkg-config
-    makeWrapper
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.cctools
-  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-    autoSignDarwinBinariesHook
-  ];
+  nativeBuildInputs =
+    [
+      yarn'
+      python3
+      nodejs
+      jq
+      moreutils
+      pkg-config
+      makeWrapper
+    ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.cctools ]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ];
 
   buildInputs = [
     krb5
     libsecret
     xorg.libX11
     xorg.libxkbfile
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Cocoa
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Cocoa ];
 
-  patches = map (name: ./patches/${name})
-    (builtins.attrNames (builtins.readDir ./patches));
+  patches = map (name: ./patches/${name}) (builtins.attrNames (builtins.readDir ./patches));
 
   env = {
     # Disable NAPI_EXPERIMENTAL to allow to build with Node.js≥18.20.0.
@@ -230,65 +246,64 @@ stdenv.mkDerivation {
     export NODE_OPTIONS=--openssl-legacy-provider
   '';
 
-  buildPhase = ''
-    runHook preBuild
+  buildPhase =
+    ''
+      runHook preBuild
 
-    # install dependencies
-    yarn --offline                                                             \
-         --ignore-scripts                                                      \
-         --no-progress                                                         \
-         --non-interactive                                                     \
-         --frozen-lockfile
+      # install dependencies
+      yarn --offline                                                           \
+           --ignore-scripts                                                    \
+           --no-progress                                                       \
+           --non-interactive                                                   \
+           --frozen-lockfile
 
-    # run yarn install everywhere, skipping postinstall so we can patch esbuild
-    find . -path "*node_modules" -prune -o \
-      -path "./*/*" -name "yarn.lock" -printf "%h\n" |                         \
-        xargs -I {}                                                            \
-          yarn --cwd {}                                                        \
-               --frozen-lockfile                                               \
-               --offline                                                       \
-               --ignore-scripts                                                \
-               --ignore-engines
+      # run yarn install everywhere, skipping postinstall so we can patch esbuild
+      find . -path "*node_modules" -prune -o \
+        -path "./*/*" -name "yarn.lock" -printf "%h\n" |                       \
+          xargs -I {}                                                          \
+            yarn --cwd {}                                                      \
+                 --frozen-lockfile                                             \
+                 --offline                                                     \
+                 --ignore-scripts                                              \
+                 --ignore-engines
 
-    ${patchEsbuild "./build" "0.12.6"}
-    ${patchEsbuild "./extensions" "0.11.23"}
-    # patch shebangs of node_modules to allow binary packages to build
-    patchShebangs .
-    # put ripgrep binary into bin so postinstall does not try to download it
-    find -path "*@vscode/ripgrep" -type d                                      \
-      -execdir mkdir -p {}/bin \;                                              \
-      -execdir ln -s ${ripgrep}/bin/rg {}/bin/rg \;
-  '' + lib.optionalString stdenv.isDarwin ''
-    # use prebuilt binary for @parcel/watcher, which requires macOS SDK 10.13+
-    # (see issue #101229)
-    pushd ./remote/node_modules/@parcel/watcher
-    mkdir -p ./build/Release
-    mv ./prebuilds/darwin-x64/node.napi.glibc.node ./build/Release/watcher.node
-    jq "del(.scripts) | .gypfile = false" ./package.json | sponge ./package.json
-    popd
-  '' + ''
-    npm rebuild --build-from-source
-    npm rebuild --prefix remote/ --build-from-source
-    # run postinstall scripts after patching
-    find . -path "*node_modules" -prune -o \
-      -path "./*/*" -name "yarn.lock" -printf "%h\n" | \
-        xargs -I {} sh -c 'jq -e ".scripts.postinstall" {}/package.json >/dev/null && yarn --cwd {} postinstall --frozen-lockfile --offline || true'
-    yarn --offline gulp core-ci
-    yarn --offline gulp compile-extensions-build
-    yarn --offline gulp compile-extension-media-build
-    yarn --offline gulp vscode-reh-${platform.ms.name}-min-ci
-    yarn --offline gulp vscode-reh-web-${platform.ms.name}-min-ci
-    yarn --offline gulp vscode-${platform.ms.name}-min-ci
-    runHook postBuild
-  '';
+      ${patchEsbuild "./build" "0.12.6"}
+      ${patchEsbuild "./extensions" "0.11.23"}
+      # patch shebangs of node_modules to allow binary packages to build
+      patchShebangs .
+      # put ripgrep binary into bin so postinstall does not try to download it
+      find -path "*@vscode/ripgrep" -type d                                    \
+        -execdir mkdir -p {}/bin \;                                            \
+        -execdir ln -s ${ripgrep}/bin/rg {}/bin/rg \;
+    ''
+    + lib.optionalString stdenv.isDarwin ''
+      # use prebuilt binary for @parcel/watcher, which requires macOS SDK 10.13+
+      # (see issue #101229)
+      pushd ./remote/node_modules/@parcel/watcher
+      mkdir -p ./build/Release
+      mv ./prebuilds/darwin-x64/node.napi.glibc.node ./build/Release/watcher.node
+      jq "del(.scripts) | .gypfile = false" ./package.json | sponge ./package.json
+      popd
+    ''
+    + ''
+      npm rebuild --build-from-source
+      npm rebuild --prefix remote/ --build-from-source
+      # run postinstall scripts after patching
+      find . -path "*node_modules" -prune -o \
+        -path "./*/*" -name "yarn.lock" -printf "%h\n" | \
+          xargs -I {} sh -c 'jq -e ".scripts.postinstall" {}/package.json >/dev/null && yarn --cwd {} postinstall --frozen-lockfile --offline || true'
+      yarn --offline gulp core-ci
+      yarn --offline gulp compile-extensions-build
+      yarn --offline gulp compile-extension-media-build
+      yarn --offline gulp vscode-reh-${platform.ms.name}-min-ci
+      yarn --offline gulp vscode-reh-web-${platform.ms.name}-min-ci
+      yarn --offline gulp vscode-${platform.ms.name}-min-ci
+      runHook postBuild
+    '';
 
   installPhase =
     let
-      binName =
-        if stdenv.isDarwin then
-          "resources/app/bin/code"
-        else
-          "bin/code-oss";
+      binName = if stdenv.isDarwin then "resources/app/bin/code" else "bin/code-oss";
     in
     ''
       runHook preInstall
@@ -299,12 +314,14 @@ stdenv.mkDerivation {
 
       ln -s ${nodejs}/bin/node $reh/
       ln -s ${nodejs}/bin/node $rehweb/
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       mkdir -p $out/share/applications
       ln -s ${desktopItem}/share/applications/${executableName}.desktop $out/share/applications/${executableName}.desktop
       ln -s ${urlHandlerDesktopItem}/share/applications/${executableName}-url-handler.desktop $out/share/applications/${executableName}-url-handler.desktop
       install -D $out/lib/vscode/resources/app/resources/linux/code.png $out/share/pixmaps/${executableName}.png
-    '' + ''
+    ''
+    + ''
       # Make a wrapper script, setting the electron path, and vscode path
       makeWrapper "$out/lib/vscode/${binName}" "$out/bin/code-oss"             \
         --set ELECTRON '${lib.getExe electron}'                                \

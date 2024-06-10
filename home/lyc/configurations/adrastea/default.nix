@@ -11,9 +11,7 @@
   programs.vscode = {
     enable = true;
     userSettings = (builtins.fromJSON (builtins.readFile ./vscode-settings.json));
-    extensions = with pkgs.vscode-extensions; [
-      vadimcn.vscode-lldb
-    ];
+    extensions = with pkgs.vscode-extensions; [ vadimcn.vscode-lldb ];
   };
 
   services.gpg-agent = {

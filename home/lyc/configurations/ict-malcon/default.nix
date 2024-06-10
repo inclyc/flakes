@@ -1,16 +1,22 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 {
 
   home.homeDirectory = "/data/${config.home.username}";
   home.username = "lyc";
 
-  home.packages = with pkgs; [
-    ninja
-  ] ++ (with pkgs.llvmPackages_16; [
-    clang
-    llvm
-    lld
-  ]);
+  home.packages =
+    with pkgs;
+    [ ninja ]
+    ++ (with pkgs.llvmPackages_16; [
+      clang
+      llvm
+      lld
+    ]);
 
   programs.git.signing.signByDefault = lib.mkForce false;
   programs.zsh.dirHashes = {

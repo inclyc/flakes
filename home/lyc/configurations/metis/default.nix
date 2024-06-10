@@ -1,8 +1,12 @@
-{ inputs, pkgs, lib, config, ... }:
 {
-  imports = [
-    ./topsap
-  ];
+  inputs,
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+{
+  imports = [ ./topsap ];
   programs.git.signing.signByDefault = lib.mkForce false;
   programs.zsh.dirHashes = {
     flakes = "${config.home.homeDirectory}/flakes";
@@ -10,7 +14,10 @@
   };
 
   nix.registry.home = {
-    from = { type = "indirect"; id = "home"; };
+    from = {
+      type = "indirect";
+      id = "home";
+    };
     flake = inputs.nixpkgs;
   };
 

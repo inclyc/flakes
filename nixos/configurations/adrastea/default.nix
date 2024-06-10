@@ -2,7 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 {
   inclyc = {
@@ -24,7 +29,10 @@
     ./nvidia.nix
   ];
 
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" "riscv64-linux" ];
+  boot.binfmt.emulatedSystems = [
+    "aarch64-linux"
+    "riscv64-linux"
+  ];
 
   networking.hostName = "adrastea"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -49,66 +57,65 @@
     };
   };
 
-  environment.systemPackages = with pkgs.libsForQt5; [
-    ark
-  ] ++ (with pkgs; [
-    gnumake
-    qemu
-    virt-viewer
+  environment.systemPackages =
+    with pkgs.libsForQt5;
+    [ ark ]
+    ++ (with pkgs; [
+      gnumake
+      qemu
+      virt-viewer
 
-    gdb
-    file
-    patchelf
-    btop
-    stdenv.cc
+      gdb
+      file
+      patchelf
+      btop
+      stdenv.cc
 
-    sops
-    age
-    ssh-to-age
+      sops
+      age
+      ssh-to-age
 
-    valgrind
-    meson
-    cmake
-    lldb
-    llvmPackages_16.clang
-    llvmPackages_16.bintools
-    (lib.meta.hiPrio clang-tools_16)
-    rr
+      valgrind
+      meson
+      cmake
+      lldb
+      llvmPackages_16.clang
+      llvmPackages_16.bintools
+      (lib.meta.hiPrio clang-tools_16)
+      rr
 
-    pciutils
-    usbutils
+      pciutils
+      usbutils
 
-    (python311.withPackages
-      (ps: with ps; [
-        numpy
-        requests
-        matplotlib
-        scipy
-      ]))
+      (python311.withPackages (
+        ps: with ps; [
+          numpy
+          requests
+          matplotlib
+          scipy
+        ]
+      ))
 
+      jdk17
 
-    jdk17
+      chromium
 
+      libreoffice-qt
 
-    chromium
+      # VNC client
+      krdc
 
-    libreoffice-qt
+      # better frp
+      rathole
 
-    # VNC client
-    krdc
+      fluent-icon-theme
 
-    # better frp
-    rathole
+      nodejs
 
-    fluent-icon-theme
-
-    nodejs
-
-    vscode-oss
-  ]);
+      vscode-oss
+    ]);
 
   virtualisation.spiceUSBRedirection.enable = true;
-
 
   # Grant non-privileged users to access USB devices
   # For rootlesss USB forwarding (without SPICE)
@@ -121,16 +128,23 @@
   '';
 
   security.pam.loginLimits = [
-    { domain = "@wheel"; item = "memlock"; type = "hard"; value = "unlimited"; }
-    { domain = "@wheel"; item = "memlock"; type = "soft"; value = "unlimited"; }
+    {
+      domain = "@wheel";
+      item = "memlock";
+      type = "hard";
+      value = "unlimited";
+    }
+    {
+      domain = "@wheel";
+      item = "memlock";
+      type = "soft";
+      value = "unlimited";
+    }
   ];
 
-  nixpkgs.config.permittedInsecurePackages = [
-    "electron-19.0.7"
-  ];
+  nixpkgs.config.permittedInsecurePackages = [ "electron-19.0.7" ];
 
   services.greetd.enable = false;
-
 
   # Workaround of nixpkgs#187963 and nixpkgs#199881
   services.xserver.displayManager.setupCommands = lib.mkForce "";
@@ -172,7 +186,6 @@
     };
     kdeconnect.enable = true;
   };
-
 
   environment.shells = with pkgs; [ zsh ];
   environment.localBinInPath = true;

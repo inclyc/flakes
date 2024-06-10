@@ -11,5 +11,4 @@
   ];
 
   home.stateVersion = lib.mkDefault "22.11";
-
 }

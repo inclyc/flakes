@@ -25,7 +25,6 @@ in
     configurationLimit = 5;
   };
 
-
   boot.loader.efi.canTouchEfiVariables = false;
 
   boot.kernel.sysctl = {
@@ -51,7 +50,6 @@ in
   time.timeZone = "Asia/Shanghai";
 
   boot.kernelParams = [ "hid_apple.fnmode=2" ];
-
 
   systemd.oomd.enableRootSlice = true;
   systemd.oomd.enableUserSlices = true;
@@ -160,5 +158,4 @@ in
   services.displayManager.sddm.wayland.enable = true;
 
   virtualisation.podman.enable = true;
-
 }

@@ -19,7 +19,5 @@
 
   xdg.enable = lib.mkDefault true;
 
-  programs.gpg = lib.mkIf (config.xdg.enable) {
-    homedir = "${config.xdg.dataHome}/gnupg";
-  };
+  programs.gpg = lib.mkIf (config.xdg.enable) { homedir = "${config.xdg.dataHome}/gnupg"; };
 }

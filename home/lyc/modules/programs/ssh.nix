@@ -1,8 +1,6 @@
 { lib, ... }:
 {
-  imports = [
-    ./ssh-jump.nix
-  ];
+  imports = [ ./ssh-jump.nix ];
 
   programs.ssh = {
     enable = lib.mkDefault true;
@@ -35,7 +33,9 @@
         user = "lyc";
         port = 20156;
       };
-      adrastea-zxy = adrastea // { user = "zxy"; };
+      adrastea-zxy = adrastea // {
+        user = "zxy";
+      };
       adrastea-pub = {
         hostname = "t.lyc.dev";
         user = "lyc";

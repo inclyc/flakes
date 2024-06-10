@@ -24,7 +24,13 @@
       zplugHome = "${config.xdg.dataHome}/zplug";
       plugins = [
         { name = "hlissner/zsh-autopair"; }
-        { name = "romkatv/powerlevel10k"; tags = [ "as:theme" "depth:1" ]; }
+        {
+          name = "romkatv/powerlevel10k";
+          tags = [
+            "as:theme"
+            "depth:1"
+          ];
+        }
       ];
     };
 
