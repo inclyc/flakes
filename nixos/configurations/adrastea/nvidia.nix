@@ -14,4 +14,15 @@ in
   environment.sessionVariables = {
     NVIDIA_KERNEL = nvidia;
   };
+
+  # Initialize nvidia gpu card using "nvidia-smi" in root.
+  systemd.services."nvidia-init" = {
+    description = "Initialize NVIDIA GPU";
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${nvidia.bin}/bin/nvidia-smi";
+    };
+
+    wantedBy = [ "multi-user.target" ];
+  };
 }
