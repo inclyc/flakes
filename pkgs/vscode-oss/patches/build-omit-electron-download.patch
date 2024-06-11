@@ -1,7 +1,7 @@
 From 2f3fe75948f1cada5c67da46c51a03443d7e38e0 Mon Sep 17 00:00:00 2001
 From: Yingchi Long <i@lyc.dev>
 Date: Mon, 3 Jun 2024 22:32:04 +0800
-Subject: [PATCH 3/5] build: omit electron download
+Subject: [PATCH] build: omit electron download
 
 ---
  build/gulpfile.vscode.js | 3 +--
@@ -13,11 +13,11 @@ index e1507e0424f..50f38dccedc 100644
 +++ b/build/gulpfile.vscode.js
 @@ -199,7 +199,6 @@ function packageTask(platform, arch, sourceFolderName, destinationFolderName, op
  	platform = platform || process.platform;
- 
+
  	return () => {
 -		const electron = require('@vscode/gulp-electron');
  		const json = require('gulp-json-editor');
- 
+
  		const out = sourceFolderName;
 @@ -340,7 +339,7 @@ function packageTask(platform, arch, sourceFolderName, destinationFolderName, op
  			.pipe(util.skipDirectories())
@@ -26,8 +26,7 @@ index e1507e0424f..50f38dccedc 100644
 -			.pipe(electron({ ...config, platform, arch: arch === 'armhf' ? 'arm' : arch, ffmpegChromium: false }))
 +			.pipe(rename(path => { path.dirname = "resources/app" + (path.dirname === "." ? "" : "/" + path.dirname); }))
  			.pipe(filter(['**', '!LICENSE', '!version'], { dot: true }));
- 
- 		if (platform === 'linux') {
--- 
-2.44.0
 
+ 		if (platform === 'linux') {
+--
+2.44.0
