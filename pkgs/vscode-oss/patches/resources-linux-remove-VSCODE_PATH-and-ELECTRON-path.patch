@@ -1,7 +1,7 @@
 From 5ed1ff4f02a4eab620622a477345a6ee22013434 Mon Sep 17 00:00:00 2001
 From: Yingchi Long <i@lyc.dev>
 Date: Mon, 3 Jun 2024 23:10:08 +0800
-Subject: [PATCH 5/5] resources/linux: remove VSCODE_PATH and ELECTRON path
+Subject: [PATCH] resources/linux: remove VSCODE_PATH and ELECTRON path
  setting
 
 These values will be given from nix.
@@ -17,7 +17,7 @@ index 4f11f5b82e0..d695f60bde4 100755
 @@ -44,20 +44,7 @@ if [ "$(id -u)" = "0" ]; then
  	fi
  fi
- 
+
 -if [ ! -L "$0" ]; then
 -	# if path is not a symlink, find relatively
 -	VSCODE_PATH="$(dirname "$0")/.."
@@ -44,7 +44,7 @@ index d8cefb6df67..dc2fb1de090 100644
 @@ -57,6 +57,11 @@ function stripAppPath(argv: string[]): string[] | undefined {
  	return undefined;
  }
- 
+
 +/**
 + * Returns true if app path should be stripped in program args
 + */
@@ -55,22 +55,21 @@ index d8cefb6df67..dc2fb1de090 100644
   */
 @@ -64,7 +69,7 @@ export function parseMainProcessArgv(processArgv: string[]): NativeParsedArgs {
  	let [, ...args] = processArgv;
- 
+
  	// If dev, remove the first non-option argument: it's the app location
 -	if (process.env['VSCODE_DEV']) {
 +	if (shouldStripAppPath()) {
  		args = stripAppPath(args) || [];
  	}
- 
+
 @@ -80,7 +85,7 @@ export function parseCLIProcessArgv(processArgv: string[]): NativeParsedArgs {
  	let [, , ...args] = processArgv; // remove the first non-option argument: it's always the app location
- 
+
  	// If dev, remove the first non-option argument: it's the app location
 -	if (process.env['VSCODE_DEV']) {
 +	if (shouldStripAppPath()) {
  		args = stripAppPath(args) || [];
  	}
- 
--- 
-2.44.0
 
+--
+2.44.0
