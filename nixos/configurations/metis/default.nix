@@ -7,7 +7,6 @@
 {
   imports = [
     ./wireguard.nix
-    ./minecraft
     ./hardware-configuration.nix
     ./rathole.nix
   ];
