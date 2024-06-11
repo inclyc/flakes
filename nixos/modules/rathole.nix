@@ -39,7 +39,7 @@ in
         serviceConfig = {
           Type = "simple";
           DynamicUser = "yes";
-          ExecStart = "${lib.getExe cfg.package} -c %d/config.toml";
+          ExecStart = "${lib.getExe cfg.package} %d/config.toml";
           LoadCredential = "config.toml:${configFile}";
           LimitNOFILE = 1048576;
           RestartSec = "5s";
