@@ -93,6 +93,8 @@
 
     mtr
     dig
+
+    nixd
   ];
 
   # Allow unfree packages
