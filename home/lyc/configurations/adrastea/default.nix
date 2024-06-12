@@ -1,10 +1,7 @@
 { pkgs, config, ... }:
 {
 
-  imports = [
-    ./sops.nix
-    ./topsap.nix
-  ];
+  imports = [ ./sops.nix ];
 
   inclyc.tex.enable = true;
 
