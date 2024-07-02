@@ -138,7 +138,7 @@ in
     nodejs
     yarn
 
-    vscode-oss
+    (code-oss.override { disableMangle = true; })
   ];
 
   hardware.bluetooth.enable = true;
