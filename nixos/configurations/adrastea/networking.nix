@@ -62,7 +62,7 @@ in
         IPMasquerade = "both";
         ConfigureWithoutCarrier = true;
       };
-      addresses = [ { addressConfig.Address = "10.157.0.1/24"; } ];
+      addresses = [ { Address = "10.157.0.1/24"; } ];
     };
   } // mkBrSlave "enp5s0" "br0" // mkBrSlave "vmtap0" "br0" // mkBrSlave "vmtap1" "br1";
 
