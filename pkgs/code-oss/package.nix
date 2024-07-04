@@ -36,9 +36,9 @@
   productOverrides ? { },
 
   # Disable mangling.
-  # Significantly speed up compilation, if you are do some customization.
-  # But may require bigger closure size.
-  disableMangle ? false,
+  # Significantly speed up compilation, at ~200KB closure size.
+  # Mangling also SEGSEGVs on higher node versions of x86_64 linux.
+  disableMangle ? true,
 }:
 
 let
