@@ -112,7 +112,7 @@
 
       nodejs
 
-      vscode-oss
+      code-oss
     ]);
 
   virtualisation.spiceUSBRedirection.enable = true;
