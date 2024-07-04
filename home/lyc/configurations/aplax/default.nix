@@ -21,6 +21,8 @@
 
     vscode-oss.rehweb
     vscode-oss
+
+    nodejs
   ];
 
   programs.kitty.enable = true;
