@@ -19,16 +19,12 @@
       };
       wireguardPeers = [
         {
-          wireguardPeerConfig = {
-            PublicKey = "bc1g46/rPzwG7x9amS+YdVuISU1Xl2kx7Hxs5W3zTQw=";
-            AllowedIPs = [ "10.231.0.2" ];
-          };
+          PublicKey = "bc1g46/rPzwG7x9amS+YdVuISU1Xl2kx7Hxs5W3zTQw=";
+          AllowedIPs = [ "10.231.0.2" ];
         }
         {
-          wireguardPeerConfig = {
-            PublicKey = "o0Z8h2XycBqgfomicsgoSDKLbqjRt6Fm3uBMavWVPAM=";
-            AllowedIPs = [ "10.231.0.3" ];
-          };
+          PublicKey = "o0Z8h2XycBqgfomicsgoSDKLbqjRt6Fm3uBMavWVPAM=";
+          AllowedIPs = [ "10.231.0.3" ];
         }
       ];
     };

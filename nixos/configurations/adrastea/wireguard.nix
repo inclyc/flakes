@@ -19,20 +19,16 @@
       };
       wireguardPeers = [
         {
-          wireguardPeerConfig = {
-            PublicKey = "CMb1V4DaIsYRY5dNxZSzQZD6Xnd5/DNyDPJoRtosfgs=";
-            AllowedIPs = [ "10.231.0.1/16" ];
-            Endpoint = "llvmws.lyc.dev:20125";
-            PersistentKeepalive = 25;
-          };
+          PublicKey = "CMb1V4DaIsYRY5dNxZSzQZD6Xnd5/DNyDPJoRtosfgs=";
+          AllowedIPs = [ "10.231.0.1/16" ];
+          Endpoint = "llvmws.lyc.dev:20125";
+          PersistentKeepalive = 25;
         }
         {
-          wireguardPeerConfig = {
-            PublicKey = "GcR4Wx7JUJOCO5Rs+gs0S4xbnC4NqU4ltCsSowjwEyg=";
-            AllowedIPs = [ "0.0.0.0/0" ];
-            Endpoint = "t.lyc.dev:45229";
-            PersistentKeepalive = 25;
-          };
+          PublicKey = "GcR4Wx7JUJOCO5Rs+gs0S4xbnC4NqU4ltCsSowjwEyg=";
+          AllowedIPs = [ "0.0.0.0/0" ];
+          Endpoint = "t.lyc.dev:45229";
+          PersistentKeepalive = 25;
         }
       ];
     };
