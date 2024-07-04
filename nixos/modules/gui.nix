@@ -5,16 +5,15 @@
   ...
 }:
 
-with lib;
 let
   cfg = config.inclyc.gui;
 in
 {
   options.inclyc.gui = {
-    enable = mkEnableOption "enable GUI host";
+    enable = lib.mkEnableOption "enable GUI host";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
 
     # Let chromium use wayland, however not apply to all chromium-based apps.
     nixpkgs.config.chromium.commandLineArgs = lib.concatStringsSep " " [
