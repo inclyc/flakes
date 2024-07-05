@@ -9,8 +9,8 @@
   makeDesktopItem,
   makeWrapper,
   moreutils,
-  nodejs_18,
-  electron_28,
+  nodejs,
+  electron,
   nodePackages,
   pkg-config,
   python3,
@@ -34,6 +34,11 @@
 
   # Override product.json
   productOverrides ? { },
+
+  # Disable mangling.
+  # Significantly speed up compilation, at ~200KB closure size.
+  # Mangling also SEGSEGVs on higher node versions of x86_64 linux.
+  disableMangle ? true,
 }:
 
 let
@@ -51,10 +56,6 @@ let
   };
 
   inherit (common) desktopItem urlHandlerDesktopItem;
-
-  nodejs = nodejs_18;
-
-  electron = electron_28;
 
   yarn' = yarn.override { inherit nodejs; };
 
@@ -85,14 +86,14 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = executableName;
-  version = "1.89.1";
-  commit = "dc96b837cf6bb4af9cd736aa3af08cf8279f7685";
+  version = "1.90.2";
+  commit = "5437499feb04f7a586f677b155b039bc2b3669eb";
 
   src = fetchFromGitHub {
     owner = "microsoft";
     repo = "vscode";
     rev = finalAttrs.version;
-    sha256 = "sha256-z4VA1pv+RPAzUOH/yK6EB84h4DOFG5TcRH443N7EIL0=";
+    sha256 = "sha256-WAI3n4FAMQGezm5VC6t+WIkxv99xngfI0Rh1iItUWvQ=";
   };
 
   passthru.product =
@@ -135,7 +136,7 @@ stdenv.mkDerivation (finalAttrs: {
 
       outputHashMode = "recursive";
       outputHashAlgo = "sha256";
-      outputHash = "sha256-7Qy0xMLcvmZ43EcNbsy7lko0nsXlbVYSMiq6aa4LuoQ=";
+      outputHash = "sha256-GogYDiEwx+IzJi11kPY55QnXSxI1zFsQXx9FJQxDbiU=";
     }
   );
 
@@ -255,7 +256,7 @@ stdenv.mkDerivation (finalAttrs: {
       find . -path "*node_modules" -prune -o \
         -path "./*/*" -name "yarn.lock" -printf "%h\n" | \
           xargs -I {} sh -c 'jq -e ".scripts.postinstall" {}/package.json >/dev/null && yarn --cwd {} postinstall --frozen-lockfile --offline || true'
-      yarn --offline gulp core-ci
+      yarn --offline gulp core-ci${lib.optionalString disableMangle "-pr"}
       yarn --offline gulp compile-extensions-build
       yarn --offline gulp compile-extension-media-build
       yarn --offline gulp vscode-reh-${platform.ms.name}-min-ci
