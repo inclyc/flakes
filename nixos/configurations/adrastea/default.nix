@@ -111,6 +111,7 @@
       fluent-icon-theme
 
       nodejs
+      yarn
 
       code-oss
     ]);
