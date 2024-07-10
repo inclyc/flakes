@@ -19,8 +19,7 @@
     qemu
     telegram-desktop
 
-    vscode-oss.rehweb
-    vscode-oss
+    code-oss
 
     nodejs
   ];
