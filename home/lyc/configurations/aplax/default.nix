@@ -1,4 +1,9 @@
-{ pkgs, config, ... }:
+{
+  inputs,
+  pkgs,
+  config,
+  ...
+}:
 {
   programs.vscode.enable = true;
 
@@ -23,6 +28,10 @@
 
     nodejs
   ];
+
+  home.sessionVariables = {
+    NIX_PATH = "nixpkgs=${inputs.nixpkgs}";
+  };
 
   programs.kitty.enable = true;
   programs.kitty.font = {
