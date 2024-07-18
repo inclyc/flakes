@@ -5,7 +5,12 @@
   ...
 }:
 {
-  programs.vscode.enable = true;
+  programs.vscode = {
+    enable = true;
+    userSettings = {
+      "editor.fontSize" = 15;
+    };
+  };
 
   home.homeDirectory = "/Users/${config.home.username}";
 
@@ -27,6 +32,8 @@
     code-oss
 
     nodejs
+
+    nixd
   ];
 
   home.sessionVariables = {
