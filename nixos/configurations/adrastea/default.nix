@@ -27,6 +27,7 @@
     ./vm.nix
     ./wireguard.nix
     ./nvidia.nix
+    ./code-server.nix
   ];
 
   boot.binfmt.emulatedSystems = [
