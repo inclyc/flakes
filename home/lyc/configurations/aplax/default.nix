@@ -32,6 +32,7 @@
     code-oss
 
     nodejs
+    yarn
 
     nixd
   ];
