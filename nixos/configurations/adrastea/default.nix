@@ -17,7 +17,10 @@
       zsh = true;
       ssh = true;
     };
-    development.rust.enable = true;
+    development = {
+      rust.enable = true;
+      python.enable = true;
+    };
   };
 
   imports = [

@@ -16,7 +16,10 @@
     ./user.nix
     ./dae
     ./sops.nix
+
+    # Language-specific environments
     ./rust.nix
+    ./python.nix
   ];
 
   home-manager = {
