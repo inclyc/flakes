@@ -226,7 +226,7 @@
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
 
-  security.pam.u2f = {
+  security.pam.u2f.settings = {
     enable = true;
     cue = true;
     authFile = pkgs.writeText "u2f_keys" ''
