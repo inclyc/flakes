@@ -65,7 +65,8 @@ in
         nspr
       ]);
     i18n.inputMethod = {
-      enabled = "fcitx5";
+      enable = true;
+      type = "fcitx5";
       fcitx5.addons = with pkgs; [ fcitx5-chinese-addons ];
       fcitx5.waylandFrontend = true;
     };
@@ -89,8 +90,6 @@ in
     # Enable CUPS to print documents.
     services.printing.enable = true;
 
-    # Enable sound with pipewire.
-    sound.enable = true;
     hardware.pulseaudio.enable = false;
     security.rtkit.enable = true;
     services.pipewire = {
