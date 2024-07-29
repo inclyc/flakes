@@ -21,6 +21,10 @@
       rust.enable = true;
       python.enable = true;
     };
+    services."code-server".default = {
+      exe = "${pkgs.code-oss.rehweb}/bin/code-server-oss";
+      socketPath = "$XDG_RUNTIME_DIR/code.socket";
+    };
   };
 
   imports = [

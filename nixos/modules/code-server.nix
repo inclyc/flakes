@@ -23,6 +23,8 @@ in
       name = "code-server-${n}";
       value = {
         description = "microsoft/vscode remote server";
+        # Add NixOS path to systemd service
+        path = [ "/run/current-system/sw/" ];
         serviceConfig = {
           Type = "simple";
           ExecStart = pkgs.writeShellScript "start-code-server.sh" ''
