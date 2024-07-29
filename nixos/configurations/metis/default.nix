@@ -11,7 +11,7 @@
 
   inclyc.services."code-server".default = {
     exe = "${pkgs.code-oss.rehweb}/bin/code-server-oss";
-    socketPath = "/run/user/1002/code.socket";
+    socketPath = "$XDG_RUNTIME_DIR/code.socket";
   };
 
   nix.registry.sys = {

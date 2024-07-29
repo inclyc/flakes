@@ -25,15 +25,17 @@ in
         description = "microsoft/vscode remote server";
         serviceConfig = {
           Type = "simple";
-          ExecStart = lib.escapeShellArgs [
-            "${v.exe}"
-            "--host=127.0.0.1"
-            "--socket-path"
-            v.socketPath
-            "--without-connection-token"
-          ];
+          ExecStart = pkgs.writeShellScript "start-code-server.sh" ''
+            ${lib.concatStringsSep " " [
+              v.exe
+              "--host=127.0.0.1"
+              "--socket-path"
+              v.socketPath
+              "--without-connection-token"
+            ]}
+          '';
           ExecStop = pkgs.writeShellScript "stop-code-server.sh" ''
-            ${lib.escapeShellArgs [
+            ${lib.concatStringsSep " " [
               "${pkgs.coreutils}/bin/rm"
               "-f"
               v.socketPath
