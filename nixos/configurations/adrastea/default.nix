@@ -112,6 +112,7 @@
 
       valgrind
       meson
+      ninja
       cmake
       lldb
       llvmPackages_16.clang
@@ -149,6 +150,8 @@
       yarn
 
       code-oss
+
+      nixfmt-rfc-style
     ]);
 
   virtualisation.spiceUSBRedirection.enable = true;
