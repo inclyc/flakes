@@ -173,7 +173,7 @@
     "latex-workshop.view.pdf.viewer": "tab",
     "nix.enableLanguageServer": true,
     "python.analysis.typeCheckingMode": "basic",
-    "python.languageServer": "Pylance",
+    "python.languageServer": "None",
     "python.terminal.activateEnvironment": false,
     "remote.SSH.experimental.connections": {
         "adrastea-zxy": {
