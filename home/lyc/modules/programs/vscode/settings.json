@@ -176,6 +176,14 @@
     "python.languageServer": "Pylance",
     "python.terminal.activateEnvironment": false,
     "remote.SSH.enableRemoteCommand": true,
+    "remote.SSH.remotePlatform": {
+        "adrastea": "linux",
+        "adrastea-pub": "linux",
+        "ict-malcon": "linux",
+        "metis": "linux",
+        "swyjs": "linux"
+    },
+    "remote.SSH.useLocalServer": false,
     "rust-analyzer.checkOnSave.command": "clippy",
     "settingsSync.ignoredExtensions": [
         "asvetliakov.vscode-neovim",
@@ -198,13 +206,5 @@
     "workbench.editorAssociations": {
         "*.md": "default",
         "git-rebase-todo": "default"
-    },
-    "remote.SSH.useLocalServer": false,
-    "remote.SSH.remotePlatform": {
-        "metis": "linux",
-        "ict-malcon": "linux",
-        "swyjs": "linux",
-        "adrastea": "linux",
-        "adrastea-pub": "linux"
     }
 }
