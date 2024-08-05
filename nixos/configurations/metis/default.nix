@@ -1,9 +1,4 @@
-{
-  pkgs,
-  lib,
-  inputs,
-  ...
-}:
+{ pkgs, inputs, ... }:
 {
   imports = [
     ./wireguard.nix
@@ -13,6 +8,11 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  inclyc.services."code-server".default = {
+    exe = "${pkgs.code-oss.rehweb}/bin/code-server-oss";
+    socketPath = "$XDG_RUNTIME_DIR/code.socket";
+  };
 
   nix.registry.sys = {
     from = {

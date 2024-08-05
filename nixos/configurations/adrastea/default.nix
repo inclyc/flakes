@@ -21,6 +21,38 @@
       rust.enable = true;
       python.enable = true;
     };
+    services."code-server".default = {
+      exe = "${pkgs.code-oss.rehweb}/bin/code-server-oss";
+      socketPath = "$XDG_RUNTIME_DIR/code-default.socket";
+    };
+    services."code-server".fhs =
+      let
+        name = "vscode-env";
+        fhs = pkgs.buildFHSEnv {
+          inherit name;
+          targetPkgs =
+            pkgs:
+            (with pkgs; [
+              stdenv.cc
+              perl
+              python3
+              cudatoolkit
+              libGL
+              glib
+              zlib
+              git
+              openssh
+            ])
+            ++ [ config.boot.kernelPackages.nvidia_x11 ];
+          runScript = pkgs.writeShellScript "code-oss-server.sh" ''
+            ${pkgs.code-oss.rehweb}/bin/code-server-oss $@
+          '';
+        };
+      in
+      {
+        exe = "${fhs}/bin/${name}";
+        socketPath = "$XDG_RUNTIME_DIR/code.socket";
+      };
   };
 
   imports = [
@@ -30,7 +62,6 @@
     ./vm.nix
     ./wireguard.nix
     ./nvidia.nix
-    ./code-server.nix
   ];
 
   boot.binfmt.emulatedSystems = [

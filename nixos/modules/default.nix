@@ -20,6 +20,9 @@
     # Language-specific environments
     ./rust.nix
     ./python.nix
+
+    # Services to external world
+    ./code-server.nix
   ];
 
   home-manager = {
