@@ -175,6 +175,11 @@
     "python.analysis.typeCheckingMode": "basic",
     "python.languageServer": "Pylance",
     "python.terminal.activateEnvironment": false,
+    "remote.SSH.experimental.connections": {
+        "adrastea-zxy": {
+            "listeningOn": "/run/user/1001/code.socket"
+        }
+    },
     "remote.SSH.enableRemoteCommand": true,
     "remote.SSH.remotePlatform": {
         "adrastea": "linux",
