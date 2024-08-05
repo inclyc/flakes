@@ -9,6 +9,7 @@
         "editor.formatOnSaveMode": "file",
         "editor.tabSize": 2
     },
+    "basedpyright.analysis.typeCheckingMode": "standard",
     "clangd.arguments": [
         "--background-index",
         "--compile-commands-dir=build",
