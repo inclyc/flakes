@@ -175,12 +175,12 @@
     "python.analysis.typeCheckingMode": "basic",
     "python.languageServer": "None",
     "python.terminal.activateEnvironment": false,
+    "remote.SSH.enableRemoteCommand": true,
     "remote.SSH.experimental.connections": {
         "adrastea-zxy": {
             "listeningOn": "/run/user/1001/code.socket"
         }
     },
-    "remote.SSH.enableRemoteCommand": true,
     "remote.SSH.remotePlatform": {
         "adrastea": "linux",
         "adrastea-pub": "linux",
