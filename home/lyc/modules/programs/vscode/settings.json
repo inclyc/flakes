@@ -179,6 +179,9 @@
     "remote.SSH.experimental.connections": {
         "adrastea-zxy": {
             "listeningOn": "/run/user/1001/code.socket"
+        },
+        "metis": {
+            "listeningOn": "/run/user/1002/code.socket"
         }
     },
     "remote.SSH.remotePlatform": {
