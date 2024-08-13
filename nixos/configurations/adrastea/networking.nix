@@ -93,7 +93,7 @@ in
     rule.enable = true;
   };
 
-  services.rathole.enable = true;
+  inclyc.services.rathole.enable = true;
   sops.secrets."rathole-ssh-token" = { };
   sops.templates."rathole-client.toml".content = ''
     [client]
@@ -110,5 +110,5 @@ in
     local_addr = "0.0.0.0:22" # The address of the service that needs to be forwarded
   '';
 
-  services.rathole.configFile = config.sops.templates."rathole-client.toml".path;
+  inclyc.services.rathole.configFile = config.sops.templates."rathole-client.toml".path;
 }
