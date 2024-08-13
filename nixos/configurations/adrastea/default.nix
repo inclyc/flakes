@@ -151,6 +151,8 @@
 
       code-oss
 
+      kitty.terminfo
+
       nixfmt-rfc-style
     ]);
 
