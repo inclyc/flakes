@@ -6,10 +6,10 @@
 }:
 let
   inherit (lib) mkOption types mkIf;
-  cfg = config.services.rathole;
+  cfg = config.inclyc.services.rathole;
 in
 {
-  options.services.rathole = {
+  options.inclyc.services.rathole = {
     enable = mkOption {
       type = types.bool;
       default = false;

@@ -1,7 +1,7 @@
 { config, ... }:
 {
-  services.rathole.enable = true;
-  services.rathole.configFile = config.sops.templates."rathole-server.toml".path;
+  inclyc.services.rathole.enable = true;
+  inclyc.services.rathole.configFile = config.sops.templates."rathole-server.toml".path;
 
   sops.secrets."rathole-ssh-token" = { };
   sops.secrets."rathole-hitmc-token" = { };

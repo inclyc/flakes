@@ -141,9 +141,6 @@
       # VNC client
       krdc
 
-      # better frp
-      rathole
-
       fluent-icon-theme
 
       nodejs
