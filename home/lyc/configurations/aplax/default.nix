@@ -32,6 +32,8 @@
     code-oss
     ollama
 
+    ocaml
+
     nodejs
     yarn
 
