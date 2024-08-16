@@ -30,6 +30,7 @@
     telegram-desktop
 
     code-oss
+    ollama
 
     nodejs
     yarn
