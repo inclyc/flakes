@@ -33,6 +33,8 @@
     ollama
 
     ocaml
+    ocamlPackages.ocaml-lsp
+    ocamlPackages.ocamlformat
 
     nodejs
     yarn
