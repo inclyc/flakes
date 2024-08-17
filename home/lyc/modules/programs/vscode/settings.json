@@ -16,6 +16,7 @@
         "-j=20",
         "--clang-tidy"
     ],
+    "continue.showInlineTip": false,
     "diffEditor.codeLens": true,
     "diffEditor.ignoreTrimWhitespace": false,
     "editor.cursorBlinking": "smooth",
