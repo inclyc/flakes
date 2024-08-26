@@ -132,7 +132,7 @@
         ]
       ))
 
-      jdk17
+      jdk22
 
       chromium
 
