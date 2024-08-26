@@ -61,6 +61,7 @@
     ./networking.nix
     ./wireguard.nix
     ./nvidia.nix
+    ./game.nix
   ];
 
   boot.binfmt.emulatedSystems = [
