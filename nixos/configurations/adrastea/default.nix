@@ -136,6 +136,8 @@
 
       chromium
 
+      du-dust
+
       libreoffice-qt
 
       # VNC client
