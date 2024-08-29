@@ -4,6 +4,7 @@
   imports = [ ./sops.nix ];
 
   inclyc.tex.enable = true;
+  inclyc.ssh.ICTProxy = true;
 
   programs.vscode = {
     enable = true;
