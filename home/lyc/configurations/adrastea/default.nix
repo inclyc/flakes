@@ -1,4 +1,9 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 {
 
   imports = [ ./sops.nix ];
@@ -20,5 +25,11 @@
   programs.zsh.dirHashes = {
     flakes = "${config.home.homeDirectory}/workspace/CS/OS/NixOS/flakes";
     llvm = "${config.home.homeDirectory}/workspace/CS/Compilers/llvm-project";
+  };
+
+  programs.ssh.matchBlocks."adrastea-zxy" = lib.mkForce {
+    hostname = "localhost";
+    user = "zxy";
+    port = 22;
   };
 }
