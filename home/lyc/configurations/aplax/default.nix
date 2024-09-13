@@ -39,6 +39,9 @@
     nodejs
     yarn
 
+    meson
+    ninja
+
     nixd
   ];
 
