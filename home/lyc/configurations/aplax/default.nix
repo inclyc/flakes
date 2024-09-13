@@ -43,6 +43,8 @@
     ninja
 
     nixd
+
+    xquartz
   ];
 
   home.sessionVariables = {
