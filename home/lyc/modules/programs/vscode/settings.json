@@ -208,10 +208,10 @@
     "terminal.integrated.defaultProfile.osx": "zsh",
     "terminal.integrated.fontFamily": "\"MesloLGS NF\", 'FiraCode Nerd Font Mono', \"Consolas\", \"Microsoft Yahei\"",
     "vscode-neovim.useCtrlKeysForInsertMode": false,
+    "window.autoDetectColorScheme": true,
     "window.menuBarVisibility": "toggle",
     "window.titleBarStyle": "custom",
     "window.zoomLevel": -1,
-    "workbench.colorTheme": "Nord",
     "workbench.editorAssociations": {
         "*.md": "default",
         "git-rebase-todo": "default"
