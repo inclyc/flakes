@@ -33,8 +33,16 @@
         user = "lyc";
         port = 20156;
       };
+      adrastea-v6 = adrastea // {
+        hostname = "6.adrastea.lyc.dev";
+        port = 22;
+      };
       adrastea-zxy = adrastea // {
         user = "zxy";
+      };
+      adrastea-zxy-v6 = adrastea-zxy // {
+        hostname = "6.adrastea.lyc.dev";
+        port = 22;
       };
       adrastea-pub = {
         hostname = "t.lyc.dev";
