@@ -155,6 +155,10 @@
       nixfmt-rfc-style
 
       (pkgs.texlive.combine { inherit (pkgs.texlive) scheme-full; })
+
+      iverilog
+      verilator
+      verible
     ]);
 
   virtualisation.spiceUSBRedirection.enable = true;
