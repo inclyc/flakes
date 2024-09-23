@@ -53,6 +53,8 @@ in
       matchConfig.Name = "br0";
       networkConfig = {
         DHCP = "yes";
+        IPv6AcceptRA = true;
+        IPv6PrivacyExtensions = true;
       };
     };
     "20-br1" = {
