@@ -153,6 +153,8 @@
       kitty.terminfo
 
       nixfmt-rfc-style
+
+      (pkgs.texlive.combine { inherit (pkgs.texlive) scheme-full; })
     ]);
 
   virtualisation.spiceUSBRedirection.enable = true;
