@@ -183,6 +183,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     export HOME=$PWD
+    # nodejs v20 have this known issue:
+    # https://github.com/nodejs/node/issues/51555
+    export DISABLE_V8_COMPILE_CACHE=1
   '';
 
   configurePhase = ''
