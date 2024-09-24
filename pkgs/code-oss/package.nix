@@ -286,7 +286,7 @@ stdenv.mkDerivation (finalAttrs: {
       mkdir -p $out/share/applications
       ln -s ${desktopItem}/share/applications/${executableName}.desktop $out/share/applications/${executableName}.desktop
       ln -s ${urlHandlerDesktopItem}/share/applications/${executableName}-url-handler.desktop $out/share/applications/${executableName}-url-handler.desktop
-      install -D $out/lib/vscode/resources/app/resources/linux/code.png $out/share/pixmaps/${executableName}.png
+      install -D $out/lib/vscode/resources/app/resources/linux/code.png $out/share/icons/${executableName}.png
     ''
     + ''
       # Make a wrapper script, setting the electron path, and vscode path

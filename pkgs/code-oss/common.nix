@@ -13,7 +13,7 @@
     comment = "Code Editing. Redefined.";
     genericName = "Text Editor";
     exec = "${executableName} %F";
-    icon = "vs${executableName}";
+    icon = "${executableName}";
     startupNotify = true;
     startupWMClass = shortName;
     categories = [
@@ -30,7 +30,7 @@
     actions.new-empty-window = {
       name = "New Empty Window";
       exec = "${executableName} --new-window %F";
-      icon = "vs${executableName}";
+      icon = "${executableName}";
     };
   };
 
@@ -40,7 +40,7 @@
     comment = "Code Editing. Redefined.";
     genericName = "Text Editor";
     exec = executableName + " --open-url %U";
-    icon = "vs${executableName}";
+    icon = "${executableName}";
     startupNotify = true;
     categories = [
       "Utility"
