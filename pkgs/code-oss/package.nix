@@ -86,14 +86,14 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = executableName;
-  version = "1.90.2";
-  commit = "5437499feb04f7a586f677b155b039bc2b3669eb";
+  version = "1.93.1";
+  commit = "38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40";
 
   src = fetchFromGitHub {
     owner = "microsoft";
     repo = "vscode";
     rev = finalAttrs.version;
-    sha256 = "sha256-WAI3n4FAMQGezm5VC6t+WIkxv99xngfI0Rh1iItUWvQ=";
+    sha256 = "sha256-tKVGHU+9WRQhZ95KdeNuVzJHcndCjPV8gJ4yUvoehxA=";
   };
 
   passthru.product =
@@ -136,7 +136,7 @@ stdenv.mkDerivation (finalAttrs: {
 
       outputHashMode = "recursive";
       outputHashAlgo = "sha256";
-      outputHash = "sha256-GogYDiEwx+IzJi11kPY55QnXSxI1zFsQXx9FJQxDbiU=";
+      outputHash = "sha256-/JFjpOX3JX8dBnw4kb3YepGMrcYiSYbcy/pjEVc1EhM=";
     }
   );
 
