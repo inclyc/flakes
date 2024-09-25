@@ -45,6 +45,8 @@
     nixd
 
     xquartz
+
+    poetry
   ];
 
   home.sessionVariables = {
