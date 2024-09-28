@@ -171,7 +171,7 @@ stdenv.mkDerivation (finalAttrs: {
     xorg.libxkbfile
   ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Cocoa ];
 
-  patches = map (name: ./patches/${name}) (builtins.attrNames (builtins.readDir ./patches));
+  patches = map (name: ./patches/code/${name}) (builtins.attrNames (builtins.readDir ./patches/code));
 
   env = {
     # Disable NAPI_EXPERIMENTAL to allow to build with Node.js≥18.20.0.
@@ -215,58 +215,48 @@ stdenv.mkDerivation (finalAttrs: {
     export NODE_OPTIONS=--openssl-legacy-provider
   '';
 
-  buildPhase =
-    ''
-      runHook preBuild
+  buildPhase = ''
+    runHook preBuild
 
-      # install dependencies
-      yarn --offline                                                           \
-           --ignore-scripts                                                    \
-           --no-progress                                                       \
-           --non-interactive                                                   \
-           --frozen-lockfile
+    # install dependencies
+    yarn --offline                                                           \
+         --ignore-scripts                                                    \
+         --no-progress                                                       \
+         --non-interactive                                                   \
+         --frozen-lockfile
 
-      # run yarn install everywhere, skipping postinstall so we can patch esbuild
-      find . -path "*node_modules" -prune -o \
-        -path "./*/*" -name "yarn.lock" -printf "%h\n" |                       \
-          xargs -I {}                                                          \
-            yarn --cwd {}                                                      \
-                 --frozen-lockfile                                             \
-                 --offline                                                     \
-                 --ignore-scripts                                              \
-                 --ignore-engines
+    # run yarn install everywhere, skipping postinstall so we can patch esbuild
+    find . -path "*node_modules" -prune -o \
+      -path "./*/*" -name "yarn.lock" -printf "%h\n" |                       \
+        xargs -I {}                                                          \
+          yarn --cwd {}                                                      \
+               --frozen-lockfile                                             \
+               --offline                                                     \
+               --ignore-scripts                                              \
+               --ignore-engines
 
-      # patch shebangs of node_modules to allow binary packages to build
-      patchShebangs .
-      # put ripgrep binary into bin so postinstall does not try to download it
-      find -path "*@vscode/ripgrep" -type d                                    \
-        -execdir mkdir -p {}/bin \;                                            \
-        -execdir ln -s ${ripgrep}/bin/rg {}/bin/rg \;
-    ''
-    + lib.optionalString stdenv.isDarwin ''
-      # use prebuilt binary for @parcel/watcher, which requires macOS SDK 10.13+
-      # (see issue #101229)
-      pushd ./remote/node_modules/@parcel/watcher
-      mkdir -p ./build/Release
-      mv ./prebuilds/darwin-x64/node.napi.glibc.node ./build/Release/watcher.node
-      jq "del(.scripts) | .gypfile = false" ./package.json | sponge ./package.json
-      popd
-    ''
-    + ''
-      npm rebuild --build-from-source
-      npm rebuild --prefix remote/ --build-from-source
-      # run postinstall scripts after patching
-      find . -path "*node_modules" -prune -o \
-        -path "./*/*" -name "yarn.lock" -printf "%h\n" | \
-          xargs -I {} sh -c 'jq -e ".scripts.postinstall" {}/package.json >/dev/null && yarn --cwd {} postinstall --frozen-lockfile --offline || true'
-      yarn --offline gulp core-ci${lib.optionalString disableMangle "-pr"}
-      yarn --offline gulp compile-extensions-build
-      yarn --offline gulp compile-extension-media-build
-      yarn --offline gulp vscode-reh-${platform.ms.name}-min-ci
-      yarn --offline gulp vscode-reh-web-${platform.ms.name}-min-ci
-      yarn --offline gulp vscode-${platform.ms.name}-min-ci
-      runHook postBuild
-    '';
+    # patch shebangs of node_modules to allow binary packages to build
+    patchShebangs .
+    # put ripgrep binary into bin so postinstall does not try to download it
+    find -path "*@vscode/ripgrep" -type d                                    \
+      -execdir mkdir -p {}/bin \;                                            \
+      -execdir ln -s ${ripgrep}/bin/rg {}/bin/rg \;
+    patch -u node_modules/kerberos/binding.gyp -i ${./patches/npm/binding.gyp.patch}
+    npm rebuild --build-from-source --verbose
+    patch -u remote/node_modules/kerberos/binding.gyp -i ${./patches/npm/binding.gyp.patch}
+    npm rebuild --prefix remote/ --build-from-source --verbose
+    # run postinstall scripts after patching
+    find . -path "*node_modules" -prune -o \
+      -path "./*/*" -name "yarn.lock" -printf "%h\n" | \
+        xargs -I {} sh -c 'jq -e ".scripts.postinstall" {}/package.json >/dev/null && yarn --cwd {} postinstall --frozen-lockfile --offline || true'
+    yarn --offline gulp core-ci${lib.optionalString disableMangle "-pr"}
+    yarn --offline gulp compile-extensions-build
+    yarn --offline gulp compile-extension-media-build
+    yarn --offline gulp vscode-reh-${platform.ms.name}-min-ci
+    yarn --offline gulp vscode-reh-web-${platform.ms.name}-min-ci
+    yarn --offline gulp vscode-${platform.ms.name}-min-ci
+    runHook postBuild
+  '';
 
   installPhase =
     let

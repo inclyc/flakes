@@ -1,0 +1,21 @@
+--- binding.gyp	2024-09-28 09:16:31
++++ binding.new.gyp	2024-09-28 09:21:11
+@@ -42,18 +42,6 @@
+       },
+       'conditions': [
+         ['OS=="mac"', { 'cflags+': ['-fvisibility=hidden'] }],
+-        ['_type!="static_library" and ARCH=="arm64"', {
+-          'xcode_settings': {
+-            "OTHER_CFLAGS": [
+-              "-arch x86_64",
+-              "-arch arm64"
+-            ],
+-            "OTHER_LDFLAGS": [
+-              "-arch x86_64",
+-              "-arch arm64"
+-            ]
+-          }
+-        }],
+         ['OS=="mac" or OS=="linux"', {
+           'sources': [
+             'src/unix/base64.cc',
