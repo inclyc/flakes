@@ -25,7 +25,6 @@
     "editor.formatOnSave": true,
     "editor.formatOnSaveMode": "modifications",
     "editor.inlineSuggest.enabled": true,
-    "editor.lineNumbers": "relative",
     "editor.rulers": [
         80
     ],
