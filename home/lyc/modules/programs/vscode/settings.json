@@ -9,6 +9,9 @@
         "editor.formatOnSaveMode": "file",
         "editor.tabSize": 2
     },
+    "[verilog]": {
+        "editor.defaultFormatter": "chipsalliance.verible"
+    },
     "basedpyright.analysis.typeCheckingMode": "standard",
     "clangd.arguments": [
         "--background-index",
