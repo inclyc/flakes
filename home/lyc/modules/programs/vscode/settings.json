@@ -71,6 +71,7 @@
     "git.autofetch": false,
     "git.enableCommitSigning": true,
     "git.mergeEditor": false,
+    "latex-workshop.formatting.latex": "latexindent",
     "latex-workshop.latex.autoBuild.run": "onSave",
     "latex-workshop.latex.recipe.default": "XeLaTeXmk",
     "latex-workshop.latex.recipes": [
