@@ -15,12 +15,6 @@ in
     NVIDIA_KERNEL = nvidia;
   };
 
-  # Upgrade to Kernel 6.11.arch1-1 and nvidia 560.35.03-7 regression
-  # https://bbs.archlinux.org/viewtopic.php?id=299450
-  boot.kernelParams = [
-    "initcall_blacklist=simpledrm_platform_driver_init"
-  ];
-
   # Initialize nvidia gpu card using "nvidia-smi" in root.
   systemd.services."nvidia-init" = {
     description = "Initialize NVIDIA GPU";
