@@ -1,23 +1,25 @@
 {
-  lib,
-  stdenv,
-  fetchFromGitHub,
   cacert,
+  darwin,
+  electron,
+  fetchFromGitHub,
+  fetchpatch,
   jq,
   krb5,
+  lib,
   libsecret,
   makeDesktopItem,
   makeWrapper,
   moreutils,
   nodejs,
-  electron,
   nodePackages,
   pkg-config,
+  prefetch-npm-deps,
   python3,
   ripgrep,
+  stdenv,
+  stdenvNoCC,
   xorg,
-  yarn,
-  darwin,
 
   # Customize product.json, with some reasonable defaults
   product ? (import ./product.nix { inherit lib; }),
@@ -35,10 +37,10 @@
   # Override product.json
   productOverrides ? { },
 
-  # Disable mangling.
-  # Significantly speed up compilation, at ~200KB closure size.
-  # Mangling also SEGSEGVs on higher node versions of x86_64 linux.
-  disableMangle ? true,
+  # Mangling.
+  # Disable mangling can significantly speed up the compilation process
+  # But increases closure size by approximately 200KB.
+  mangle ? false,
 }:
 
 let
@@ -56,8 +58,6 @@ let
   };
 
   inherit (common) desktopItem urlHandlerDesktopItem;
-
-  yarn' = yarn.override { inherit nodejs; };
 
   # Give all platform related information in this lambda.
   vscodePlatforms =
@@ -86,14 +86,14 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = executableName;
-  version = "1.93.1";
+  version = "1.94.0";
   commit = "38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40";
 
   src = fetchFromGitHub {
     owner = "microsoft";
     repo = "vscode";
     rev = finalAttrs.version;
-    sha256 = "sha256-tKVGHU+9WRQhZ95KdeNuVzJHcndCjPV8gJ4yUvoehxA=";
+    sha256 = "sha256-klGQ7fqZhyOqTIGtwDn8Zvi7lgbwdzW+FTujBQ2uFTU=";
   };
 
   passthru.product =
@@ -110,33 +110,39 @@ stdenv.mkDerivation (finalAttrs: {
     # Extra overrides
     // productOverrides;
 
-  yarnCache = stdenv.mkDerivation (
+  npmCache = stdenvNoCC.mkDerivation (
     let
       inherit (finalAttrs) pname version src;
     in
     {
       inherit src;
-      name = "${pname}-${version}-yarn-cache";
+      name = "${pname}-${version}-npm-cache";
       GIT_SSL_CAINFO = "${cacert}/etc/ssl/certs/ca-bundle.crt";
       NODE_EXTRA_CA_CERTS = "${cacert}/etc/ssl/certs/ca-bundle.crt";
-      nativeBuildInputs = [ yarn ];
+      nativeBuildInputs = [ nodePackages.npm ];
       buildPhase = ''
-        export HOME=$PWD
-        yarn config set yarn-offline-mirror $out
-        find "$PWD" -name "yarn.lock" -printf "%h\n" | \
+        export HOME="$PWD"
+        mkdir -p "$out"
+        npm config set cache "$out"
+        find "$PWD" -name "package-lock.json" -printf "%h\n" |                 \
           xargs -I {}                                                          \
-            yarn --cwd {}                                                      \
-            --frozen-lockfile                                                  \
-            --ignore-scripts                                                   \
-            --ignore-platform                                                  \
-            --ignore-engines                                                   \
-            --no-progress                                                      \
-            --non-interactive
+            npm --prefix {} ci                                                 \
+              --ignore-scripts                                                 \
+              --no-audit                                                       \
+              --no-fund                                                        \
+              --no-progress                                                    \
+              --loglevel=error
+
+        # Clean logs file to make sure this is reproducible
+        rm -rf "$out/_logs"
+        mkdir -p "$out/_logs"
       '';
+
+      dontFixup = true;
 
       outputHashMode = "recursive";
       outputHashAlgo = "sha256";
-      outputHash = "sha256-/JFjpOX3JX8dBnw4kb3YepGMrcYiSYbcy/pjEVc1EhM=";
+      outputHash = "sha256-JicYO5GQHPfyTM1LGFA4dzb1t/D3/n9w0jwKpPukFTM=";
     }
   );
 
@@ -153,13 +159,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs =
     [
-      yarn'
       python3
       nodejs
       jq
       moreutils
       pkg-config
       makeWrapper
+      nodePackages.node-gyp-build
     ]
     ++ lib.optionals stdenv.isDarwin [ darwin.cctools ]
     ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ];
@@ -171,7 +177,50 @@ stdenv.mkDerivation (finalAttrs: {
     xorg.libxkbfile
   ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Cocoa ];
 
-  patches = map (name: ./patches/code/${name}) (builtins.attrNames (builtins.readDir ./patches/code));
+  patches = [
+    # build/npm/postinstall: remove git config
+    (fetchpatch {
+      name = "remove-git-config.patch";
+      url = "https://github.com/microsoft/vscode/commit/56a24c8260241f84c21223e5693eecc5f1be3107.patch";
+      sha256 = "sha256-mP7nWXkQpNndcVFvSEv650OrKBYIsX7bl2SIVY+gTzU=";
+    })
+    # build: omit nodejs download
+    (fetchpatch {
+      name = "omit-nodejs-download.patch";
+      url = "https://github.com/microsoft/vscode/commit/a3e32c2f004e7700753d20f01cf526fab569b3c9.patch";
+      sha256 = "sha256-SuzBCsfoGgLRlbPW3NnsV1UTzAQn50TXPltl4ZpMSHU=";
+    })
+    # build: omit electron download
+    (fetchpatch {
+      name = "omit-electron-download.patch";
+      url = "https://github.com/microsoft/vscode/commit/0c747805ca1c0e0f4db728543bb35248999d5ed8.patch";
+      sha256 = "sha256-XOwiWHnR3ICIdSU/Utfj5c/UjL7FxHg1QBl1DtdKTMg=";
+    })
+    # resources/linux: remove VSCODE_PATH and ELECTRON path setting
+    (fetchpatch {
+      name = "remove-vscodes-path-and-electron-path-setting.patch";
+      url = "https://github.com/microsoft/vscode/commit/cacc3e56dede46d0e5db7a08db61c7024ad16855.patch";
+      sha256 = "sha256-EwWBC+0i28ChwbJJeNJShk8I4L54+l5jtSdiVrGxBxQ=";
+    })
+    # resources/darwin: remove darwin-bundled electron
+    (fetchpatch {
+      name = "remove-darwin-bundled-electron.patch";
+      url = "https://github.com/microsoft/vscode/commit/8e6e9671ebdee5d83353c7fd2997e3a64d0d4b6e.patch";
+      sha256 = "sha256-xdC/lVNO0O2cMxmm40DMIHpjQn3uuFrrkBYvCib09/U=";
+    })
+    # build/npm: remove patching directory
+    (fetchpatch {
+      name = "remove-patching-directory.patch";
+      url = "https://github.com/microsoft/vscode/commit/cd6b8ad5c20d5bfca8b136b3ecd98dde6a56ceec.patch";
+      sha256 = "sha256-JVcB/+IFCAq2OGcgPmt84fuGinXyDsPfjJAuZ24SvOc=";
+    })
+    # build/npm/postinstall: patch out npm_command
+    (fetchpatch {
+      name = "postinstall-patch-npm-command.patch";
+      url = "https://github.com/microsoft/vscode/commit/3b576aa402e9ae75c9acd340fe1d29dbcd59e21e.patch";
+      sha256 = "sha256-unaH4cCuRiQoe62fmULiLaEardwzmczoFZY/Ky5kchY=";
+    })
+  ];
 
   env = {
     # Disable NAPI_EXPERIMENTAL to allow to build with Node.js≥18.20.0.
@@ -179,82 +228,80 @@ stdenv.mkDerivation (finalAttrs: {
 
     # Commit version embeded in vscode
     BUILD_SOURCEVERSION = finalAttrs.commit;
-  };
 
-  postPatch = ''
-    export HOME=$PWD
+    ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
+    PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
+    SKIP_SUBMODULE_DEPS = "1";
+    NODE_OPTIONS = "--openssl-legacy-provider";
+
     # nodejs v20 have this known issue:
     # https://github.com/nodejs/node/issues/51555
-    export DISABLE_V8_COMPILE_CACHE=1
-  '';
+    DISABLE_V8_COMPILE_CACHE = "1";
+
+    npm_config_node_gyp = "${node-gyp}/bin/node-gyp.js";
+    npm_config_nodedir = nodejs;
+    npm_config_offline = "true";
+  };
 
   configurePhase = ''
     runHook preConfigure
+
+    export HOME=$PWD
+
+    echo "Copying npm cache"
+    # Make the cache writable by coping it here
+    mkdir -p "$HOME/.npm-cache"
+    cp -a "${finalAttrs.npmCache}/." "$HOME/.npm"
+    # Ensure that the cache is writable
+    chmod -R u+w "$HOME/.npm"
+    export npm_config_cache="$HOME/.npm"
 
     # Generate product.json
     cp ${builtins.toFile "product.json" (builtins.toJSON finalAttrs.passthru.product)} product.json
 
     # set offline mirror to yarn cache we created in previous steps
-    yarn --offline config set yarn-offline-mirror "${finalAttrs.yarnCache}"
     # set nodedir to prevent node-gyp from downloading headers
     # taken from https://nixos.org/manual/nixpkgs/stable/#javascript-tool-specific
     mkdir -p $HOME/.node-gyp/${nodejs.version}
     echo 9 > $HOME/.node-gyp/${nodejs.version}/installVersion
     ln -sfv ${nodejs}/include $HOME/.node-gyp/${nodejs.version}
-    export npm_config_nodedir=${nodejs}
-    # use updated node-gyp. fixes the following error on Darwin:
-    # PermissionError: [Errno 1] Operation not permitted: '/usr/sbin/pkgutil'
-    export npm_config_node_gyp=${node-gyp}/lib/node_modules/node-gyp/bin/node-gyp.js
     runHook postConfigure
-  '';
-
-  preBuild = ''
-    export ELECTRON_SKIP_BINARY_DOWNLOAD=1
-    export PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
-    export SKIP_SUBMODULE_DEPS=1
-    export NODE_OPTIONS=--openssl-legacy-provider
   '';
 
   buildPhase = ''
     runHook preBuild
+    for dir in . remote build extensions; do
+      pushd "$dir"
+      npm ci --ignore-scripts
+      popd
+    done
 
-    # install dependencies
-    yarn --offline                                                           \
-         --ignore-scripts                                                    \
-         --no-progress                                                       \
-         --non-interactive                                                   \
-         --frozen-lockfile
-
-    # run yarn install everywhere, skipping postinstall so we can patch esbuild
-    find . -path "*node_modules" -prune -o \
-      -path "./*/*" -name "yarn.lock" -printf "%h\n" |                       \
-        xargs -I {}                                                          \
-          yarn --cwd {}                                                      \
-               --frozen-lockfile                                             \
-               --offline                                                     \
-               --ignore-scripts                                              \
-               --ignore-engines
-
-    # patch shebangs of node_modules to allow binary packages to build
     patchShebangs .
+
     # put ripgrep binary into bin so postinstall does not try to download it
     find -path "*@vscode/ripgrep" -type d                                    \
       -execdir mkdir -p {}/bin \;                                            \
       -execdir ln -s ${ripgrep}/bin/rg {}/bin/rg \;
+
     patch -u node_modules/kerberos/binding.gyp -i ${./patches/npm/binding.gyp.patch}
-    npm rebuild --build-from-source --verbose
+    npm rebuild --build-from-source --ignore-scripts
+
+
+    npm rebuild --build-from-source --prefix build
+    npm rebuild --build-from-source --prefix extensions
     patch -u remote/node_modules/kerberos/binding.gyp -i ${./patches/npm/binding.gyp.patch}
-    npm rebuild --prefix remote/ --build-from-source --verbose
-    # run postinstall scripts after patching
-    find . -path "*node_modules" -prune -o \
-      -path "./*/*" -name "yarn.lock" -printf "%h\n" | \
-        xargs -I {} sh -c 'jq -e ".scripts.postinstall" {}/package.json >/dev/null && yarn --cwd {} postinstall --frozen-lockfile --offline || true'
-    yarn --offline gulp core-ci${lib.optionalString disableMangle "-pr"}
-    yarn --offline gulp compile-extensions-build
-    yarn --offline gulp compile-extension-media-build
-    yarn --offline gulp vscode-reh-${platform.ms.name}-min-ci
-    yarn --offline gulp vscode-reh-web-${platform.ms.name}-min-ci
-    yarn --offline gulp vscode-${platform.ms.name}-min-ci
+    npm rebuild --build-from-source --prefix remote
+
+    patchShebangs .
+
+    npm run postinstall
+
+    npm run gulp core-ci${lib.optionalString (!mangle) "-pr"}
+    npm run gulp compile-extensions-build
+    npm run gulp compile-extension-media-build
+    npm run gulp vscode-reh-${platform.ms.name}-min-ci
+    npm run gulp vscode-reh-web-${platform.ms.name}-min-ci
+    npm run gulp vscode-${platform.ms.name}-min-ci
     runHook postBuild
   '';
 
