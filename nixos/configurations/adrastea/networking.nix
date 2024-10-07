@@ -113,4 +113,21 @@ in
   '';
 
   inclyc.services.rathole.configFile = config.sops.templates."rathole-client.toml".path;
+
+  sops.secrets."ddns/cloudflare" = { };
+  services.ddns."cloudflare-adrastea" = {
+    ipv6 = "adrastea.lyc.dev";
+    index6 = "default";
+    dns = "cloudflare";
+    environmentFile = [ config.sops.secrets."ddns/cloudflare".path ];
+    onCalendar = "minutely";
+  };
+
+  services.ddns."cloudflare-adrastea-6" = {
+    ipv6 = "6.adrastea.lyc.dev";
+    index6 = "default";
+    dns = "cloudflare";
+    environmentFile = [ config.sops.secrets."ddns/cloudflare".path ];
+    onCalendar = "minutely";
+  };
 }

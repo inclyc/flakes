@@ -11,6 +11,7 @@
     ./clash
     ./nix.nix
     ./rathole.nix
+    ./ddns.nix
     ./nix-ld.nix
     ./gui.nix
     ./user.nix
