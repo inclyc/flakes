@@ -18,7 +18,17 @@ in
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      python3
+      (python3.withPackages (
+        ps: with ps; [
+          numpy
+          requests
+          matplotlib
+          scipy
+          ipykernel
+          scikit-learn
+          torch
+        ]
+      ))
       poetry
     ];
   };

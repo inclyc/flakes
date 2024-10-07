@@ -123,15 +123,6 @@
       pciutils
       usbutils
 
-      (python311.withPackages (
-        ps: with ps; [
-          numpy
-          requests
-          matplotlib
-          scipy
-        ]
-      ))
-
       jdk22
 
       chromium
