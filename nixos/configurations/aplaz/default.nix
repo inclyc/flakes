@@ -137,8 +137,6 @@ in
 
     nodejs
     yarn
-
-    (code-oss.override { disableMangle = true; })
   ];
 
   hardware.bluetooth.enable = true;
