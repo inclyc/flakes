@@ -51,4 +51,4 @@ zle -N down-line-or-beginning-search
 [[ -n "${key[Down]}" ]] && bindkey -- "${key[Down]}" down-line-or-beginning-search
 
 
-export EDITOR="code-oss --wait"
+export EDITOR="codium --wait"

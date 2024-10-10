@@ -29,7 +29,6 @@
     qemu
     telegram-desktop
 
-    code-oss
     ollama
 
     ocaml
