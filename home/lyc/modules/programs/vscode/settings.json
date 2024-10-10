@@ -180,20 +180,6 @@
     "python.languageServer": "None",
     "python.terminal.activateEnvironment": false,
     "remote.SSH.enableRemoteCommand": true,
-    "remote.SSH.experimental.connections": {
-        "adrastea-v6": {
-            "listeningOn": "/run/user/1000/code-default.socket"
-        },
-        "adrastea-zxy": {
-            "listeningOn": "/run/user/1001/code.socket"
-        },
-        "adrastea-zxy-v6": {
-            "listeningOn": "/run/user/1001/code.socket"
-        },
-        "metis": {
-            "listeningOn": "/run/user/1002/code.socket"
-        }
-    },
     "remote.SSH.remotePlatform": {
         "adrastea": "linux",
         "adrastea-pub": "linux",
