@@ -60,63 +60,62 @@
     };
   };
 
-  environment.systemPackages =
-    with pkgs.libsForQt5;
-    [ ark ]
-    ++ (with pkgs; [
-      gnumake
-      qemu
-      virt-viewer
+  environment.systemPackages = with pkgs; [
+    libsForQt5.ark
 
-      gdb
-      file
-      patchelf
-      btop
-      stdenv.cc
+    gnumake
+    qemu
+    virt-viewer
 
-      sops
-      age
-      ssh-to-age
+    gdb
+    file
+    patchelf
+    btop
+    stdenv.cc
 
-      valgrind
-      meson
-      ninja
-      cmake
-      lldb
-      llvmPackages_16.clang
-      llvmPackages_16.bintools
-      (hiPrio clang-tools_16)
-      rr
+    sops
+    age
+    ssh-to-age
 
-      pciutils
-      usbutils
+    valgrind
+    meson
+    ninja
+    cmake
+    lldb
+    llvmPackages_16.clang
+    llvmPackages_16.bintools
+    (hiPrio clang-tools_16)
+    rr
 
-      jdk22
+    pciutils
+    usbutils
 
-      chromium
+    jdk22
 
-      du-dust
+    chromium
 
-      libreoffice-qt
+    du-dust
 
-      # VNC client
-      krdc
+    libreoffice-qt
 
-      fluent-icon-theme
+    # VNC client
+    krdc
 
-      nodejs
-      yarn
+    fluent-icon-theme
 
-      kitty.terminfo
+    nodejs
+    yarn
 
-      nixfmt-rfc-style
+    kitty.terminfo
 
-      (pkgs.texlive.combine { inherit (pkgs.texlive) scheme-full; })
+    nixfmt-rfc-style
 
-      iverilog
-      verilator
-      verible
-    ]);
+    (texlive.combine { inherit (texlive) scheme-full; })
+
+    iverilog
+    verilator
+    verible
+  ];
 
   virtualisation.spiceUSBRedirection.enable = true;
 
