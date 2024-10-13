@@ -37,6 +37,8 @@
 
   systemd.network.enable = true;
 
+  virtualisation.podman.enable = true;
+
   systemd.network.networks = {
     "enp6s18" = {
       matchConfig.Name = "enp6s18";
