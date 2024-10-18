@@ -87,13 +87,6 @@ in
 
   systemd.network.wait-online.anyInterface = true;
 
-  services.dae.enable = true;
-
-  services.clash = {
-    enable = true;
-    rule.enable = true;
-  };
-
   inclyc.services.rathole.enable = true;
   sops.secrets."rathole-ssh-token" = { };
   sops.templates."rathole-client.toml".content = ''
