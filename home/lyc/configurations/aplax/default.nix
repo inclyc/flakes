@@ -9,6 +9,21 @@
     enable = true;
     userSettings = {
       "editor.fontSize" = 15;
+      "remote.OSS.hosts" = [
+        {
+          type = "manual";
+          name = "metis-interpreter";
+          host = "localhost";
+          port = 47560;
+          connectionToken = false;
+          folders = [
+            {
+              name = "ast-interpreter";
+              path = "/root/ast-interpreter";
+            }
+          ];
+        }
+      ];
     };
   };
 
