@@ -42,13 +42,8 @@
     clash-meta
     pinentry_mac
     qemu
-    telegram-desktop
 
     ollama
-
-    ocaml
-    ocamlPackages.ocaml-lsp
-    ocamlPackages.ocamlformat
 
     nodejs
     yarn
