@@ -93,7 +93,7 @@
               );
           overlays = {
             additions = final: _prev: import ./pkgs { pkgs = final; };
-            modifications = final: prev: { };
+            modifications = import ./overlays/modifications.nix;
           };
         }
         // (
