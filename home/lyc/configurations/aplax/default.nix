@@ -23,6 +23,14 @@
             }
           ];
         }
+        {
+          type = "manual";
+          name = "adrastea-zxy";
+          host = "localhost";
+          port = 47561;
+          connectionToken = false;
+          folders = [ ];
+        }
       ];
     };
   };
