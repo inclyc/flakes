@@ -56,6 +56,8 @@
     xquartz
 
     poetry
+
+    pandoc
   ];
 
   home.sessionVariables = {
