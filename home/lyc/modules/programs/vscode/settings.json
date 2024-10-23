@@ -67,6 +67,7 @@
         "**/.settings": true
     },
     "files.insertFinalNewline": true,
+    "files.simpleDialog.enable": true,
     "files.trimTrailingWhitespace": true,
     "git.autofetch": false,
     "git.enableCommitSigning": true,
@@ -204,6 +205,7 @@
     "terminal.integrated.fontFamily": "\"MesloLGS NF\", 'FiraCode Nerd Font Mono', \"Consolas\", \"Microsoft Yahei\"",
     "vscode-neovim.useCtrlKeysForInsertMode": false,
     "window.autoDetectColorScheme": true,
+    "window.dialogStyle": "custom",
     "window.menuBarVisibility": "toggle",
     "window.titleBarStyle": "custom",
     "window.zoomLevel": -1,
