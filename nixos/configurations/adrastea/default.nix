@@ -115,6 +115,26 @@
     iverilog
     verilator
     verible
+
+    # Shim FHS user system, for pre-compiled python wheels.
+    (buildFHSEnv {
+      name = "many-linux-fhs";
+      targetPkgs =
+        pkgs:
+        (with pkgs; [
+          stdenv.cc
+          perl
+          python3
+          cudatoolkit
+          libGL
+          glib
+          zlib
+          git
+          openssh
+        ])
+        ++ [ config.boot.kernelPackages.nvidia_x11 ];
+      runScript = lib.getExe zsh;
+    })
   ];
 
   virtualisation.spiceUSBRedirection.enable = true;
