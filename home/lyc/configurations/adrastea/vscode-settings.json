@@ -1,5 +1,6 @@
 {
     "editor.fontSize": 21,
+    "terminal.integrated.defaultProfile.linux": "zsh",
     "terminal.integrated.profiles.linux": {
         "bash": {
             "icon": "terminal-bash",
@@ -21,6 +22,5 @@
                 "-l"
             ]
         }
-    },
-    "terminal.integrated.defaultProfile.linux": "zsh"
+    }
 }
