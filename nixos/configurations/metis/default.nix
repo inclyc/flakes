@@ -1,6 +1,12 @@
-{ pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 {
   imports = [
+    ./gitea.nix
     ./wireguard.nix
     ./hardware-configuration.nix
     ./rathole.nix
