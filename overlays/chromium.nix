@@ -9,7 +9,6 @@ let
     "--enable-features=WaylandWindowDecorations"
     # Enable wayland ime to support input methods.
     "--enable-wayland-ime"
-    "--disable-features=WaylandFractionalScaleV1"
   ];
 
 in
