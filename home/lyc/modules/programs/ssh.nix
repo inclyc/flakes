@@ -85,6 +85,16 @@
         user = "lyc";
         port = 22;
       };
+      wxiat = {
+        hostname = "code.developer.wxiat.com";
+        user = "root";
+        port = 22;
+        extraOptions = {
+          KexAlgorithms = "+diffie-hellman-group1-sha1";
+          HostKeyAlgorithms = "+ssh-rsa";
+          Ciphers = "+aes128-cbc";
+        };
+      };
     };
   };
 }
