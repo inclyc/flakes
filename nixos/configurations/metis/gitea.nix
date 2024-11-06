@@ -4,7 +4,10 @@ let
   url = "https://${domain}";
 in
 {
-  sops.secrets."gitea/runners/simd" = { };
+  sops.secrets = {
+    "gitea/runners/simd" = { };
+    "gitea/runners/fuse-feature" = { };
+  };
 
   services = {
     gitea-actions-runner.instances = {
@@ -29,6 +32,45 @@ in
           wget
           cmake
           python3
+        ];
+      };
+      "fuse-feature" = {
+        inherit url;
+        enable = true;
+        name = "fuse-feature";
+        tokenFile = config.sops.secrets."gitea/runners/fuse-feature".path;
+        labels = [
+          "native:host"
+        ];
+        hostPackages = with pkgs; [
+          coreutils
+          curl
+          gnused
+          nodejs
+          wget
+          cmake
+
+          gitMinimal
+
+          # Python environment
+          python3
+          poetry
+
+          (buildFHSEnv {
+            name = "many-linux-fhs";
+            targetPkgs =
+              pkgs:
+              (with pkgs; [
+                stdenv.cc
+                perl
+                python3
+                glib
+                zlib
+                git
+                openssh
+              ]);
+            runScript = lib.getExe python3;
+          })
         ];
       };
     };
