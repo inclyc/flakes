@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let
   domain = "git.inclyc.cn";
   url = "https://${domain}";
@@ -15,6 +15,20 @@ in
         tokenFile = config.sops.secrets."gitea/runners/simd".path;
         labels = [
           "native:host"
+        ];
+        hostPackages = with pkgs; [
+          ninja
+          gcc8
+          bash
+          coreutils
+          curl
+          gawk
+          gitMinimal
+          gnused
+          nodejs
+          wget
+          cmake
+          python3
         ];
       };
     };
