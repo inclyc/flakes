@@ -24,6 +24,7 @@ in
           gcc8
           bash
           coreutils
+          diffutils
           curl
           gawk
           gitMinimal
