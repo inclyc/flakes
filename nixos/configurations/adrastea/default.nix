@@ -125,14 +125,13 @@
           stdenv.cc
           perl
           python3
-          cudatoolkit
-          libGL
           glib
           zlib
           git
           openssh
-        ])
-        ++ [ config.boot.kernelPackages.nvidia_x11 ];
+          cudatoolkit
+          config.boot.kernelPackages.nvidia_x11
+        ]);
       runScript = lib.getExe zsh;
     })
   ];
