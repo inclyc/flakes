@@ -134,6 +134,9 @@
         ]);
       runScript = lib.getExe zsh;
     })
+
+    racket
+    chez
   ];
 
   virtualisation.spiceUSBRedirection.enable = true;
