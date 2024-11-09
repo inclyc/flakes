@@ -53,6 +53,14 @@
               connectionToken = false;
               folders = [ ];
             }
+            {
+              type = "manual";
+              name = "local-fhs";
+              host = "localhost";
+              port = 47562;
+              connectionToken = false;
+              folders = [ ];
+            }
           ];
         }
       );
