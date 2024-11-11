@@ -133,7 +133,7 @@
           cudatoolkit
           config.boot.kernelPackages.nvidia_x11
         ]);
-      runScript = lib.getExe zsh;
+      runScript = lib.getExe python3;
     })
 
     racket
