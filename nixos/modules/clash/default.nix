@@ -52,7 +52,7 @@ in
             DynamicUser = "yes";
             LoadCredential = "config.yaml:${cfg.configPath}";
             WorkingDirectory = "${cfg.workingDirectory}";
-            ExecStartPre = "${pkgs.coreutils}/bin/ln -s ${pkgs.clash-geoip}/etc/clash/Country.mmdb ${cfg.configDirectory}";
+            ExecStartPre = "${pkgs.coreutils}/bin/ln -s ${pkgs.dbip-country-lite.mmdb} ${cfg.configDirectory}/Country.mmdb";
             ExecStart = "${lib.getExe cfg.package}" + " -d ${cfg.configDirectory}" + " -f %d/config.yaml";
             Restart = "on-failure";
             CapabilityBoundingSet = [ "" ];
