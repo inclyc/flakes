@@ -30,6 +30,7 @@
     ./wireguard.nix
     ./nvidia.nix
     ./game.nix
+    ./gitea.nix
   ];
 
   boot.binfmt.emulatedSystems = [
