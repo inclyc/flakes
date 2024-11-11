@@ -90,7 +90,7 @@
     pciutils
     usbutils
 
-    jdk22
+    jdk
 
     chromium
 
