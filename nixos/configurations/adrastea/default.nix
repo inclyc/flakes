@@ -125,6 +125,7 @@
           stdenv.cc
           perl
           python3
+          libGL
           glib
           zlib
           git
