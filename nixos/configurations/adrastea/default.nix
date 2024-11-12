@@ -139,6 +139,8 @@
 
     racket
     chez
+
+    nixd
   ];
 
   virtualisation.spiceUSBRedirection.enable = true;
