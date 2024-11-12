@@ -20,7 +20,7 @@ jobs:
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     # Cherry-picked from https://github.com/TGuimbert/dotfiles/blob/3b9d27ec6e22ab7c70819799876e4eb089678424/.github/workflows/cachix.yaml#L8
     - name: Build NixOS configuration
-      run: nix build .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel
+      run: nix eval --raw .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel
 
   build-packages:
     strategy:
