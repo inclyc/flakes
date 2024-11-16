@@ -25,13 +25,20 @@
 
   imports = [
     # Include the results of the hardware scan.
+    ./game.nix
+    ./gitea.nix
     ./hardware-configuration.nix
     ./networking.nix
     ./wireguard.nix
-    ./nvidia.nix
-    ./game.nix
-    ./gitea.nix
   ];
+
+  specialisation = {
+    nvidia.configuration = {
+      imports = [
+        ./nvidia.nix
+      ];
+    };
+  };
 
   boot.binfmt.emulatedSystems = [
     "aarch64-linux"
