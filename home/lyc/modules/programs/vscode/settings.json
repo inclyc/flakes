@@ -203,6 +203,7 @@
     "telemetry.telemetryLevel": "off",
     "terminal.integrated.defaultProfile.osx": "zsh",
     "terminal.integrated.fontFamily": "\"MesloLGS NF\", 'FiraCode Nerd Font Mono', \"Consolas\", \"Microsoft Yahei\"",
+    "update.mode": "none",
     "vscode-neovim.useCtrlKeysForInsertMode": false,
     "window.autoDetectColorScheme": true,
     "window.dialogStyle": "custom",
