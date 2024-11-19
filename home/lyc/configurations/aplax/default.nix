@@ -38,8 +38,6 @@
 
     nixd
 
-    xquartz
-
     poetry
 
     pandoc
