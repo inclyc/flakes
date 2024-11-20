@@ -107,8 +107,6 @@
     nodejs
     yarn
 
-    kitty.terminfo
-
     nixfmt-rfc-style
 
     (texlive.combine { inherit (texlive) scheme-full; })
