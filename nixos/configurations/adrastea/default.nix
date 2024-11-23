@@ -146,6 +146,9 @@
     chez
 
     nixd
+
+    lean4
+    elan
   ];
 
   virtualisation.spiceUSBRedirection.enable = true;
