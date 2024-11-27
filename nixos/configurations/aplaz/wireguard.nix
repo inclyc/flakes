@@ -24,7 +24,7 @@
           wireguardPeerConfig = {
             PublicKey = "CMb1V4DaIsYRY5dNxZSzQZD6Xnd5/DNyDPJoRtosfgs=";
             AllowedIPs = [ "10.231.0.1/16" ];
-            Endpoint = "llvmws.lyc.dev:20125";
+            Endpoint = "llvmws.inclyc.cn:20125";
             PersistentKeepalive = 25;
           };
         }

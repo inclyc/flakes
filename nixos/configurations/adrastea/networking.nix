@@ -91,7 +91,7 @@ in
   sops.secrets."rathole-ssh-token" = { };
   sops.templates."rathole-client.toml".content = ''
     [client]
-    remote_addr = "llvmws.lyc.dev:20155" # The address of the server. The port must be the same with the port in `server.bind_addr`
+    remote_addr = "llvmws.inclyc.cn:20155" # The address of the server. The port must be the same with the port in `server.bind_addr`
 
     [client.transport]
     type = "noise"
@@ -108,7 +108,7 @@ in
 
   sops.secrets."ddns/cloudflare" = { };
   services.ddns."cloudflare-adrastea" = {
-    ipv6 = "adrastea.lyc.dev";
+    ipv6 = "adrastea.inclyc.cn";
     index6 = "default";
     dns = "cloudflare";
     environmentFile = [ config.sops.secrets."ddns/cloudflare".path ];
@@ -116,7 +116,7 @@ in
   };
 
   services.ddns."cloudflare-adrastea-6" = {
-    ipv6 = "6.adrastea.lyc.dev";
+    ipv6 = "6.adrastea.inclyc.cn";
     index6 = "default";
     dns = "cloudflare";
     environmentFile = [ config.sops.secrets."ddns/cloudflare".path ];
