@@ -11,6 +11,10 @@
   inclyc.tex.enable = true;
   inclyc.ssh.ICTProxy = true;
 
+  systemd.user.tmpfiles.rules = [
+    "d %h/Downloads - - - mM:7d"
+  ];
+
   programs.vscode = {
     enable = true;
     userSettings = (builtins.fromJSON (builtins.readFile ./vscode-settings.json));
