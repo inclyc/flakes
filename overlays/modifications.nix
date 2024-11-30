@@ -4,6 +4,7 @@ let
 in
 (lib.composeManyExtensions [
   (import ./chromium.nix)
+  (import ./openssh)
 ])
   final
   prev
