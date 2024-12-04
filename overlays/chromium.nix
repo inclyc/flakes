@@ -25,5 +25,4 @@ lib.foldl'
   { }
   [
     "chromium"
-    "vscodium"
   ]
