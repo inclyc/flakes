@@ -1,6 +1,6 @@
 final: prev:
 let
-  inherit (prev) system lib hostPlatform;
+  inherit (prev) lib hostPlatform;
   inherit (hostPlatform) isLinux;
 
   args = lib.optionals isLinux [
