@@ -41,6 +41,8 @@
     poetry
 
     pandoc
+
+    rsync
   ];
 
   home.sessionVariables = {
