@@ -42,6 +42,8 @@
 
     pandoc
 
+    elan
+
     rsync
   ];
 
