@@ -69,8 +69,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    libsForQt5.ark
-
     gnumake
     qemu
     virt-viewer
@@ -149,6 +147,8 @@
 
     lean4
     elan
+
+    esbuild
   ];
 
   virtualisation.spiceUSBRedirection.enable = true;
