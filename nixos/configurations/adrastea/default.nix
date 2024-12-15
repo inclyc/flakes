@@ -29,6 +29,7 @@
     ./gitea.nix
     ./hardware-configuration.nix
     ./networking.nix
+    ./vm
     ./wireguard.nix
   ];
 
