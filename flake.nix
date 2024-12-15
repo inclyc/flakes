@@ -69,7 +69,10 @@
           nixosModules.lyc = import ./nixos/modules;
           nixosConfigurations =
             nixpkgs.lib.genAttrs
-              (map (f: nixpkgs.lib.removeSuffix ".nix" f) (builtins.attrNames (builtins.readDir nixosConfigDir)))
+              (map (f: nixpkgs.lib.removeSuffix ".nix" f) [
+                "adrastea"
+                "metis"
+              ])
               (
                 hostName:
                 nixpkgs.lib.nixosSystem {
