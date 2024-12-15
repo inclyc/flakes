@@ -17,7 +17,6 @@
     };
 
     flake-utils.url = "github:numtide/flake-utils";
-    nur.url = "github:nix-community/NUR";
 
     nixos-apple-silicon = {
       url = "github:tpwrules/nixos-apple-silicon";
@@ -34,7 +33,6 @@
     {
       self,
       nixpkgs,
-      nur,
       flake-utils,
       flake-parts,
       sops-nix,
@@ -50,11 +48,7 @@
       systems = flake-utils.lib.defaultSystems;
       perSystem =
         {
-          config,
-          self',
-          inputs',
           pkgs,
-          system,
           ...
         }:
         {
@@ -82,7 +76,6 @@
                   modules =
                     [ (nixosConfigDir + "/${hostName}") ]
                     ++ [
-                      nur.nixosModules.nur
                       outputs.nixosModules.lyc
                       sops-nix.nixosModules.sops
                     ];
