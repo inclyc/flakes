@@ -21,7 +21,7 @@
   inclyc.ssh.ICTProxy = true;
 
   home.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "FiraCode" ]; })
+    nerd-fonts.fira-code
     (hiPrio clang-tools_16)
     (texlive.combine { inherit (texlive) scheme-full; })
     clash-meta

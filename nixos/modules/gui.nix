@@ -99,21 +99,14 @@ in
     fonts = {
       enableDefaultPackages = false;
       packages = with pkgs; [
-        source-sans-pro
-        source-serif-pro
+        jetbrains-mono
+        nerd-fonts.fira-code
         noto-fonts
         noto-fonts-cjk-sans
         noto-fonts-cjk-serif
         noto-fonts-emoji
-        jetbrains-mono
-        fira-code
-        (nerdfonts.override {
-          fonts = [
-            "JetBrainsMono"
-            "Noto"
-            "FiraCode"
-          ];
-        })
+        source-sans-pro
+        source-serif-pro
       ];
       fontconfig.defaultFonts = pkgs.lib.mkForce {
         serif = [
