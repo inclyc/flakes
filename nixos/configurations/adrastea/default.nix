@@ -120,26 +120,6 @@
     verilator
     verible
 
-    # Shim FHS user system, for pre-compiled python wheels.
-    (buildFHSEnv {
-      name = "many-linux-fhs";
-      targetPkgs =
-        pkgs:
-        (with pkgs; [
-          stdenv.cc
-          perl
-          python3
-          libGL
-          glib
-          zlib
-          git
-          openssh
-          cudatoolkit
-          config.boot.kernelPackages.nvidia_x11
-        ]);
-      runScript = lib.getExe python3;
-    })
-
     racket
     chez
 
