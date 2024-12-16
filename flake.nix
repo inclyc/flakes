@@ -66,6 +66,25 @@
         };
       flake =
         {
+          nix.settings = {
+            # nix substituters shared between home-manager and nixos
+            substituters =
+              let
+                channelStore = x: "https://${x}/nix-channels/store";
+                mirrors = map (x: channelStore "mirrors.${x}.edu.cn") [
+                  "bfsu"
+                  "tuna.tsinghua"
+                  "ustc"
+                ];
+                cachix = x: "https://${x}.cachix.org";
+              in
+              nixpkgs.lib.flatten [
+                mirrors
+                (cachix "nix-community")
+                "https://cache.nixos.org"
+                (cachix "inclyc")
+              ];
+          };
           nixosModules.lyc = import ./nixos/modules;
           nixosConfigurations =
             nixpkgs.lib.genAttrs

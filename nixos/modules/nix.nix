@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  outputs,
   lib,
   ...
 }:
@@ -8,14 +9,7 @@
   nix = {
     nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
     settings = {
-      substituters = [
-        "https://mirrors.bfsu.edu.cn/nix-channels/store"
-        "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
-        "https://mirrors.ustc.edu.cn/nix-channels/store"
-        "https://cache.nixos.org"
-        "https://nix-community.cachix.org"
-        "https://inclyc.cachix.org"
-      ];
+      inherit (outputs.nix.settings) substituters;
       trusted-users = [
         "root"
         "@wheel"
