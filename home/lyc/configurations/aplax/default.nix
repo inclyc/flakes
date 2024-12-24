@@ -22,7 +22,6 @@
 
   home.packages = with pkgs; [
     nerd-fonts.fira-code
-    (hiPrio clang-tools_16)
     (texlive.combine { inherit (texlive) scheme-full; })
     clash-meta
     pinentry_mac
