@@ -22,7 +22,7 @@
           "terminal.integrated.profiles.osx".zsh.path = zshPath;
           "terminal.integrated.profiles.linux".zsh.path = zshPath;
           "nix.enableLanguageServer" = true;
-          "nix.serverPath" = "${lib.getExe pkgs.nixd}";
+          "nix.serverPath" = "nixd";
           "nix.serverSettings" = {
             nixd = {
               formatting.command = [ "nixfmt" ];
