@@ -250,9 +250,12 @@
     '';
   };
 
+  users.users.lyc.uid = 1000;
+
   users.users = {
     zxy = {
       isNormalUser = true;
+      uid = 1001;
       description = "Xiaoyu Zhang";
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAChPZIziXRA0i7/A5Q5JuQf0rh2tfIuQ/lE7gxoxyUv zhang@hhh"
