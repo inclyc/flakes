@@ -24,9 +24,11 @@
   };
 
   imports = [
-    # Include the results of the hardware scan.
+    # Codium server, for easy FHS access.
+    ./code-server
     ./game.nix
     ./gitea.nix
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./networking.nix
     ./wireguard.nix
@@ -135,6 +137,8 @@
     elan
 
     esbuild
+
+    linux-fhs-python
   ];
 
   virtualisation.spiceUSBRedirection.enable = true;
