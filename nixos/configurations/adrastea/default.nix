@@ -125,6 +125,12 @@
 
     nixd
 
+    # Archive utilities.
+    zip
+    unzip
+    rar
+    unrar
+
     lean4
     elan
 
