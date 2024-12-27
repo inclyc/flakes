@@ -7,7 +7,6 @@ import os
 import subprocess
 import re
 import json
-import requests
 
 
 @dataclass
@@ -52,6 +51,8 @@ def prefetch(meta: VSCodiumMetadata):
 
 
 def fetch_version_github(owner, repo):
+    import requests
+
     response = requests.get(
         f"https://github.com/{owner}/{repo}/releases/latest",
         allow_redirects=False,
@@ -60,18 +61,25 @@ def fetch_version_github(owner, repo):
 
 
 def main():
+    from argparse import ArgumentParser
+
+    parser = ArgumentParser()
+    parser.add_argument("--version", default="latest")
+
+    args = parser.parse_args()
+
+    if args.version == "latest":
+        print("Fetching the latest version from github")
+        vscodium_ver = fetch_version_github("VSCodium", "vscodium")
+    else:
+        vscodium_ver = args.version
+
     ROOT = os.path.dirname(os.path.realpath(__file__))
     nix_path = os.path.join(ROOT, "default.nix")
 
     if not os.path.isfile(nix_path):
         print(f"ERROR: cannot find vscodium.nix in {ROOT}")
         exit(1)
-
-    # Get the latest VSCodium version
-    vscodium_ver = os.environ.get(
-        "VSCODIUM_VERSION",
-        fetch_version_github("VSCodium", "vscodium"),
-    )
 
     # Update the version in vscodium.nix
     with open(nix_path, "r") as file:
@@ -86,7 +94,7 @@ def main():
 
     # Update hashes for various architectures
     output = {}
-    for asset in ("vscodium-reh",):
+    for asset in ("vscodium-reh", "vscodium-reh-web"):
         output[asset] = {}
         for osname in ("linux", "darwin"):
             for arch in ("x64", "arm64"):

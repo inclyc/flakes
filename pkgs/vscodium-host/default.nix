@@ -3,6 +3,9 @@
   fetchurl,
   autoPatchelfHook,
   gnutar,
+
+  pname,
+  assetName,
 }:
 
 let
@@ -10,12 +13,12 @@ let
   sources = builtins.fromJSON (builtins.readFile ./sources.json);
 in
 stdenv.mkDerivation {
-  pname = "vscodium-reh";
-  version = "1.95.3.24321";
+  inherit pname;
+  version = "1.96.2.24355";
 
   sourceRoot = ".";
 
-  src = fetchurl sources."vscodium-reh".${system};
+  src = fetchurl sources.${assetName}.${system};
 
   unpackPhase = ''
     mkdir -p "$out"
@@ -31,5 +34,5 @@ stdenv.mkDerivation {
     gnutar
   ];
 
-  passthru.updateScript = ./update-codium-reh.py;
+  passthru.updateScript = ./update.py;
 }
