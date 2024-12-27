@@ -137,8 +137,6 @@
     elan
 
     esbuild
-
-    linux-fhs-python
   ];
 
   virtualisation.spiceUSBRedirection.enable = true;
