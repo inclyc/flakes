@@ -6,15 +6,9 @@
 }:
 let
   mkUser =
-    user:
+    { user, port }:
     let
       secretName = "code/adrastea/${user}";
-      port =
-        {
-          "lyc" = "63300";
-          "zxy" = "63301";
-        }
-        .${user};
     in
     {
       sops.secrets.${secretName} = {
@@ -50,6 +44,12 @@ let
     };
 in
 lib.mkMerge [
-  (mkUser "lyc")
-  (mkUser "zxy")
+  (mkUser {
+    user = "lyc";
+    port = "63300";
+  })
+  (mkUser {
+    user = "zxy";
+    port = "63301";
+  })
 ]
