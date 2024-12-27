@@ -20,33 +20,6 @@ in
   networking.dhcpcd.enable = false;
   networking.useDHCP = false;
 
-  services.dante.enable = true;
-  services.dante.config = ''
-        internal: 0.0.0.0 port = 20179
-        external: br0
-        clientmethod: none
-        socksmethod: none
-          client pass {
-    	    from: 0.0.0.0/0 to: 0.0.0.0/0
-    	    log: error connect disconnect
-        }
-        socks pass {
-    	    from: 0.0.0.0/0 to: 10.3.2.104/32
-    	    command: bind connect udpassociate bindreply udpreply
-    	    log: error connect disconnect iooperation
-        }
-        socks pass {
-    	    from: 0.0.0.0/0 to: 10.3.2.130/32
-    	    command: bind connect udpassociate bindreply udpreply
-    	    log: error connect disconnect iooperation
-        }
-        socks pass {
-    	    from: 0.0.0.0/0 to: 10.208.130.239/32
-    	    command: bind connect udpassociate bindreply udpreply
-    	    log: error connect disconnect iooperation
-        }
-  '';
-
   systemd.network.enable = true;
   systemd.network.networks = {
     "20-br0" = {
