@@ -15,22 +15,6 @@
     "d %h/Downloads - - - mM:7d"
   ];
 
-  systemd.user.services."code-server-fhs" = {
-    Service = {
-      ExecStart = "${pkgs.writeScript "start-code-server" ''
-        #!${lib.getExe pkgs.linux-fhs-python}
-        ${builtins.readFile ./start-code-server.py}
-      ''}";
-      Environment = [
-        "CODIUM_REH=${pkgs.codium-reh}"
-        "PORT=47562"
-      ];
-    };
-    Install = {
-      WantedBy = [ "default.target" ];
-    };
-  };
-
   programs.vscode = {
     enable = true;
     userSettings = (builtins.fromJSON (builtins.readFile ./vscode-settings.json));
