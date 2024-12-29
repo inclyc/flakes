@@ -16,7 +16,11 @@ let
       };
       systemd.user.services."code-server-fhs-${user}" = {
         description = "Code Server with FHS";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = [ "default.target" ];
+        path = [
+          "/run/current-system/sw"
+          "${config.users.users.${user}.home}/.nix-profile"
+        ];
 
         serviceConfig = {
           ExecStart = "${pkgs.writeScript "start-code-server" ''
