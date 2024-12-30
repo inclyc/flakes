@@ -259,9 +259,11 @@
     '';
   };
 
-  users.users.lyc.uid = 1000;
-
   users.users = {
+    lyc = {
+      uid = 1000;
+      linger = true;
+    };
     zxy = {
       isNormalUser = true;
       uid = 1001;
@@ -270,6 +272,7 @@
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAChPZIziXRA0i7/A5Q5JuQf0rh2tfIuQ/lE7gxoxyUv zhang@hhh"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG6MKXjYOkBEo7Ex6qTczyxS/jbYekBOs7klT6l62v+f dell@DESKTOP-SI7T7BL"
       ] ++ config.users.users.lyc.openssh.authorizedKeys.keys;
+      linger = true;
     };
   };
 
