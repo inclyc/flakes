@@ -36,4 +36,8 @@
     user = "zxy";
     port = 22;
   };
+
+  home.packages = with pkgs; [
+    nodePackages.pnpm
+  ];
 }
