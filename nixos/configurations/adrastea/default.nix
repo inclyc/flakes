@@ -24,7 +24,7 @@
   };
 
   imports = [
-    # Codium server, for easy FHS access.
+    # vscode server, for easy FHS access.
     ./code-server
     ./game.nix
     ./gitea.nix

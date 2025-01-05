@@ -28,7 +28,7 @@ let
             ${builtins.readFile ./start-code-server.py}
           ''}";
           Environment = [
-            "WebHost=${pkgs.vscodium-web-host}"
+            "WebHost=${pkgs.vscode-web-host}"
             "Port=${port}"
             "ConnectionTokenFile=${config.sops.secrets.${secretName}.path}"
           ];
