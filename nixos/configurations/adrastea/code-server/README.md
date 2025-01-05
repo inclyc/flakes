@@ -1,3 +1,3 @@
 # Code server
 
-This submodule declares using vscodium web services.
+This submodule declares using vscode web services.

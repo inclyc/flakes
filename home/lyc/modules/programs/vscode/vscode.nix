@@ -4,7 +4,7 @@
     enable = lib.mkDefault false;
 
     # Use open-source version of microsoft/vscode
-    package = pkgs.vscodium;
+    package = pkgs.vscode;
     userSettings =
       (builtins.fromJSON (builtins.readFile ./settings.json))
       // (

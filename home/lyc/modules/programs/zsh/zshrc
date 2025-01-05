@@ -51,7 +51,7 @@ zle -N down-line-or-beginning-search
 [[ -n "${key[Down]}" ]] && bindkey -- "${key[Down]}" down-line-or-beginning-search
 
 
-export EDITOR="codium --wait"
+export EDITOR="code --wait"
 
 # Enable word movement with Ctrl + Arrow keys
 bindkey '^[[1;5D' backward-word  # Ctrl + Left Arrow
