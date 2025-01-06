@@ -178,7 +178,6 @@
     "latex-workshop.view.pdf.viewer": "tab",
     "nix.enableLanguageServer": true,
     "python.analysis.typeCheckingMode": "basic",
-    "python.languageServer": "None",
     "python.terminal.activateEnvironment": false,
     "remote.SSH.enableRemoteCommand": true,
     "remote.SSH.remotePlatform": {
