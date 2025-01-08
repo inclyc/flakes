@@ -107,6 +107,9 @@ in
         noto-fonts-emoji
         source-sans-pro
         source-serif-pro
+        corefonts
+        vistafonts
+        vistafonts-chs
       ];
       fontconfig.defaultFonts = pkgs.lib.mkForce {
         serif = [
