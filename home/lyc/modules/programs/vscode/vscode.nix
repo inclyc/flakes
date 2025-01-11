@@ -33,31 +33,16 @@
           "remote.OSS.hosts" = [
             {
               type = "manual";
-              name = "metis-interpreter";
-              host = "localhost";
-              port = 47560;
-              connectionToken = false;
-              folders = [
-                {
-                  name = "ast-interpreter";
-                  path = "/root/ast-interpreter";
-                }
-              ];
-            }
-            {
-              type = "manual";
               name = "adrastea-zxy";
               host = "localhost";
-              port = 47561;
-              connectionToken = false;
+              port = 63301;
               folders = [ ];
             }
             {
               type = "manual";
               name = "local-fhs";
               host = "localhost";
-              port = 47562;
-              connectionToken = false;
+              port = 63300;
               folders = [ ];
             }
           ];
