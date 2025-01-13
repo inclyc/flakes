@@ -45,6 +45,9 @@
     elan
 
     rsync
+
+    # Resources monitor
+    btop
   ];
 
   home.sessionVariables = {
