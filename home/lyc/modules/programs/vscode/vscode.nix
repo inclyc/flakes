@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   programs.vscode = {
     enable = lib.mkDefault false;
@@ -46,6 +51,9 @@
               folders = [ ];
             }
           ];
+
+          # Remote SSH platforms.
+          "remote.SSH.remotePlatform" = lib.mapAttrs (name: value: "linux") config.programs.ssh.matchBlocks;
         }
       );
   };
