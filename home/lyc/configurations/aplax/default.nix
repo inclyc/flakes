@@ -48,6 +48,10 @@
 
     # Resources monitor
     btop
+
+    # Rust
+    cargo
+    rustc
   ];
 
   home.sessionVariables = {
