@@ -52,9 +52,14 @@
     # Rust
     cargo
     rustc
+
+    (androidenv.composeAndroidPackages {
+      platformToolsVersion = "35.0.2";
+    }).platform-tools
   ];
 
   home.sessionVariables = {
     NIX_PATH = "nixpkgs=${inputs.nixpkgs}";
+    ANDROID_SDK_ROOT = "${config.home.homeDirectory}/.nix-profile/libexec/android-sdk";
   };
 }
