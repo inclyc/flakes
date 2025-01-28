@@ -93,20 +93,20 @@
             "tools": [
                 "LuaLaTeXmk"
             ]
-        },
-        {
-            "name": "LaTeXmk-DVIPDFMx",
-            "tools": [
-                "LaTeXmk-DVIPDFMx"
-            ]
-        },
-        {
-            "name": "upLaTeXmk-DVIPDFMx",
-            "tools": [
-                "upLaTeXmk-DVIPDFMx"
-            ]
         }
     ],
+    "latex-workshop.linting.chktex.enabled": true,
+    "latex-workshop.linting.chktex.exec.args": [
+        "-wall",
+        "-n1",
+        "-n8",
+        "-n19",
+        "-n22",
+        "-n30",
+        "-e16",
+        "-q"
+    ],
+    "latex-workshop.bibtex-format.sort.enabled": true,
     "latex-workshop.latex.tools": [
         {
             "args": [
@@ -115,6 +115,7 @@
                 "-shell-escape",
                 "-interaction=nonstopmode",
                 "-file-line-error",
+                "-outdir=%DIR%/latex-build",
                 "%DOC%"
             ],
             "command": "latexmk",
@@ -127,6 +128,7 @@
                 "-shell-escape",
                 "-interaction=nonstopmode",
                 "-file-line-error",
+                "-outdir=%DIR%/latex-build",
                 "%DOC%"
             ],
             "command": "latexmk",
@@ -139,42 +141,20 @@
                 "-shell-escape",
                 "-interaction=nonstopmode",
                 "-file-line-error",
+                "-outdir=%DIR%/latex-build",
                 "%DOC%"
             ],
             "command": "latexmk",
             "name": "LuaLaTeXmk"
-        },
-        {
-            "args": [
-                "-e",
-                "$dvipdf='dvipdfmx %O -o %D %S'",
-                "-latex",
-                "-pdfdvi",
-                "-synctex=1",
-                "-shell-escape",
-                "-interaction=nonstopmode",
-                "-file-line-error",
-                "%DOC%"
-            ],
-            "command": "latexmk",
-            "name": "LaTeXmk-DVIPDFMx"
-        },
-        {
-            "args": [
-                "-e",
-                "$dvipdf='dvipdfmx %O -o %D %S'",
-                "-latex=uplatex",
-                "-pdfdvi",
-                "-synctex=1",
-                "-shell-escape",
-                "-interaction=nonstopmode",
-                "-file-line-error",
-                "%DOC%"
-            ],
-            "command": "latexmk",
-            "name": "upLaTeXmk-DVIPDFMx"
         }
     ],
+    "latex-workshop.latexindent.args": [
+        "-c",
+        "%DIR%/latex-build/",
+        "%TMPFILE%",
+        "-y=defaultIndent: '%INDENT%'"
+    ],
+    "latex-workshop.synctex.afterBuild.enabled": true,
     "latex-workshop.view.pdf.viewer": "tab",
     "nix.enableLanguageServer": true,
     "python.analysis.typeCheckingMode": "basic",
