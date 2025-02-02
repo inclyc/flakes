@@ -56,6 +56,8 @@
     (androidenv.composeAndroidPackages {
       platformToolsVersion = "35.0.2";
     }).platform-tools
+
+    mtr
   ];
 
   home.sessionVariables = {
