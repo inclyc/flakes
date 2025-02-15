@@ -7,6 +7,7 @@ let
     "ict-sw-git"
     "ict-repo"
     "ict-altric"
+    "ict-44"
   ];
   ict-portal = "ict-malcon-pub";
 in

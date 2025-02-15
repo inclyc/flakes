@@ -104,6 +104,10 @@
           user = "lyc";
           proxyCommand = mkProxyCommand "localhost" 1080;
         };
+        "ict-44" = {
+          hostname = "10.208.130.44";
+          user = "i_longyingchi";
+        };
       };
     };
 }
