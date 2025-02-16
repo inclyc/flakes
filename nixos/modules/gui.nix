@@ -81,7 +81,7 @@ in
     # Enable CUPS to print documents.
     services.printing.enable = true;
 
-    hardware.pulseaudio.enable = false;
+    services.pulseaudio.enable = false;
     security.rtkit.enable = true;
     services.pipewire = {
       enable = true;

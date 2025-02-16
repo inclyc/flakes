@@ -74,7 +74,6 @@
   environment.systemPackages = with pkgs; [
     gnumake
     qemu
-    virt-viewer
 
     gdb
     file
@@ -110,8 +109,6 @@
     # VNC client
     krdc
 
-    fluent-icon-theme
-
     nodejs
     yarn
 
@@ -138,6 +135,8 @@
     elan
 
     esbuild
+
+    zed-editor
   ];
 
   virtualisation.spiceUSBRedirection.enable = true;
