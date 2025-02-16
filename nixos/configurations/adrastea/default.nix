@@ -74,7 +74,6 @@
   environment.systemPackages = with pkgs; [
     gnumake
     qemu
-    virt-viewer
 
     gdb
     file
