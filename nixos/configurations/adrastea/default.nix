@@ -135,8 +135,6 @@
     elan
 
     esbuild
-
-    zed-editor
   ];
 
   virtualisation.spiceUSBRedirection.enable = true;
