@@ -110,8 +110,6 @@
     # VNC client
     krdc
 
-    fluent-icon-theme
-
     nodejs
     yarn
 
