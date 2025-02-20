@@ -108,6 +108,11 @@
           hostname = "10.208.130.44";
           user = "i_longyingchi";
         };
+        "git-xcoresigma" = {
+          hostname = "git.xcoresigma.com";
+          user = "git";
+          proxyCommand = mkProxyCommand "localhost" 9056;
+        };
       };
     };
 }
