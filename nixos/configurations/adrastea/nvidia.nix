@@ -7,8 +7,10 @@ in
   # Provides kernel pacakges
   boot.extraModulePackages = [ nvidia ];
 
-  # Provides nvidia-smi
-  environment.systemPackages = [ nvidia ];
+  environment.systemPackages = with pkgs; [
+    nvidia # Provides nvidia-smi
+    cudatoolkit # nvcc & cuda libraries.
+  ];
 
   # Set "NVIDIA_KERNEL" for furthur references.
   environment.sessionVariables = {
