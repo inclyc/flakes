@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let
   kernelPackages = config.boot.kernelPackages;
   nvidia = kernelPackages.nvidia_x11;
@@ -39,4 +39,8 @@ in
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
+
+  programs.nix-ld.libraries = with pkgs; [
+    cudatoolkit
+  ];
 }
