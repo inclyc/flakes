@@ -6,6 +6,10 @@
       key = "296C3FEFEA88ABC5!";
       signByDefault = true;
     };
+    ignores = [
+      ".DS_Store"
+      ".direnv"
+    ];
     extraConfig = {
       init.defaultBranch = "main";
       pull.ff = "only";
