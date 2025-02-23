@@ -1,16 +1,16 @@
 {
   "vscode-server": {
     "x86_64-linux": {
-      "url": "https://update.code.visualstudio.com/1.96.2/server-linux-x64-web/stable",
-      "sha256": "13wmfpy37yf2i1f846asgh8a2i85d4ki07zmqymxy23syi774hn8"
+      "url": "https://update.code.visualstudio.com/1.97.2/server-linux-x64-web/stable",
+      "sha256": "15gsc2hvv612xw04yh246l8vdm47dfis579fax3mc85g2ms4fd2s"
     },
     "aarch64-darwin": {
-      "url": "https://update.code.visualstudio.com/1.96.2/server-darwin-arm64-web/stable",
-      "sha256": "1aai8vq2ydqjkn6v4q1v1hlh82jnb8j3sxh8mmihhncrky22igp7"
+      "url": "https://update.code.visualstudio.com/1.97.2/server-darwin-arm64-web/stable",
+      "sha256": "1p1fcyj6jkjhl863wmsishgi16jpa9rpd2da29a2wjn9xpi5wdcb"
     },
     "aarch64-linux": {
-      "url": "https://update.code.visualstudio.com/1.96.2/server-linux-arm64-web/stable",
-      "sha256": "1vlm7lrqlx16ninwnkppcagjy2sqh86zigk8380g8gajxdibk7jj"
+      "url": "https://update.code.visualstudio.com/1.97.2/server-linux-arm64-web/stable",
+      "sha256": "1mkk8wy3v3qwa6b23h09gcvll9msk387hp4h7xhj3g9r1kf7jnkp"
     }
   }
 }
