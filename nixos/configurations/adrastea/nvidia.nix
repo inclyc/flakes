@@ -44,5 +44,6 @@ in
 
   programs.nix-ld.libraries = with pkgs; [
     cudatoolkit
+    nvidia
   ];
 }
