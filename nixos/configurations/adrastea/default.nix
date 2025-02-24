@@ -135,6 +135,10 @@
     elan
 
     esbuild
+
+    # Tencent apps
+    wechat-uos
+    qq
   ];
 
   virtualisation.spiceUSBRedirection.enable = true;
