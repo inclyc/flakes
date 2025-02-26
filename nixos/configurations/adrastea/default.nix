@@ -107,7 +107,7 @@
     libreoffice-qt
 
     # VNC client
-    krdc
+    kdePackages.krdc
 
     nodejs
     yarn
