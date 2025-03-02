@@ -65,9 +65,9 @@
           port = 22;
         };
         ict-malcon-pub = {
-          hostname = "101.43.242.13";
+          hostname = "llvmws.inclyc.cn";
           user = "lyc";
-          port = 10179;
+          port = 20179;
         };
         ict-altric = {
           hostname = "10.3.2.130";
