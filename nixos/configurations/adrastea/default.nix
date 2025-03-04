@@ -139,6 +139,8 @@
     # Tencent apps
     wechat-uos
     qq
+
+    uv
   ];
 
   virtualisation.spiceUSBRedirection.enable = true;
