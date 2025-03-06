@@ -104,8 +104,6 @@
 
     du-dust
 
-    libreoffice-qt
-
     # VNC client
     kdePackages.krdc
 
