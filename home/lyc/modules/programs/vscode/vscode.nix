@@ -9,7 +9,7 @@
     enable = lib.mkDefault false;
 
     package = pkgs.vscode;
-    userSettings =
+    profiles.default.userSettings =
       (builtins.fromJSON (builtins.readFile ./settings.json))
       // (
         let

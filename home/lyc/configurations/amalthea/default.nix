@@ -18,6 +18,6 @@
 
   programs.vscode = {
     enable = true;
-    userSettings = (builtins.fromJSON (builtins.readFile ./vscode-settings.json));
+    profiles.default.userSettings = (builtins.fromJSON (builtins.readFile ./vscode-settings.json));
   };
 }
