@@ -18,4 +18,6 @@
     assetName = "vscodium-reh-web";
   };
 
+  simsun = pkgs.callPackage ./simsun { };
+
 }
