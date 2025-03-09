@@ -9,6 +9,12 @@ in
     "gitea/runners/fuse-feature" = { };
   };
 
+  fonts.fonts = with pkgs; [
+    corefonts
+    vista-fonts
+    vista-fonts-chs
+  ];
+
   services = {
     gitea-actions-runner.instances = {
       "simd" = {
