@@ -63,6 +63,8 @@ in
           python3
           poetry
 
+          (texlive.combine { inherit (texlive) scheme-full; })
+
           (buildFHSEnv {
             name = "many-linux-fhs";
             targetPkgs =
