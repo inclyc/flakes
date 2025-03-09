@@ -50,6 +50,7 @@ in
           "native:host"
         ];
         hostPackages = with pkgs; [
+          bash
           coreutils
           curl
           gnused
