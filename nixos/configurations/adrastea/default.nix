@@ -33,6 +33,7 @@
     ./networking.nix
     ./vm
     ./wireguard.nix
+    ./llm.nix
   ];
 
   specialisation = {
@@ -142,8 +143,6 @@
   ];
 
   virtualisation.spiceUSBRedirection.enable = true;
-
-  services.ollama.enable = true;
 
   # Grant non-privileged users to access USB devices
   # For rootlesss USB forwarding (without SPICE)
