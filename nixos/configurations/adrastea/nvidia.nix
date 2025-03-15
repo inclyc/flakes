@@ -28,8 +28,6 @@ in
     wantedBy = [ "multi-user.target" ];
   };
 
-  nixpkgs.config.cudaSupport = true;
-
   # Some NixOS vendored programs look up nvidia libraries under /run/opengl-drivers
   services.xserver.videoDrivers = [ "nvidia" ];
 
