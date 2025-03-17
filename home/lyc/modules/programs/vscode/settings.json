@@ -72,6 +72,7 @@
     "git.autofetch": false,
     "git.enableCommitSigning": true,
     "git.mergeEditor": false,
+    "latex-workshop.bibtex-format.sort.enabled": true,
     "latex-workshop.formatting.latex": "latexindent",
     "latex-workshop.latex.autoBuild.run": "onSave",
     "latex-workshop.latex.recipe.default": "XeLaTeXmk",
@@ -95,18 +96,6 @@
             ]
         }
     ],
-    "latex-workshop.linting.chktex.enabled": true,
-    "latex-workshop.linting.chktex.exec.args": [
-        "-wall",
-        "-n1",
-        "-n8",
-        "-n19",
-        "-n22",
-        "-n30",
-        "-e16",
-        "-q"
-    ],
-    "latex-workshop.bibtex-format.sort.enabled": true,
     "latex-workshop.latex.tools": [
         {
             "args": [
@@ -153,6 +142,17 @@
         "%DIR%/latex-build/",
         "%TMPFILE%",
         "-y=defaultIndent: '%INDENT%'"
+    ],
+    "latex-workshop.linting.chktex.enabled": true,
+    "latex-workshop.linting.chktex.exec.args": [
+        "-wall",
+        "-n1",
+        "-n8",
+        "-n19",
+        "-n22",
+        "-n30",
+        "-e16",
+        "-q"
     ],
     "latex-workshop.synctex.afterBuild.enabled": true,
     "latex-workshop.view.pdf.viewer": "tab",
