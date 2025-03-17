@@ -9,6 +9,13 @@
         "editor.formatOnSaveMode": "file",
         "editor.tabSize": 2
     },
+    "[python]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        },
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true
+    },
     "[verilog]": {
         "editor.defaultFormatter": "chipsalliance.verible"
     },
@@ -72,6 +79,10 @@
     "git.autofetch": false,
     "git.enableCommitSigning": true,
     "git.mergeEditor": false,
+    "isort.args": [
+        "--profile",
+        "black"
+    ],
     "latex-workshop.bibtex-format.sort.enabled": true,
     "latex-workshop.formatting.latex": "latexindent",
     "latex-workshop.latex.autoBuild.run": "onSave",
