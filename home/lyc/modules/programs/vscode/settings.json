@@ -115,7 +115,6 @@
                 "-shell-escape",
                 "-interaction=nonstopmode",
                 "-file-line-error",
-                "-outdir=%DIR%/latex-build",
                 "%DOC%"
             ],
             "command": "latexmk",
@@ -128,7 +127,6 @@
                 "-shell-escape",
                 "-interaction=nonstopmode",
                 "-file-line-error",
-                "-outdir=%DIR%/latex-build",
                 "%DOC%"
             ],
             "command": "latexmk",
@@ -141,7 +139,6 @@
                 "-shell-escape",
                 "-interaction=nonstopmode",
                 "-file-line-error",
-                "-outdir=%DIR%/latex-build",
                 "%DOC%"
             ],
             "command": "latexmk",
@@ -150,7 +147,6 @@
     ],
     "latex-workshop.latexindent.args": [
         "-c",
-        "%DIR%/latex-build/",
         "%TMPFILE%",
         "-y=defaultIndent: '%INDENT%'"
     ],
