@@ -11,6 +11,8 @@
     ./rathole.nix
   ];
 
+  inclyc.development.python.enable = true;
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -90,8 +92,6 @@
 
     pciutils
     usbutils
-
-    python3
 
     mtr
     dig
