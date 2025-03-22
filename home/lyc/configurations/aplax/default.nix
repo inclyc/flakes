@@ -57,6 +57,15 @@
       platformToolsVersion = "35.0.2";
     }).platform-tools
 
+    # Python
+    uv
+    (python3.withPackages (
+      ps: with ps; [
+        black
+        ipykernel
+      ]
+    ))
+
     mtr
   ];
 
