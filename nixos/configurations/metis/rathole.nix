@@ -20,7 +20,7 @@
 
     [server.services.104-ssh]
     token = "${config.sops.placeholder.rathole-ssh-token}" # Token that is used to authenticate the client for the service. Change to an arbitrary value.
-    bind_addr = "0.0.0.0:10179"
+    bind_addr = "0.0.0.0:20179"
 
     [server.services.adrastea-ssh]
     token = "${config.sops.placeholder.rathole-ssh-token}" # Token that is used to authenticate the client for the service. Change to an arbitrary value.
