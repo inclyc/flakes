@@ -113,6 +113,11 @@
           user = "git";
           proxyCommand = mkProxyCommand "localhost" 9056;
         };
+        ucas-parallel-course = {
+          hostname = "124.16.71.7";
+          port = 7882;
+          user = "lyc";
+        };
       };
     };
 }
