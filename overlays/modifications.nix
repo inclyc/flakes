@@ -5,7 +5,7 @@ in
 (lib.composeManyExtensions [
   (import ./chromium.nix)
   (import ./openssh)
-  (import ./vscode.nix)
+  (import ./vscode)
 ])
   final
   prev
