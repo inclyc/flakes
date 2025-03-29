@@ -118,6 +118,16 @@
           port = 7882;
           user = "lyc";
         };
+        ucas-parallel-course-mpi-node1 = {
+          hostname = "124.16.71.70";
+          port = 22;
+          user = "course";
+        };
+        ucas-parallel-course-mpi-node2 = {
+          hostname = "124.16.71.63";
+          port = 22;
+          user = "course";
+        };
       };
     };
 }
