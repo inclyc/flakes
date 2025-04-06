@@ -8,7 +8,9 @@ rustPlatform.buildRustPackage {
 
   src = ./.;
 
-  cargoHash = "sha256-uDN154Y3QFw6jksEA0Z+AFgB1n0s4EFznXIC7Q+xOtQ=";
+  cargoHash = "sha256-nMu3x9SGgKsxNEwFS5JQ9VOhLnEAYBMDNRG18Ciz0kI=";
+
+  useFetchCargoVendor = true;
 
   meta = {
     license = lib.licenses.unlicense;
