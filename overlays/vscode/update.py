@@ -88,7 +88,7 @@ def main():
         print(sha256_block)
 
         # 更新文件
-        file_path = os.path.join(os.path.dirname(__file__),"vscode.nix")
+        file_path = os.path.join(os.path.dirname(__file__), "default.nix")
         update_nix_file(file_path, version, rev, sha256_block)
         print(f"\n已成功更新文件: {file_path}")
 
