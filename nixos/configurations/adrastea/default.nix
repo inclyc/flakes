@@ -24,8 +24,6 @@
   };
 
   imports = [
-    # vscode server, for easy FHS access.
-    ./code-server
     ./game.nix
     ./gitea.nix
     # Include the results of the hardware scan.

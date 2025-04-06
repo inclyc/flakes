@@ -23,7 +23,7 @@ jobs:
   build-packages:
     strategy:
       matrix:
-        package: [ ddns, vscodium-web-host, vscodium-remote-host ]
+        package: [ ddns ]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
