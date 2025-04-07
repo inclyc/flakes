@@ -32,6 +32,7 @@
     ./vm
     ./wireguard.nix
     ./llm.nix
+    ./wxiat-proxy.nix
   ];
 
   specialisation = {
