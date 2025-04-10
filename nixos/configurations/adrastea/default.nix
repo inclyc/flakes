@@ -263,6 +263,13 @@
       uid = 1000;
       linger = true;
     };
+    liujinyan = {
+      isNormalUser = true;
+      description = "Jinyan Liu";
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEB93YC2i0GzicMS+3MaZqCbwZBUtYdhe/DQ+W3RgOR0 seven_jyliu@163.com"
+      ];
+    };
     zxy = {
       isNormalUser = true;
       uid = 1001;
