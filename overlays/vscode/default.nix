@@ -17,18 +17,18 @@ let
 
   sha256 =
     {
-      x86_64-linux = "1fds83amgkzp9nz7cvs432ilr602lr45h916vkq8qhpbb84ildd2";
-      x86_64-darwin = "1pmda39jz05d0g3k6rgavhwmgxkldmarbj59fd9i0b5dcspzybxf";
-      aarch64-linux = "148cpbhz14aldqklnma9mpakylkx2qk86k5ppij0zlqb5m6mgnaz";
-      aarch64-darwin = "10v37bcl8wg4j5snd7n3l7zwqf51vkx4cs2abf33ysazmafvnfpd";
-      armv7l-linux = "10vfnk87g4agwp0phh7l9k7hg727n1l4fcvqn1bxbrix9hbq7bbc";
+      x86_64-linux = "0hb1rmrrd7zjihrl080h7jf4dprpr7mvm3ykv13mg0xmmv0d7pww";
+      x86_64-darwin = "0bf69y7xxn499r35zxliqx0jvhyd11b46p5a87w62g90q4kcald8";
+      aarch64-linux = "05zjk3l05lxh21anxxds6fn98fxlkrak37sz79jg50cxrpn5jvxg";
+      aarch64-darwin = "1sjvj4d0d3mcjczb1sjia6gl34vkr91z7jxbyqbf5c88j3zybvw5";
+      armv7l-linux = "1m7g179hlz2kri0pqsaigdyfnkkv4xwaxmxrbdpxh0sjb2imv8x2";
     }
     .${system} or throwSystem;
 in
 {
   vscode = prev.vscode.overrideAttrs (old: rec {
-    version = "1.99.0";
-    rev = "4437686ffebaf200fa4a6e6e67f735f3edf24ada";
+    version = "1.99.2";
+    rev = "4949701c880d4bdb949e3c0e6b400288da7f474b";
     src = prev.fetchurl {
       name = "VSCode_${version}_${plat}.${archive_fmt}";
       url = "https://update.code.visualstudio.com/${version}/${plat}/stable";
