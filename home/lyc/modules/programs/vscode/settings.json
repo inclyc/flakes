@@ -79,6 +79,7 @@
     "git.autofetch": false,
     "git.enableCommitSigning": true,
     "git.mergeEditor": false,
+    "github.copilot.nextEditSuggestions.enabled": true,
     "isort.args": [
         "--profile",
         "black"
