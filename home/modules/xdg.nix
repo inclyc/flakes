@@ -13,6 +13,7 @@
     _JAVA_OPTIONS = "-Djavafx.cachedir=${config.xdg.cacheHome}/openjfx -Djava.util.prefs.userRoot=${config.xdg.configHome}/java";
     GRADLE_USER_HOME = "${config.xdg.dataHome}/gradle";
     RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
+    IPYTHONDIR = "${config.xdg.dataHome}/ipython";
   };
 
   gtk.gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
