@@ -103,6 +103,8 @@
     chromium
 
     du-dust
+    ripgrep
+    fd
 
     # VNC client
     kdePackages.krdc
