@@ -7,6 +7,7 @@
     ./programs/ssh.nix
     ./programs/vscode/vscode.nix
     ./programs/zsh/zsh.nix
+    ./programs/uv.nix
     ./user.nix
   ];
 
