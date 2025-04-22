@@ -84,6 +84,7 @@
         "--profile",
         "black"
     ],
+    "javascript.format.semicolons": "insert",
     "latex-workshop.bibtex-format.sort.enabled": true,
     "latex-workshop.formatting.latex": "latexindent",
     "latex-workshop.latex.autoBuild.run": "onSave",
@@ -190,6 +191,7 @@
     "telemetry.telemetryLevel": "off",
     "terminal.integrated.defaultProfile.osx": "zsh",
     "terminal.integrated.fontFamily": "\"MesloLGS NF\", 'FiraCode Nerd Font Mono', \"Consolas\", \"Microsoft Yahei\"",
+    "typescript.format.semicolons": "insert",
     "update.mode": "none",
     "vscode-neovim.useCtrlKeysForInsertMode": false,
     "window.autoDetectColorScheme": true,
