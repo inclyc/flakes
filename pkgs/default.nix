@@ -7,4 +7,6 @@
 
   simsun = pkgs.callPackage ./simsun { };
 
+  waydroid-script = pkgs.python3Packages.callPackage ./waydroid-script { };
+
 }
