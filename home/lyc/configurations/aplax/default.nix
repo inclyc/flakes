@@ -67,6 +67,12 @@
     ))
 
     mtr
+
+    android-tools
+    (scrcpy.overrideAttrs (oldAttrs: {
+      # https://github.com/NixOS/nixpkgs/pull/239217#discussion_r1239319034
+      postPatch = "";
+    }))
   ];
 
   home.sessionVariables = {
