@@ -15,6 +15,20 @@
     "d %h/Downloads - - - mM:7d"
   ];
 
+  systemd.user.services."tunnel-8A" = {
+    Unit = {
+      Description = "SSH Tunnel for Local Port Forwarding";
+      After = [ "network.target" ];
+    };
+    Service = {
+      Type = "simple";
+      ExecStart = "${pkgs.openssh}/bin/ssh -N -o ControlMaster=no -L 8008:localhost:8000 8A";
+      Restart = "always";
+      RestartSec = "5";
+    };
+    Install.WantedBy = [ "default.target" ];
+  };
+
   programs.vscode = {
     enable = true;
     profiles.default.userSettings = (builtins.fromJSON (builtins.readFile ./vscode-settings.json));
