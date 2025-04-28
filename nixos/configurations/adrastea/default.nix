@@ -137,7 +137,31 @@
     esbuild
 
     # Tencent apps
-    wechat-uos
+    (wechat-uos.override {
+      buildFHSEnv =
+        args:
+        buildFHSEnv (
+          args
+          // {
+            # bubble wrap wechat-uos's home directory
+            extraPreBwrapCmds = ''
+              mkdir -p "''${XDG_DATA_HOME:-$HOME/.local/share}/wechat-uos"
+            '';
+            extraBwrapArgs = [
+              "--bind \"\${XDG_DATA_HOME:-$HOME/.local/share}/wechat-uos\" \"$HOME\""
+              "--chdir \"$HOME\""
+            ];
+
+            unshareUser = true;
+            unshareIpc = true;
+            unsharePid = true;
+            unshareNet = false;
+            unshareUts = true;
+            unshareCgroup = true;
+            privateTmp = true;
+          }
+        );
+    })
     qq
 
     uv
