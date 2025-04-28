@@ -145,6 +145,8 @@
 
   virtualisation.spiceUSBRedirection.enable = true;
 
+  virtualisation.waydroid.enable = true;
+
   # Grant non-privileged users to access USB devices
   # For rootlesss USB forwarding (without SPICE)
   services.udev.extraRules = ''
