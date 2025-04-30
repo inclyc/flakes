@@ -29,6 +29,7 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./networking.nix
+    ./nvidia.nix
     ./vm
     ./wireguard.nix
     ./llm.nix
@@ -37,9 +38,7 @@
 
   specialisation = {
     nvidia.configuration = {
-      imports = [
-        ./nvidia.nix
-      ];
+      inclyc.hardware.nvidia.enable = true;
     };
   };
 
