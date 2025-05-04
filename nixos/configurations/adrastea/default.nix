@@ -164,6 +164,8 @@
     qq
 
     uv
+
+    git-branch-clean
   ];
 
   virtualisation.spiceUSBRedirection.enable = true;
