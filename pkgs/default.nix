@@ -9,4 +9,5 @@
 
   waydroid-script = pkgs.python3Packages.callPackage ./waydroid-script { };
 
+  git-branch-clean = pkgs.callPackage ./git-branch-clean { };
 }
