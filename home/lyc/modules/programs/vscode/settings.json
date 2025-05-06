@@ -179,7 +179,7 @@
         "swyjs": "linux"
     },
     "remote.SSH.useLocalServer": false,
-    "rust-analyzer.checkOnSave.command": "clippy",
+    "rust-analyzer.check.command": "clippy",
     "settingsSync.ignoredExtensions": [
         "asvetliakov.vscode-neovim",
         "github.copilot",
