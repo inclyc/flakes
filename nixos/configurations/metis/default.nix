@@ -84,8 +84,8 @@
     meson
     cmake
     lldb
-    llvmPackages_16.clang
-    llvmPackages_16.bintools
+    llvmPackages_latest.clang
+    llvmPackages_latest.bintools
     rr
     ninja
     (hiPrio clang-tools_16)

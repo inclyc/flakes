@@ -89,8 +89,8 @@
     ninja
     cmake
     lldb
-    llvmPackages_16.clang
-    llvmPackages_16.bintools
+    llvmPackages_latest.clang
+    llvmPackages_latest.bintools
     (hiPrio clang-tools_16)
     rr
 
