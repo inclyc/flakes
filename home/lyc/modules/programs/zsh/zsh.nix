@@ -34,7 +34,7 @@
       ];
     };
 
-    initExtra = ''
+    initContent = ''
       source ${./zshrc}
       source ${./p10k.zsh}
     '';
