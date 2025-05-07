@@ -25,6 +25,8 @@ in
           matplotlib
           scipy
           ipykernel
+          notebook
+          jupyter
           scikit-learn
           torch
         ]
