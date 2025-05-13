@@ -114,6 +114,7 @@
     nixfmt-rfc-style
 
     (texlive.combine { inherit (texlive) scheme-full; })
+    typst
 
     iverilog
     verilator
