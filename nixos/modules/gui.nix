@@ -110,6 +110,8 @@ in
         corefonts
         vistafonts
         vistafonts-chs
+        segoe-ui-variable
+        segoe-ui
       ];
       fontconfig.defaultFonts = pkgs.lib.mkForce {
         serif = [
