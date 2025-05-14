@@ -18,11 +18,6 @@
 
     flake-utils.url = "github:numtide/flake-utils";
 
-    nixos-apple-silicon = {
-      url = "github:tpwrules/nixos-apple-silicon";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     flake-compat = {
       url = "github:inclyc/flake-compat";
       flake = false;
