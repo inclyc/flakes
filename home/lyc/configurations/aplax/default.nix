@@ -63,6 +63,7 @@
       ps: with ps; [
         black
         ipykernel
+        pygit2
       ]
     ))
 
