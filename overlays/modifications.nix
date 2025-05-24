@@ -4,7 +4,6 @@ let
 in
 (lib.composeManyExtensions [
   (import ./chromium.nix)
-  (import ./vscode)
 ])
   final
   prev
