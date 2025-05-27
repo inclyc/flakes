@@ -25,6 +25,7 @@ in
           matplotlib
           scipy
           ipykernel
+          pandas
           notebook
           jupyter
           scikit-learn
