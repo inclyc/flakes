@@ -149,6 +149,9 @@
             '';
             extraBwrapArgs = [
               "--bind \"\${XDG_DATA_HOME:-$HOME/.local/share}/wechat-uos\" \"$HOME\""
+              # Bind "Downloads", "Pictures" directory to home directory
+              "--bind \"\${XDG_DOWNLOAD_DIR:-$HOME/Downloads}\" \"$HOME/Downloads\""
+              "--bind \"\${XDG_PICTURES_DIR:-$HOME/Pictures}\" \"$HOME/Pictures\""
               "--chdir \"$HOME\""
             ];
 
