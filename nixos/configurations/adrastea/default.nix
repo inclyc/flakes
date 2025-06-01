@@ -136,6 +136,8 @@
 
     esbuild
 
+    wpsoffice-cn
+
     # Tencent apps
     (wechat-uos.override {
       buildFHSEnv =
