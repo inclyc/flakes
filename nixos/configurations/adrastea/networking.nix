@@ -77,6 +77,12 @@ in
     local_addr = "0.0.0.0:22" # The address of the service that needs to be forwarded
   '';
 
+  services.clash = {
+    enable = true;
+    rule.enable = true;
+    allowTUN = true;
+  };
+
   inclyc.services.rathole.configFile = config.sops.templates."rathole-client.toml".path;
 
   sops.secrets."ddns/cloudflare" = { };
