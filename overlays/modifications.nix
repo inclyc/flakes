@@ -2,4 +2,8 @@ final: prev:
 let
   inherit (prev) lib;
 in
-(lib.composeManyExtensions [ ]) final prev
+(lib.composeManyExtensions [
+  (import ./chromium.nix)
+])
+  final
+  prev
