@@ -3,6 +3,7 @@ keys:
   - &server_adrastea age18appjgzkrf5jnjjp5566e33lt0w3wtrg8e2yqzfltzd8n2l60ccs85xxrk
   - &machine_aplaz age1m7lgj74f7q02slnwj9aaw89t8q84242cjnvnua42esnvpwualp5svtx2ke
   - &machine_metis age1q3wrg2mx9rjv4qedplesu28gyu0j7rzf0zt95zw9xxn524llwyzstjqk3a
+  - &machine_luna age149w08tv50g3w52yelr9xh7ese7zcx2jnj0kdsu84xlydadgpac6sstk4gj
 creation_rules:
   - path_regex: secrets/[^/]+\.yaml$
     key_groups:
@@ -11,3 +12,4 @@ creation_rules:
       - *server_adrastea
       - *machine_aplaz
       - *machine_metis
+      - *machine_luna
