@@ -86,6 +86,7 @@
               (map (f: nixpkgs.lib.removeSuffix ".nix" f) [
                 "adrastea"
                 "metis"
+                "luna"
               ])
               (
                 hostName:
