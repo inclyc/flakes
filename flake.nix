@@ -86,6 +86,7 @@
               (map (f: nixpkgs.lib.removeSuffix ".nix" f) [
                 "adrastea"
                 "metis"
+                "luna"
               ])
               (
                 hostName:
@@ -154,6 +155,10 @@
               // mkHomeConfig {
                 hostName = "aplax";
                 system = "aarch64-darwin";
+              }
+              // mkHomeConfig {
+                hostName = "luna";
+                system = "aarch64-linux";
               }
               // mkHomeConfig {
                 hostName = "aplaz";
