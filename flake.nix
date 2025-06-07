@@ -157,6 +157,10 @@
                 system = "aarch64-darwin";
               }
               // mkHomeConfig {
+                hostName = "luna";
+                system = "aarch64-linux";
+              }
+              // mkHomeConfig {
                 hostName = "aplaz";
                 system = "aarch64-linux";
               };
