@@ -43,4 +43,6 @@
   virtualisation.podman.enable = true;
   system.stateVersion = "25.05"; # Did you read the comment?
 
+  networking.firewall.enable = false;
+
 }
