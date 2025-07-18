@@ -52,6 +52,8 @@
     # Rust
     cargo
     rustc
+    rustPackages.clippy
+    rustPackages.rustfmt
 
     (androidenv.composeAndroidPackages {
       platformToolsVersion = "35.0.2";
@@ -81,5 +83,6 @@
   home.sessionVariables = {
     NIX_PATH = "nixpkgs=${inputs.nixpkgs}";
     ANDROID_SDK_ROOT = "${config.home.homeDirectory}/.nix-profile/libexec/android-sdk";
+    RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
   };
 }
