@@ -28,7 +28,6 @@ in
         ];
         hostPackages = with pkgs; [
           ninja
-          gcc9
           bash
           coreutils
           diffutils
