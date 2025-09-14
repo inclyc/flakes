@@ -38,7 +38,7 @@ in
           nodejs
           wget
           cmake
-          python3
+          python312
         ];
       };
       "fuse-feature" = {
