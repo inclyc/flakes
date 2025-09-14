@@ -11,7 +11,10 @@
     ./rathole.nix
   ];
 
-  inclyc.development.python.enable = true;
+  inclyc.development = {
+    python.enable = true;
+    rust.enable = true;
+  };
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
