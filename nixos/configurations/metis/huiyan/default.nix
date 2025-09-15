@@ -64,6 +64,7 @@ in
             longyingchi $2a$14$ktp1i6EwH.7qC09loP.ZZexCWrZiQHuI1CCxdRUTDxt.4ZPyDOwRG
             songweikang $2a$14$syWs8Xbx/VKJcrblpSoBIutuewgBZIKToqJMHbkVnSCUZ9/FbGTYu
             zhaoyifei $2a$14$rZG414cBB8do6cLeB8Yk3ex5G4DHD0GU.hwfIYXi.A8tNQa75EeUq
+            cuihuimin $2a$14$aeR7b.fr651o95dlOQ0BouTa117fzGURy/OIIZEqxYNAys2sb.bpq
           }
           root * /var/lib/caddy/huiyan-frontend
           file_server
