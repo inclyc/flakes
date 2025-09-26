@@ -11,7 +11,7 @@ let
     src = pkgs.requireFile {
       inherit name;
       message = "Executable to ${name}";
-      sha256 = "0pz380rcgn4rnx9c0z6vswzp33540zajmr08mdyhpgb6lsqfl0r3";
+      sha256 = "03vhmhw03wv1wjv439cdfk40rn0i71s6ahg1qzmy8w4b2mx5jbgp";
     };
 
     dontUnpack = true;
@@ -60,12 +60,6 @@ in
     virtualHosts = {
       "huiyan.inclyc.cn" = {
         extraConfig = ''
-          basic_auth {
-            longyingchi $2a$14$ktp1i6EwH.7qC09loP.ZZexCWrZiQHuI1CCxdRUTDxt.4ZPyDOwRG
-            songweikang $2a$14$syWs8Xbx/VKJcrblpSoBIutuewgBZIKToqJMHbkVnSCUZ9/FbGTYu
-            zhaoyifei $2a$14$rZG414cBB8do6cLeB8Yk3ex5G4DHD0GU.hwfIYXi.A8tNQa75EeUq
-            cuihuimin $2a$14$aeR7b.fr651o95dlOQ0BouTa117fzGURy/OIIZEqxYNAys2sb.bpq
-          }
           root * /var/lib/caddy/huiyan-frontend
           file_server
           handle_path /huiyan/* {
@@ -87,6 +81,7 @@ in
       description = "Backend for huiyan";
       environment = {
         RUST_LOG = "info";
+        DATABASE_URL = "sqlite:///var/lib/${name}/db.sqlite";
       };
       serviceConfig = {
         DynamicUser = "yes";
@@ -116,6 +111,7 @@ in
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
+        StateDirectory = name;
       };
     };
   };
