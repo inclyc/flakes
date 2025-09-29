@@ -12,7 +12,7 @@
   home.packages =
     with pkgs;
     [ ninja ]
-    ++ (with pkgs.llvmPackages_16; [
+    ++ (with pkgs.llvmPackages; [
       clang
       llvm
       lld

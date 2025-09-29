@@ -15,7 +15,7 @@
     enableCompletion = true;
     historySubstringSearch.enable = true;
     autocd = true;
-    dotDir = ".config/zsh";
+    dotDir = "${config.xdg.configHome}/zsh";
     completionInit = "autoload -Uz compinit && compinit -iCd ${config.xdg.cacheHome}/zcompdump-$ZSH_VERSION";
     history.path = "${config.xdg.dataHome}/zsh/zsh_history";
 

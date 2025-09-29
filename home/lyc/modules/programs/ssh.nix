@@ -9,10 +9,12 @@
     in
     {
       enable = lib.mkDefault true;
-      serverAliveInterval = 3;
-      controlMaster = "auto";
-      controlPersist = "10m";
       matchBlocks = rec {
+        "*" = {
+          serverAliveInterval = 3;
+          controlMaster = "auto";
+          controlPersist = "10m";
+        };
         hitmc = {
           hostname = "lan.hitmc.cc";
           user = "inclyc";
