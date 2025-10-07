@@ -78,6 +78,8 @@
     }))
 
     typst
+
+    biome
   ];
 
   home.sessionVariables = {
