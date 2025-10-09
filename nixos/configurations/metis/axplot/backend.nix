@@ -5,13 +5,13 @@
   ...
 }:
 let
-  name = "huiyan-backend";
-  huiyan = pkgs.stdenvNoCC.mkDerivation {
+  name = "axplot-backend";
+  axplot = pkgs.stdenvNoCC.mkDerivation {
     inherit name;
     src = pkgs.requireFile {
       inherit name;
       message = "Executable to ${name}";
-      sha256 = "03vhmhw03wv1wjv439cdfk40rn0i71s6ahg1qzmy8w4b2mx5jbgp";
+      sha256 = builtins.readFile ./axplot-backend.sha256;
     };
 
     dontUnpack = true;
@@ -35,58 +35,24 @@ let
 
     meta.mainProgram = name;
   };
-
-  pyodide = pkgs.stdenv.mkDerivation rec {
-    pname = "pyodide";
-    version = "0.27.7";
-    src = pkgs.fetchurl {
-      url = "https://github.com/pyodide/pyodide/releases/download/${version}/pyodide-${version}.tar.bz2";
-      sha256 = "0md7dr1n1mvdq5xjcib5b4g00xnzbflxm9z21zm100biqi7pzp88";
-    };
-
-    installPhase = ''
-      mkdir -p $out
-      cp -a . $out/
-    '';
-
-    dontFixup = true;
-  };
 in
 {
   sops.secrets."${name}" = { };
-
-  services.caddy = {
-    enable = true;
-    virtualHosts = {
-      "huiyan.inclyc.cn" = {
-        extraConfig = ''
-          root * /var/lib/caddy/huiyan-frontend
-          file_server
-          handle_path /huiyan/* {
-            reverse_proxy 127.0.0.1:54289
-          }
-          handle_path /pyodide/*  {
-            root * ${pyodide}
-            file_server
-          }
-        '';
-      };
-    };
-  };
-
   systemd.services = {
     "${name}" = {
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
-      description = "Backend for huiyan";
+      description = "Backend for axplot";
       environment = {
         RUST_LOG = "info";
         DATABASE_URL = "sqlite:///var/lib/${name}/db.sqlite";
+        OPENROUTER_BASE_URL = "https://api.deepseek.com/chat/completions";
+        MODEL = "deepseek-chat";
       };
       serviceConfig = {
         DynamicUser = "yes";
         EnvironmentFile = [ config.sops.secrets."${name}".path ];
-        ExecStart = lib.getExe huiyan;
+        ExecStart = lib.getExe axplot;
         Restart = "on-failure";
         CapabilityBoundingSet = [ "" ];
         DeviceAllow = [ "" ];

@@ -9,7 +9,7 @@
     ./wireguard.nix
     ./hardware-configuration.nix
     ./rathole.nix
-    ./huiyan
+    ./axplot
   ];
 
   inclyc.development = {
