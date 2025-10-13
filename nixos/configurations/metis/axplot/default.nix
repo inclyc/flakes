@@ -60,6 +60,13 @@ in
             root * ${pyodide}
             file_server
           }
+          @assets path /assets/*
+          header @assets Cache-Control "public, max-age=60, immutable"
+          @noCache path /index.html /
+          handle @noCache {
+              header Cache-Control "no-store, no-cache, must-revalidate"
+              file_server
+          }
         '';
       };
     };
