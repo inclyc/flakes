@@ -19,28 +19,52 @@ let
     dontFixup = true;
   };
 
-  frontend = pkgs.stdenvNoCC.mkDerivation {
-    name = "axplot-frontend";
-    src = pkgs.requireFile {
-      name = "frontend.tar.gz";
-      message = "Frontend dist tarball";
-      sha256 = builtins.readFile ./axplot-frontend.sha256;
-    };
+  frontend-caddy =
+    profile:
+    (
+      let
+        frontend = pkgs.stdenvNoCC.mkDerivation {
+          name = "axplot-frontend";
+          src = pkgs.requireFile {
+            name = "frontend.tar.gz";
+            message = "Frontend dist tarball";
+            sha256 = builtins.readFile ./${profile}/frontend.sha256;
+          };
 
-    dontUnpack = true;
+          dontUnpack = true;
 
-    installPhase = ''
-      runHook preInstall
-      mkdir -p $out
-      tar xzf $src -C $out/
-      runHook postInstall
-    '';
+          installPhase = ''
+            runHook preInstall
+            mkdir -p $out
+            tar xzf $src -C $out/
+            runHook postInstall
+          '';
 
-    nativeBuildInputs = with pkgs; [
-      gnutar
-    ];
-  };
-
+          nativeBuildInputs = with pkgs; [
+            gnutar
+          ];
+        };
+        backendPort = builtins.readFile ./${profile}/backend.port;
+      in
+      ''
+        root * ${frontend}/
+        file_server
+        handle_path /axplot/* {
+          reverse_proxy 127.0.0.1:${backendPort}
+        }
+        handle_path /pyodide/*  {
+          root * ${pyodide}
+          file_server
+        }
+        @assets path /assets/*
+        header @assets Cache-Control "public, max-age=60, immutable"
+        @noCache path /index.html /
+        handle @noCache {
+            header Cache-Control "no-store, no-cache, must-revalidate"
+            file_server
+        }
+      ''
+    );
 in
 {
   imports = [
@@ -50,24 +74,10 @@ in
     enable = true;
     virtualHosts = {
       "axplot.inclyc.cn" = {
-        extraConfig = ''
-          root * ${frontend}/
-          file_server
-          handle_path /axplot/* {
-            reverse_proxy 127.0.0.1:54289
-          }
-          handle_path /pyodide/*  {
-            root * ${pyodide}
-            file_server
-          }
-          @assets path /assets/*
-          header @assets Cache-Control "public, max-age=60, immutable"
-          @noCache path /index.html /
-          handle @noCache {
-              header Cache-Control "no-store, no-cache, must-revalidate"
-              file_server
-          }
-        '';
+        extraConfig = frontend-caddy "production";
+      };
+      "testing.axplot.inclyc.cn" = {
+        extraConfig = frontend-caddy "testing";
       };
     };
   };
