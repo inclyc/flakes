@@ -5,23 +5,23 @@
   ...
 }:
 let
-  name = "axplot-backend";
+  nameBase = "axplot-backend";
   profiles = [
     "production"
     "testing"
   ];
 in
 {
-  sops.secrets."${name}" = { };
+  sops.secrets."${nameBase}" = { };
   systemd.services = lib.genAttrs' profiles (
     profile:
     let
       port = builtins.readFile ./${profile}/backend.port;
       axplot = pkgs.stdenvNoCC.mkDerivation {
-        inherit name;
+        name = nameBase;
         src = pkgs.requireFile {
-          inherit name;
-          message = "Executable to ${name}";
+          name = nameBase;
+          message = "Executable to ${nameBase}";
           sha256 = builtins.readFile ./${profile}/backend.sha256;
         };
 
@@ -30,7 +30,7 @@ in
         installPhase = ''
           runHook preInstall
           mkdir -p $out/bin
-          cp $src $out/bin/${name}
+          cp $src $out/bin/${nameBase}
           chmod +x -R $out/bin/
           runHook postInstall
         '';
@@ -44,11 +44,11 @@ in
           autoPatchelfHook
         ];
 
-        meta.mainProgram = name;
+        meta.mainProgram = nameBase;
       };
     in
-    {
-      name = if profile == "production" then name else "${name}-${profile}";
+    rec {
+      name = if profile == "production" then nameBase else "${nameBase}-${profile}";
       value = {
         wantedBy = [ "multi-user.target" ];
         after = [ "network.target" ];
@@ -62,7 +62,7 @@ in
         };
         serviceConfig = {
           DynamicUser = "yes";
-          EnvironmentFile = [ config.sops.secrets."${name}".path ];
+          EnvironmentFile = [ config.sops.secrets."${nameBase}".path ];
           ExecStart = lib.getExe axplot;
           Restart = "on-failure";
           CapabilityBoundingSet = [ "" ];
