@@ -55,9 +55,10 @@ let
         handle_path /pyodide/*  {
           root * ${pyodide}
           file_server
+          header Cache-Control "public, max-age=31536000, immutable"
         }
         @assets path /assets/*
-        header @assets Cache-Control "public, max-age=60, immutable"
+        header @assets Cache-Control "public, max-age=31536000, immutable"
         @noCache path /index.html /
         handle @noCache {
             header Cache-Control "no-store, no-cache, must-revalidate"
