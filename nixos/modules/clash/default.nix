@@ -46,51 +46,50 @@ in
         wantedBy = [ "multi-user.target" ];
         after = [ "systemd-networkd-wait-online.service" ];
         description = "Clash Daemon";
-        serviceConfig =
-          {
-            Type = "simple";
-            DynamicUser = "yes";
-            LoadCredential = "config.yaml:${cfg.configPath}";
-            WorkingDirectory = "${cfg.workingDirectory}";
-            ExecStartPre = "${pkgs.coreutils}/bin/ln -s ${pkgs.dbip-country-lite.mmdb} ${cfg.configDirectory}/Country.mmdb";
-            ExecStart = "${lib.getExe cfg.package}" + " -d ${cfg.configDirectory}" + " -f %d/config.yaml";
-            Restart = "on-failure";
-            CapabilityBoundingSet = [ "" ];
-            DeviceAllow = [ "" ];
-            PrivateDevices = true;
-            PrivateTmp = true;
-            PrivateUsers = true;
-            ProtectSystem = "strict";
-            ProtectHome = "yes";
-            ProtectHostname = "yes";
-            ProtectClock = "yes";
-            ProtectKernelTunables = "yes";
-            ProtectKernelModules = "yes";
-            ProtectKernelLogs = "yes";
-            ProtectControlGroups = "yes";
-            ProtectProc = "invisible";
-            LockPersonality = "yes";
-            RestrictAddressFamilies = [
-              "AF_INET"
-              "AF_INET6"
-            ];
-            RestrictNamespaces = true;
-            RestrictRealtime = true;
-            RestrictSUIDSGID = true;
-            SystemCallArchitectures = "native";
-          }
-          // (lib.optionalAttrs cfg.allowTUN {
-            DynamicUser = false;
-            PrivateDevices = false;
-            PrivateUsers = false;
-            CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];
-            DeviceAllow = [ "/dev/net/tun" ];
-            RestrictAddressFamilies = [
-              "AF_INET"
-              "AF_INET6"
-              "AF_NETLINK"
-            ];
-          });
+        serviceConfig = {
+          Type = "simple";
+          DynamicUser = "yes";
+          LoadCredential = "config.yaml:${cfg.configPath}";
+          WorkingDirectory = "${cfg.workingDirectory}";
+          ExecStartPre = "${pkgs.coreutils}/bin/ln -s ${pkgs.dbip-country-lite.mmdb} ${cfg.configDirectory}/Country.mmdb";
+          ExecStart = "${lib.getExe cfg.package}" + " -d ${cfg.configDirectory}" + " -f %d/config.yaml";
+          Restart = "on-failure";
+          CapabilityBoundingSet = [ "" ];
+          DeviceAllow = [ "" ];
+          PrivateDevices = true;
+          PrivateTmp = true;
+          PrivateUsers = true;
+          ProtectSystem = "strict";
+          ProtectHome = "yes";
+          ProtectHostname = "yes";
+          ProtectClock = "yes";
+          ProtectKernelTunables = "yes";
+          ProtectKernelModules = "yes";
+          ProtectKernelLogs = "yes";
+          ProtectControlGroups = "yes";
+          ProtectProc = "invisible";
+          LockPersonality = "yes";
+          RestrictAddressFamilies = [
+            "AF_INET"
+            "AF_INET6"
+          ];
+          RestrictNamespaces = true;
+          RestrictRealtime = true;
+          RestrictSUIDSGID = true;
+          SystemCallArchitectures = "native";
+        }
+        // (lib.optionalAttrs cfg.allowTUN {
+          DynamicUser = false;
+          PrivateDevices = false;
+          PrivateUsers = false;
+          CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];
+          DeviceAllow = [ "/dev/net/tun" ];
+          RestrictAddressFamilies = [
+            "AF_INET"
+            "AF_INET6"
+            "AF_NETLINK"
+          ];
+        });
       };
     })
     (mkIf cfg.rule.enable (
@@ -99,7 +98,6 @@ in
         providers = [
           "dler"
           "mielink"
-          "bywave"
         ];
         proxyProviders = lib.genAttrs providers (name: {
           type = "http";
@@ -119,30 +117,27 @@ in
             use = providers;
             proxies = [
               "Auto"
-              "DIRECT"
             ];
           }
           {
             name = "Auto";
             type = "url-test";
             use = providers;
-            proxies = [ "DIRECT" ];
             url = generate_204;
             interval = "3600";
           }
-        ] ++ builtins.fromJSON (builtins.readFile ./proxy-groups.json);
+        ]
+        ++ builtins.fromJSON (builtins.readFile ./proxy-groups.json);
       in
       {
         services.clash.configPath = lib.mkDefault config.sops.templates."clash-config.yaml".path;
         sops.secrets = lib.attrsets.mergeAttrsList (
           map (name: { "clash-provider/${name}" = { }; }) providers
         );
-        sops.templates."clash-config.yaml".content =
-          builtins.readFile ./rule.yaml
-          + ''
-            proxy-groups: ${builtins.toJSON proxyGroups}
-            proxy-providers: ${builtins.toJSON proxyProviders}
-          '';
+        sops.templates."clash-config.yaml".content = builtins.readFile ./rule.yaml + ''
+          proxy-groups: ${builtins.toJSON proxyGroups}
+          proxy-providers: ${builtins.toJSON proxyProviders}
+        '';
       }
     ))
   ];

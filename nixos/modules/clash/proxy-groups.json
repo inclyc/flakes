@@ -25,10 +25,11 @@
         ]
     },
     {
-        "name": "Anti IP",
+        "name": "HTTPDNS",
         "type": "select",
         "proxies": [
             "DIRECT",
+            "REJECT",
             "Proxy"
         ]
     },
@@ -41,7 +42,7 @@
         ]
     },
     {
-        "name": "Disney",
+        "name": "Disney Plus",
         "type": "select",
         "proxies": [
             "Proxy",
@@ -57,6 +58,14 @@
         ]
     },
     {
+        "name": "Max",
+        "type": "select",
+        "proxies": [
+            "Proxy",
+            "DIRECT"
+        ]
+    },
+    {
         "name": "Spotify",
         "type": "select",
         "proxies": [
@@ -65,11 +74,19 @@
         ]
     },
     {
-        "name": "Asian TV",
+        "name": "CN Mainland TV",
         "type": "select",
         "proxies": [
             "DIRECT",
             "Proxy"
+        ]
+    },
+    {
+        "name": "Asian TV",
+        "type": "select",
+        "proxies": [
+            "Proxy",
+            "DIRECT"
         ]
     },
     {
@@ -132,12 +149,12 @@
         "name": "Microsoft",
         "type": "select",
         "proxies": [
-            "Proxy",
-            "DIRECT"
+            "DIRECT",
+            "Proxy"
         ]
     },
     {
-        "name": "OpenAI",
+        "name": "AI Suite",
         "type": "select",
         "proxies": [
             "Proxy",
@@ -170,6 +187,14 @@
     },
     {
         "name": "Steam",
+        "type": "select",
+        "proxies": [
+            "Proxy",
+            "DIRECT"
+        ]
+    },
+    {
+        "name": "TikTok",
         "type": "select",
         "proxies": [
             "Proxy",
