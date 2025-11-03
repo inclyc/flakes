@@ -8,6 +8,6 @@ in
     add-vfio
 
     # RDP client to connect Windows VM, faster than spice.
-    freerdp3
+    freerdp
   ];
 }
