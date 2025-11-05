@@ -39,6 +39,7 @@
 
     meson
     ninja
+    cmake
 
     nixd
 
