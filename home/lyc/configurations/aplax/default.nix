@@ -5,6 +5,10 @@
   ...
 }:
 {
+  imports = [
+    ./android.nix
+  ];
+
   programs.vscode = {
     enable = true;
     profiles.default.userSettings = {
@@ -54,10 +58,6 @@
     rustc
     rustPackages.clippy
     rustPackages.rustfmt
-
-    (androidenv.composeAndroidPackages {
-      platformToolsVersion = "35.0.2";
-    }).platform-tools
 
     # Python
     uv
