@@ -59,116 +59,117 @@
             };
           packages = import ./pkgs { inherit pkgs; };
         };
-      flake =
-        {
-          nix.settings = {
-            # nix substituters shared between home-manager and nixos
-            substituters =
-              let
-                channelStore = x: "https://${x}/nix-channels/store";
-                mirrors = map (x: channelStore "mirrors.${x}.edu.cn") [
-                  "bfsu"
-                  "tuna.tsinghua"
-                  "ustc"
-                ];
-                cachix = x: "https://${x}.cachix.org";
-              in
-              nixpkgs.lib.flatten [
-                mirrors
-                (cachix "nix-community")
-                "https://cache.nixos.org"
-                (cachix "inclyc")
+      flake = {
+        nix.settings = {
+          # nix substituters shared between home-manager and nixos
+          substituters =
+            let
+              channelStore = x: "https://${x}/nix-channels/store";
+              mirrors = map (x: channelStore "mirrors.${x}.edu.cn") [
+                "bfsu"
+                "tuna.tsinghua"
+                "ustc"
               ];
-          };
-          nixosModules.lyc = import ./nixos/modules;
-          nixosConfigurations =
-            nixpkgs.lib.genAttrs
-              (map (f: nixpkgs.lib.removeSuffix ".nix" f) [
-                "adrastea"
-                "metis"
-                "luna"
-              ])
-              (
-                hostName:
-                nixpkgs.lib.nixosSystem {
-                  modules =
-                    [ (nixosConfigDir + "/${hostName}") ]
-                    ++ [
-                      outputs.nixosModules.lyc
-                      sops-nix.nixosModules.sops
-                    ];
-                  specialArgs = {
-                    inherit inputs outputs rootPath;
-                  };
-                }
-              );
-          overlays = {
-            additions = final: _prev: import ./pkgs { pkgs = final; };
-            modifications = import ./overlays/modifications.nix;
-          };
-        }
-        // (
-          # Home-manager configurations
-          let
-            mkHomeConfig =
-              {
-                hostName,
-                unixName ? "lyc",
-                system ? "x86_64-linux",
-                nixpkgs ? inputs.nixpkgs,
-                home-manager ? inputs.home-manager,
-              }:
-              {
-                "${unixName}@${hostName}" = home-manager.lib.homeManagerConfiguration {
-                  pkgs = nixpkgs.legacyPackages.${system};
-                  modules = [
-                    (./home/lyc/configurations + "/${hostName}")
-                    sops-nix.homeManagerModules.sops
-                  ] ++ (builtins.attrValues outputs.homeManagerModules);
-                  extraSpecialArgs = {
-                    inherit
-                      inputs
-                      outputs
-                      rootPath
-                      unixName
-                      hostName
-                      system
-                      ;
-                  };
+              cachix = x: "https://${x}.cachix.org";
+            in
+            nixpkgs.lib.flatten [
+              mirrors
+              (cachix "nix-community")
+              "https://cache.nixos.org"
+              (cachix "inclyc")
+            ];
+        };
+        nixosModules.lyc = import ./nixos/modules;
+        nixosConfigurations =
+          nixpkgs.lib.genAttrs
+            (map (f: nixpkgs.lib.removeSuffix ".nix" f) [
+              "adrastea"
+              "metis"
+              "luna"
+            ])
+            (
+              hostName:
+              nixpkgs.lib.nixosSystem {
+                modules = [
+                  (nixosConfigDir + "/${hostName}")
+                ]
+                ++ [
+                  outputs.nixosModules.lyc
+                  sops-nix.nixosModules.sops
+                ];
+                specialArgs = {
+                  inherit inputs outputs rootPath;
+                };
+              }
+            );
+        overlays = {
+          additions = final: _prev: import ./pkgs { pkgs = final; };
+          modifications = import ./overlays/modifications.nix;
+        };
+      }
+      // (
+        # Home-manager configurations
+        let
+          mkHomeConfig =
+            {
+              hostName,
+              unixName ? "lyc",
+              system ? "x86_64-linux",
+              nixpkgs ? inputs.nixpkgs,
+              home-manager ? inputs.home-manager,
+            }:
+            {
+              "${unixName}@${hostName}" = home-manager.lib.homeManagerConfiguration {
+                pkgs = nixpkgs.legacyPackages.${system};
+                modules = [
+                  (./home/lyc/configurations + "/${hostName}")
+                  sops-nix.homeManagerModules.sops
+                ]
+                ++ (builtins.attrValues outputs.homeManagerModules);
+                extraSpecialArgs = {
+                  inherit
+                    inputs
+                    outputs
+                    rootPath
+                    unixName
+                    hostName
+                    system
+                    ;
                 };
               };
-          in
-          {
-            homeConfigurations =
-              nixpkgs.lib.foldr (a: b: a // b) { } (
-                map (hostName: mkHomeConfig { inherit hostName; }) [
-                  # Simple home configuration, only specified "hostName"
-                  "adrastea"
-                  "metis"
-                  "ict-malcon"
-                ]
-              )
-              // mkHomeConfig {
-                hostName = "amalthea";
-                system = "aarch64-darwin";
-              }
-              // mkHomeConfig {
-                hostName = "aplax";
-                system = "aarch64-darwin";
-              }
-              // mkHomeConfig {
-                hostName = "luna";
-                system = "aarch64-linux";
-              }
-              // mkHomeConfig {
-                hostName = "aplaz";
-                system = "aarch64-linux";
-              };
-            homeManagerModules = {
-              lyc = import ./home/lyc/modules;
-              common = import ./home/modules;
             };
-          }
-        );
+        in
+        {
+          homeConfigurations =
+            nixpkgs.lib.foldr (a: b: a // b) { } (
+              map (hostName: mkHomeConfig { inherit hostName; }) [
+                # Simple home configuration, only specified "hostName"
+                "adrastea"
+                "metis"
+                "ict-malcon"
+              ]
+            )
+            // mkHomeConfig {
+              hostName = "amalthea";
+              system = "aarch64-darwin";
+            }
+            // mkHomeConfig {
+              hostName = "aplax";
+              system = "aarch64-darwin";
+            }
+            // mkHomeConfig {
+              hostName = "luna";
+              system = "aarch64-linux";
+            }
+            // mkHomeConfig {
+              hostName = "aplaz";
+              system = "aarch64-linux";
+            };
+          homeManagerModules = {
+            lyc = import ./home/lyc/modules;
+            common = import ./home/modules;
+          };
+        }
+      );
     };
 }

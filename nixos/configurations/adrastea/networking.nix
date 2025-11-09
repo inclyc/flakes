@@ -38,7 +38,10 @@ in
       };
       addresses = [ { Address = "10.157.0.1/24"; } ];
     };
-  } // mkBrSlave "enp5s0" "br0" // mkBrSlave "vmtap0" "br0" // mkBrSlave "vmtap1" "br1";
+  }
+  // mkBrSlave "enp5s0" "br0"
+  // mkBrSlave "vmtap0" "br0"
+  // mkBrSlave "vmtap1" "br1";
 
   systemd.network.netdevs = {
     "20-br0" = {
@@ -54,7 +57,8 @@ in
         Name = "br1";
       };
     };
-  } // (mkTapDev "vmtap0" // mkTapDev "vmtap1");
+  }
+  // (mkTapDev "vmtap0" // mkTapDev "vmtap1");
 
   networking.nftables.enable = true;
 

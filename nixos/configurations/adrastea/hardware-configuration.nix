@@ -24,7 +24,8 @@
   boot.kernelParams = [
     "intel_iommu=on"
     "usbcore.autosuspend=-1"
-  ] ++ (lib.optional (!config.inclyc.hardware.nvidia.enable) "vfio-pci.ids=10de:2684,10de:22ba");
+  ]
+  ++ (lib.optional (!config.inclyc.hardware.nvidia.enable) "vfio-pci.ids=10de:2684,10de:22ba");
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
