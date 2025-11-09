@@ -101,7 +101,7 @@
 
     chromium
 
-    du-dust
+    dust
     ripgrep
     fd
 
