@@ -108,8 +108,8 @@ in
         source-sans-pro
         source-serif-pro
         corefonts
-        vistafonts
-        vistafonts-chs
+        vista-fonts
+        vista-fonts-chs
         segoe-ui-variable
         segoe-ui
         simsun
