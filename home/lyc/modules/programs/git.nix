@@ -10,7 +10,7 @@
       ".DS_Store"
       ".direnv"
     ];
-    extraConfig = {
+    settings = {
       init.defaultBranch = "main";
       pull.ff = "only";
       push.default = "current";

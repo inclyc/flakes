@@ -28,9 +28,9 @@ in
     home.username = lib.mkDefault cfg.unixName;
     home.homeDirectory = lib.mkDefault "/home/${cfg.unixName}";
 
-    programs.git = {
-      userName = lib.mkDefault cfg.realName;
-      userEmail = lib.mkDefault cfg.email;
+    programs.git.settings.user = {
+      name = lib.mkDefault cfg.realName;
+      email = lib.mkDefault cfg.email;
     };
   };
 }
