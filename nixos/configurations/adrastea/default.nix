@@ -172,6 +172,8 @@
     uv
 
     git-branch-clean
+
+    biome
   ];
 
   virtualisation.spiceUSBRedirection.enable = true;
