@@ -36,6 +36,8 @@ in
         pango
         pipewire
         mesa
+        dbus.lib
+        libgbm
       ]
       ++ (with xorg; [
         libX11
