@@ -83,6 +83,14 @@
     biome
   ];
 
+  programs.ssh.matchBlocks = {
+    luna = {
+      hostname = "luna.local";
+      user = "lyc";
+      port = 22;
+    };
+  };
+
   home.sessionVariables = {
     NIX_PATH = "nixpkgs=${inputs.nixpkgs}";
     ANDROID_SDK_ROOT = "${config.home.homeDirectory}/.nix-profile/libexec/android-sdk";
