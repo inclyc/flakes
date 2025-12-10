@@ -53,7 +53,9 @@
           ];
 
           # Remote SSH platforms.
-          "remote.SSH.remotePlatform" = lib.mapAttrs (name: value: "linux") config.programs.ssh.matchBlocks;
+          "remote.SSH.remotePlatform" = lib.mapAttrs (
+            name: value: if name == "metis-win" then "windows" else "linux"
+          ) config.programs.ssh.matchBlocks;
         }
       );
   };

@@ -56,6 +56,11 @@
           user = "lyc";
           port = 10120;
         };
+        metis-win = {
+          hostname = "llvmws.inclyc.cn";
+          user = "Admininstrator";
+          port = 23101;
+        };
         swyjs = {
           hostname = "40.0.1.110";
           user = "swyjs";
