@@ -14,4 +14,6 @@
   segoe-ui-variable = pkgs.callPackage ./segoe-ui-variable { };
 
   segoe-ui = pkgs.callPackage ./segoe-ui { };
+
+  srun = pkgs.callPackage ./srun { };
 }
