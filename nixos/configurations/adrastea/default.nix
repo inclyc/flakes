@@ -33,7 +33,6 @@
     ./nvidia.nix
     ./vm
     ./wireguard.nix
-    ./wxiat-proxy.nix
   ];
 
   specialisation = {
