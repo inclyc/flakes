@@ -91,7 +91,7 @@
     lldb
     llvmPackages_latest.clang
     llvmPackages_latest.bintools
-    (hiPrio clang-tools)
+    (lib.hiPrio clang-tools)
     rr
 
     pciutils

@@ -92,7 +92,7 @@
     llvmPackages_latest.bintools
     rr
     ninja
-    (hiPrio clang-tools)
+    (lib.hiPrio clang-tools)
 
     pciutils
     usbutils
