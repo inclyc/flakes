@@ -87,6 +87,8 @@ in
     allowTUN = true;
   };
 
+  services.tailscale.enable = true;
+
   inclyc.services.rathole.configFile = config.sops.templates."rathole-client.toml".path;
 
   sops.secrets."ddns/cloudflare" = { };
