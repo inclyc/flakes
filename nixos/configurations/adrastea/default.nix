@@ -302,7 +302,6 @@
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC1kJQp6apa/oxvdOr7+bmwLzM9nrXGrQVqnA6MFE+1k zxy@MacbookAir"
       ]
       ++ config.users.users.lyc.openssh.authorizedKeys.keys;
-      linger = true;
     };
   };
 
