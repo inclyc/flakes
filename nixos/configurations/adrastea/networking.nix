@@ -1,4 +1,4 @@
-{ config, ... }:
+{ pkgs, config, ... }:
 let
   mkTapDev = name: {
     "20-${name}" = {
@@ -106,5 +106,73 @@ in
     dns = "cloudflare";
     environmentFile = [ config.sops.secrets."ddns/cloudflare".path ];
     onCalendar = "minutely";
+  };
+
+  sops.secrets."ict-srun-username" = { };
+  sops.secrets."ict-srun-password" = { };
+  sops.templates."ict-srun-config.json".content = ''
+    {
+        "server": "http://gw.ict.ac.cn",
+        "acid": 1,
+        "users": [
+            {
+                "username": "${config.sops.placeholder.ict-srun-username}",
+                "password": "${config.sops.placeholder.ict-srun-password}",
+                "if_name": "br0"
+            }
+        ]
+    }
+  '';
+
+  systemd.services."ict-srun" =
+    let
+      conf = config.sops.templates."ict-srun-config.json".path;
+    in
+    {
+      description = "ICT SRUN Client Service";
+      after = [ "network-online.target" ];
+      wants = [ "network-online.target" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.srun}/bin/srun login -c %d/config.json";
+        Restart = "on-failure";
+        RestartSec = "10s";
+        LoadCredential = "config.json:${conf}";
+        DynamicUser = "yes";
+        CapabilityBoundingSet = [ "" ];
+        DeviceAllow = [ "" ];
+        PrivateDevices = true;
+        PrivateTmp = true;
+        PrivateUsers = true;
+        ProtectSystem = "strict";
+        ProtectHome = "yes";
+        ProtectHostname = "yes";
+        ProtectClock = "yes";
+        ProtectKernelTunables = "yes";
+        ProtectKernelModules = "yes";
+        ProtectKernelLogs = "yes";
+        ProtectControlGroups = "yes";
+        ProtectProc = "invisible";
+        LockPersonality = "yes";
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_NETLINK"
+        ];
+        RestrictNamespaces = true;
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+        SystemCallArchitectures = "native";
+      };
+    };
+
+  systemd.timers."ict-srun" = {
+    description = "ICT SRUN Client Timer";
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "hourly";
+      Persistent = true;
+    };
   };
 }
