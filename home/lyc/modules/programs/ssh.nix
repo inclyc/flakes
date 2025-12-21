@@ -36,9 +36,9 @@
           port = 20122;
         };
         adrastea = {
-          hostname = "llvmws.inclyc.cn";
+          hostname = "100.95.255.126";
           user = "lyc";
-          port = 20156;
+          port = 22;
         };
         adrastea-v6 = adrastea // {
           hostname = "6.adrastea.inclyc.cn";
