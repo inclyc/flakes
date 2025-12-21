@@ -81,6 +81,8 @@
     typst
 
     biome
+
+    tailscale
   ];
 
   programs.ssh.matchBlocks = {
