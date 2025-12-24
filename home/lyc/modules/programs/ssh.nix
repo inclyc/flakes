@@ -61,6 +61,11 @@
           user = "Admininstrator";
           port = 23101;
         };
+        adrastea-win = {
+          hostname = "100.124.27.109";
+          user = "Administrator";
+          port = 22;
+        };
         swyjs = {
           hostname = "40.0.1.110";
           user = "swyjs";
