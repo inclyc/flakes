@@ -16,4 +16,6 @@
   segoe-ui = pkgs.callPackage ./segoe-ui { };
 
   srun = pkgs.callPackage ./srun { };
+
+  zju-connect = pkgs.callPackage ./zju-connect { };
 }

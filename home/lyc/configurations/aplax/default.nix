@@ -83,6 +83,8 @@
     biome
 
     tailscale
+
+    zju-connect
   ];
 
   programs.ssh.matchBlocks = {
