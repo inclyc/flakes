@@ -193,6 +193,7 @@
     "telemetry.telemetryLevel": "off",
     "terminal.integrated.defaultProfile.osx": "zsh",
     "terminal.integrated.fontFamily": "\"MesloLGS NF\", 'FiraCode Nerd Font Mono', \"Consolas\", \"Microsoft Yahei\"",
+    "terminal.integrated.suggest.enabled": true,
     "typescript.format.semicolons": "insert",
     "update.mode": "none",
     "vscode-neovim.useCtrlKeysForInsertMode": false,
