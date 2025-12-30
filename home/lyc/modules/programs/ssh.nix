@@ -116,6 +116,11 @@
           user = "lyc";
           proxyCommand = mkProxyCommand "localhost" 1080;
         };
+        "wxiat-41" = {
+          hostname = "192.168.4.41";
+          user = "wuzhikun";
+          proxyJump = "8A";
+        };
         "ict-44" = {
           hostname = "10.208.130.44";
           user = "i_longyingchi";
