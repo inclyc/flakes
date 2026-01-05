@@ -8,7 +8,6 @@
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
-    ./clash
     ./nix.nix
     ./rathole.nix
     ./ddns.nix

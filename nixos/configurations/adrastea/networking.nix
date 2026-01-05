@@ -81,12 +81,6 @@ in
     local_addr = "0.0.0.0:22" # The address of the service that needs to be forwarded
   '';
 
-  services.clash = {
-    enable = true;
-    rule.enable = true;
-    allowTUN = true;
-  };
-
   services.tailscale.enable = true;
 
   inclyc.services.rathole.configFile = config.sops.templates."rathole-client.toml".path;
@@ -123,6 +117,13 @@ in
         ]
     }
   '';
+
+  programs.clash-verge = {
+    enable = true;
+    tunMode = true;
+    serviceMode = true;
+    autoStart = true;
+  };
 
   systemd.services."ict-srun" =
     let
