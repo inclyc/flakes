@@ -14,7 +14,6 @@
     ./nix-ld.nix
     ./gui.nix
     ./user.nix
-    ./dae
     ./sops.nix
 
     # Language-specific environments

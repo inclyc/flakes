@@ -30,13 +30,6 @@
 
   nix.settings.extra-platforms = [ "aarch64-linux" ];
 
-  services.clash = {
-    enable = true;
-    rule.enable = true;
-  };
-
-  services.dae.enable = true;
-
   inclyc.user.enable = true;
   inclyc.user.zsh = true;
 
