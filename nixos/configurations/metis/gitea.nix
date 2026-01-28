@@ -129,6 +129,12 @@ in
           ROOT_URL = url;
           SSH_PORT = 20122;
         };
+        "repository.signing" = {
+          INITIAL_COMMIT = "always";
+          CRUD_ACTIONS = "always";
+          WIKI = "always";
+          MERGES = "always";
+        };
       };
     };
   };
