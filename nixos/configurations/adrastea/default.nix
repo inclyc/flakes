@@ -111,7 +111,7 @@
     nodejs
     yarn
 
-    nixfmt-rfc-style
+    nixfmt
 
     (texlive.combine { inherit (texlive) scheme-full; })
     typst
