@@ -8,6 +8,7 @@
     ./gitea.nix
     ./wireguard.nix
     ./hardware-configuration.nix
+    ./headscale.nix
     ./rathole.nix
     ./axplot
   ];
