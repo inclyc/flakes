@@ -80,6 +80,9 @@ in
       "testing.axplot.inclyc.cn" = {
         extraConfig = frontend-caddy "testing";
       };
+      "posthog.inclyc.cn" = {
+        extraConfig = ''reverse_proxy 192.168.31.5:80'';
+      };
     };
   };
 }
