@@ -21,6 +21,11 @@
     "[verilog]": {
         "editor.defaultFormatter": "chipsalliance.verible"
     },
+    "amazonQ.suppressPrompts": {
+        "amazonQChatDisclaimer": true,
+        "amazonQChatPairProgramming": true,
+        "amazonQWelcomePage": true
+    },
     "basedpyright.analysis.typeCheckingMode": "standard",
     "clangd.arguments": [
         "--background-index",
