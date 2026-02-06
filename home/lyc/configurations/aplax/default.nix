@@ -43,8 +43,6 @@
 
     nixd
 
-    poetry
-
     pandoc
 
     elan
