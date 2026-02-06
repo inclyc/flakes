@@ -24,7 +24,6 @@
   };
 
   imports = [
-    ./adb.nix
     ./game.nix
     ./gitea.nix
     # Include the results of the hardware scan.
@@ -70,6 +69,8 @@
   };
 
   environment.systemPackages = with pkgs; [
+    android-tools
+
     gnumake
     qemu
 
