@@ -60,5 +60,5 @@
       );
   };
 
-  home.packages = with pkgs; [ nixfmt-rfc-style ];
+  home.packages = with pkgs; [ nixfmt ];
 }

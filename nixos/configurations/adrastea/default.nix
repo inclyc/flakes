@@ -24,7 +24,6 @@
   };
 
   imports = [
-    ./adb.nix
     ./game.nix
     ./gitea.nix
     # Include the results of the hardware scan.
@@ -70,6 +69,8 @@
   };
 
   environment.systemPackages = with pkgs; [
+    android-tools
+
     gnumake
     qemu
 
@@ -110,7 +111,7 @@
     nodejs
     yarn
 
-    nixfmt-rfc-style
+    nixfmt
 
     (texlive.combine { inherit (texlive) scheme-full; })
     typst
