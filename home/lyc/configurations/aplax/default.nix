@@ -93,6 +93,8 @@
     };
   };
 
+  programs.ssh.enableDefaultConfig = false;
+
   home.sessionVariables = {
     NIX_PATH = "nixpkgs=${inputs.nixpkgs}";
     ANDROID_SDK_ROOT = "${config.home.homeDirectory}/.nix-profile/libexec/android-sdk";
