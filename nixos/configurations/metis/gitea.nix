@@ -107,6 +107,7 @@ in
           python312
           pnpm
           nodejs
+          nix
         ];
       };
     };
