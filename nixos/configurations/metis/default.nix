@@ -142,7 +142,7 @@
       isNormalUser = true;
       description = "Origami404";
       openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAZxRoweHoLfoaydPqhsLnc4EGgwTp7Uz1DZ2DG447B+"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJyrUiSdpTC+vP+pNDChehLG+ChYL2By2LtjmVJiHmaf"
       ];
     };
   };
