@@ -141,6 +141,7 @@
     origami = {
       isNormalUser = true;
       description = "Origami404";
+      extraGroups = [ "wheel" ];
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJyrUiSdpTC+vP+pNDChehLG+ChYL2By2LtjmVJiHmaf"
       ];
