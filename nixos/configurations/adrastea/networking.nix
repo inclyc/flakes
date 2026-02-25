@@ -118,13 +118,6 @@ in
     }
   '';
 
-  programs.clash-verge = {
-    enable = true;
-    tunMode = true;
-    serviceMode = true;
-    autoStart = true;
-  };
-
   systemd.services."ict-srun" =
     let
       conf = config.sops.templates."ict-srun-config.json".path;
