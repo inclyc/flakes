@@ -118,6 +118,14 @@ in
     }
   '';
 
+  sops.secrets."clash/config" = { };
+
+  services.mihomo = {
+    enable = true;
+    tunMode = true;
+    configFile = config.sops.secrets."clash/config".path;
+  };
+
   systemd.services."ict-srun" =
     let
       conf = config.sops.templates."ict-srun-config.json".path;
