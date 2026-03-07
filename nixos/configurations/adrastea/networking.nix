@@ -62,6 +62,20 @@ in
 
   networking.nftables.enable = true;
 
+  networking.nftables.tables = {
+    vnc-filter = {
+      family = "inet";
+      content = ''
+        chain input {
+          type filter hook input priority 0; policy accept;
+
+          ip saddr 100.0.0.0/8 tcp dport 5901 accept
+          tcp dport 5901 drop
+        }
+      '';
+    };
+  };
+
   systemd.network.wait-online.anyInterface = true;
 
   inclyc.services.rathole.enable = true;
