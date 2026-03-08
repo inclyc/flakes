@@ -118,11 +118,12 @@ in
     }
   '';
 
-  programs.clash-verge = {
+  sops.secrets."clash/config" = { };
+
+  services.mihomo = {
     enable = true;
     tunMode = true;
-    serviceMode = true;
-    autoStart = true;
+    configFile = config.sops.secrets."clash/config".path;
   };
 
   systemd.services."ict-srun" =
