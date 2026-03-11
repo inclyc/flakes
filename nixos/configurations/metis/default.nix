@@ -49,6 +49,8 @@
 
   systemd.network.enable = true;
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   virtualisation.podman.enable = true;
 
   systemd.network.networks = {
