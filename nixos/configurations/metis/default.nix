@@ -51,6 +51,40 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  services.fail2ban = {
+    enable = true;
+    bantime = "-1";
+    maxretry = 2;
+    jails = {
+      sshd = {
+        settings = {
+          enabled = true;
+          findtime = "1d";
+          mode = "aggressive";
+          port = "ssh";
+        };
+      };
+    };
+  };
+
+  networking.nftables.enable = true;
+
+  networking.nftables.tables = {
+    ssh = {
+      family = "inet";
+      content = ''
+        chain input {
+          type filter hook input priority 0; policy accept;
+          ip saddr {
+            130.12.181.0/24,
+            206.123.145.0/24,
+            193.32.162.0/24
+          } drop
+        }
+      '';
+    };
+  };
+
   virtualisation.podman.enable = true;
 
   systemd.network.networks = {
