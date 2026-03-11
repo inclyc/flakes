@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   inputs,
   ...
@@ -38,6 +39,13 @@
   networking.dhcpcd.enable = false;
   networking.useDHCP = false;
   networking.useHostResolvConf = false;
+
+  sops.secrets."clash/config" = { };
+  services.mihomo = {
+    enable = true;
+    tunMode = true;
+    configFile = config.sops.secrets."clash/config".path;
+  };
 
   systemd.network.enable = true;
 
