@@ -84,32 +84,6 @@ in
           })
         ];
       };
-      "axplot" = {
-        inherit url;
-        enable = true;
-        name = "axplot";
-        tokenFile = config.sops.secrets."gitea/runners/axplot".path;
-        labels = [
-          "native:host"
-        ];
-        hostPackages = with pkgs; [
-          ninja
-          bash
-          coreutils
-          diffutils
-          curl
-          gawk
-          gitMinimal
-          gnused
-          nodejs
-          wget
-          cmake
-          python312
-          pnpm
-          nodejs
-          nix
-        ];
-      };
     };
     caddy = {
       enable = true;
