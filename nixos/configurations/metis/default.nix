@@ -48,6 +48,8 @@
     configFile = config.sops.secrets."clash/config".path;
   };
 
+  services.tailscale.enable = true;
+
   systemd.network.enable = true;
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
