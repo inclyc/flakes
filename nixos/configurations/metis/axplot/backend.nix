@@ -60,6 +60,7 @@ in
           MODEL = "deepseek-chat";
           SUGGEST_TITLE_MODEL = "deepseek-chat";
           BIND_ADDRESS = "127.0.0.1:${port}";
+          LOG_UPLOAD_DIR = "/var/lib/${name}/logs";
         };
         serviceConfig = {
           DynamicUser = "yes";
