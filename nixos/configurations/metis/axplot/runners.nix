@@ -61,7 +61,12 @@ in
   systemd.services = lib.listToAttrs (
     map (name: {
       name = "gitea-runner-${utils.escapeSystemdPath name}";
-      value.environment = proxyEnvs;
+      value = {
+        environment = proxyEnvs;
+        # This service starts the proxy port, so the runner must start after it
+        requires = [ "xscribe.service" ];
+        after = [ "xscribe.service" ];
+      };
     }) names
   );
 }
