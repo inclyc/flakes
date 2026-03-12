@@ -9,15 +9,26 @@
   systemd.services.xscribe = {
     description = "Xscribe service";
     after = [
-      "network.target"
+      "network-online.target"
+      "mihomo.service"
       "sops-nix.service"
     ];
-    wants = [ "sops-nix.service" ];
+
+    wants = [
+      "sops-nix.service"
+      "mihomo.service"
+      "network-online.target"
+    ];
+
+    wantedBy = [ "multi-user.target" ];
 
     serviceConfig = {
       Type = "oneshot";
       ExecStart = "${pkgs.xscribe}/bin/xscribe";
       EnvironmentFile = config.sops.secrets."xscribe/env".path;
+
+      Restart = "on-failure";
+      RestartSec = "5s";
 
       DynamicUser = true;
       RuntimeDirectory = "xscribe";
