@@ -64,7 +64,7 @@ in
       value = {
         environment = proxyEnvs;
         # This service starts the proxy port, so the runner must start after it
-        requires = [ "xscribe.service" ];
+        wants = [ "xscribe.service" ];
         after = [ "xscribe.service" ];
       };
     }) names
