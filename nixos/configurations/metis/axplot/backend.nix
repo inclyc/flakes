@@ -56,8 +56,9 @@ in
         environment = {
           RUST_LOG = "info";
           DATABASE_URL = "sqlite:///var/lib/${name}/db.sqlite";
-          OPENROUTER_BASE_URL = "https://api.deepseek.com/chat/completions";
+          CHAT_API_BASE_URL = "https://api.deepseek.com/chat/completions";
           MODEL = "deepseek-chat";
+          SUGGEST_TITLE_MODEL = "deepseek-chat";
           BIND_ADDRESS = "127.0.0.1:${port}";
         };
         serviceConfig = {

@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  utils,
   ...
 }:
 let
@@ -25,27 +26,42 @@ let
     pnpm
     nix
   ];
+
+  names = map (i: "axplot-${toString i}") (lib.range 1 n);
+
+  proxyEnvs = {
+    all_proxy = "socks5://127.0.0.1:8899";
+    http_proxy = "http://127.0.0.1:8899";
+    https_proxy = "http://127.0.0.1:8899";
+    no_proxy = "localhost,127.0.0.1,.local";
+  };
 in
 {
   sops.secrets."gitea/runners/axplot" = { };
 
   services.gitea-actions-runner.instances = lib.listToAttrs (
-    map (
-      i:
-      let
-        name = "axplot-${toString i}";
-      in
-      {
+    map (name: {
+      name = name;
+      value = {
+        inherit url;
+        enable = true;
         name = name;
-        value = {
-          inherit url;
-          enable = true;
-          name = name;
-          tokenFile = config.sops.secrets."gitea/runners/axplot".path;
-          labels = [ "native:host" ];
-          hostPackages = axplotPackages;
+        tokenFile = config.sops.secrets."gitea/runners/axplot".path;
+        labels = [ "native:host" ];
+        hostPackages = axplotPackages;
+        settings = {
+          runner = {
+            envs = proxyEnvs;
+          };
         };
-      }
-    ) (lib.range 1 n)
+      };
+    }) names
+  );
+
+  systemd.services = lib.listToAttrs (
+    map (name: {
+      name = "gitea-runner-${utils.escapeSystemdPath name}";
+      value.environment = proxyEnvs;
+    }) names
   );
 }
