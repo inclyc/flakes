@@ -47,14 +47,14 @@ in
   services.caddy = {
     enable = true;
     virtualHosts = {
-      # "axplot.inclyc.cn" = {
-      #   extraConfig = frontend-caddy "production";
-      # };
+      "axplot.inclyc.cn" = {
+        extraConfig = frontend-caddy "production";
+      };
       "src.testing.axplot.inclyc.cn" = {
         extraConfig = frontend-caddy "testing";
       };
       "posthog.inclyc.cn" = {
-        extraConfig = ''reverse_proxy 192.168.31.5:80'';
+        extraConfig = "reverse_proxy 192.168.31.5:80";
       };
     };
   };
