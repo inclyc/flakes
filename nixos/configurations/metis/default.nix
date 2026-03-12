@@ -11,6 +11,7 @@
     ./hardware-configuration.nix
     ./rathole.nix
     ./axplot
+    ./xscribe.nix
   ];
 
   inclyc.development = {

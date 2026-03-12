@@ -1,0 +1,20 @@
+[project]
+name = "xscribe"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "pyyaml>=6.0.3",
+]
+
+[project.scripts]
+xscribe = "xscribe:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+include = [
+    "xscribe.py",
+    "base.yaml",
+]

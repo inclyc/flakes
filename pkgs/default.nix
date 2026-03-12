@@ -18,4 +18,6 @@
   srun = pkgs.callPackage ./srun { };
 
   zju-connect = pkgs.callPackage ./zju-connect { };
+
+  xscribe = pkgs.callPackage ./xscribe { };
 }
