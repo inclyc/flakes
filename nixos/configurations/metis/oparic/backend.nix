@@ -5,7 +5,7 @@
   ...
 }:
 let
-  nameBase = "axplot-backend";
+  nameBase = "oparic-backend";
   profiles = [
     "production"
     "testing"
@@ -17,7 +17,7 @@ in
     profile:
     let
       port = builtins.readFile ./${profile}/backend.port;
-      axplot = pkgs.stdenvNoCC.mkDerivation {
+      oparic = pkgs.stdenvNoCC.mkDerivation {
         name = nameBase;
         src = pkgs.requireFile {
           name = nameBase;
@@ -52,7 +52,7 @@ in
       value = {
         wantedBy = [ "multi-user.target" ];
         after = [ "network.target" ];
-        description = "Backend for axplot";
+        description = "Backend for oparic";
         environment = {
           RUST_LOG = "info";
           DATABASE_URL = "sqlite:///var/lib/${name}/db.sqlite";
@@ -65,7 +65,7 @@ in
         serviceConfig = {
           DynamicUser = "yes";
           EnvironmentFile = [ config.sops.secrets."${nameBase}".path ];
-          ExecStart = lib.getExe axplot;
+          ExecStart = lib.getExe oparic;
           Restart = "on-failure";
           CapabilityBoundingSet = [ "" ];
           DeviceAllow = [ "" ];

@@ -10,7 +10,7 @@ let
 
   n = 5;
 
-  axplotPackages = with pkgs; [
+  packages = with pkgs; [
     ninja
     bash
     coreutils
@@ -27,7 +27,7 @@ let
     nix
   ];
 
-  names = map (i: "axplot-${toString i}") (lib.range 1 n);
+  names = map (i: "oparic-${toString i}") (lib.range 1 n);
 
   proxyEnvs = {
     all_proxy = "socks5://127.0.0.1:8899";
@@ -37,7 +37,7 @@ let
   };
 in
 {
-  sops.secrets."gitea/runners/axplot" = { };
+  sops.secrets."gitea/runners/oparic" = { };
 
   services.gitea-actions-runner.instances = lib.listToAttrs (
     map (name: {
@@ -46,9 +46,9 @@ in
         inherit url;
         enable = true;
         name = name;
-        tokenFile = config.sops.secrets."gitea/runners/axplot".path;
+        tokenFile = config.sops.secrets."gitea/runners/oparic".path;
         labels = [ "native:host" ];
-        hostPackages = axplotPackages;
+        hostPackages = packages;
         settings = {
           runner = {
             envs = proxyEnvs;

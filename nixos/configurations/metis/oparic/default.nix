@@ -28,7 +28,7 @@ let
         };
       in
       ''
-        handle /axplot/* {
+        handle_path /backend/* {
           reverse_proxy 127.0.0.1:${backendPort}
         }
         handle_path /workflow-static/*  {
@@ -47,10 +47,10 @@ in
   services.caddy = {
     enable = true;
     virtualHosts = {
-      "axplot.inclyc.cn" = {
+      "oparic.inclyc.cn" = {
         extraConfig = frontend-caddy "production";
       };
-      "src.testing.axplot.inclyc.cn" = {
+      "src.testing.oparic.inclyc.cn" = {
         extraConfig = frontend-caddy "testing";
       };
       "posthog.inclyc.cn" = {

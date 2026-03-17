@@ -10,7 +10,7 @@
     ./wireguard.nix
     ./hardware-configuration.nix
     ./rathole.nix
-    ./axplot
+    ./oparic
     ./xscribe.nix
   ];
 

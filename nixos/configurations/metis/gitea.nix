@@ -7,7 +7,7 @@ in
   sops.secrets = {
     "gitea/runners/simd" = { };
     "gitea/runners/fuse-feature" = { };
-    "gitea/runners/axplot" = { };
+    "gitea/runners/oparic" = { };
   };
 
   fonts.fonts = with pkgs; [
