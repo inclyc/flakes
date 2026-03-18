@@ -40,6 +40,7 @@
     meson
     ninja
     cmake
+    (lib.hiPrio clang-tools)
 
     nixd
 
