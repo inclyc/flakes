@@ -92,6 +92,14 @@
         "black"
     ],
     "javascript.format.semicolons": "insert",
+    "json.schemaDownload.trustedDomains": {
+        "https://biomejs.dev": true,
+        "https://json-schema.org/": true,
+        "https://json.schemastore.org/": true,
+        "https://raw.githubusercontent.com/": true,
+        "https://schemastore.azurewebsites.net/": true,
+        "https://www.schemastore.org/": true
+    },
     "latex-workshop.bibtex-format.sort.enabled": true,
     "latex-workshop.formatting.latex": "latexindent",
     "latex-workshop.latex.autoBuild.run": "onSave",
