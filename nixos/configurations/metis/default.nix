@@ -48,6 +48,24 @@
     configFile = config.sops.secrets."clash/config".path;
   };
 
+  sops.secrets."minio/credentials" = { };
+
+  services.minio = {
+    enable = true;
+    listenAddress = "127.0.0.1:9000";
+    consoleAddress = "127.0.0.1:9001";
+    rootCredentialsFile = config.sops.secrets."minio/credentials".path;
+  };
+
+  services.caddy = {
+    enable = true;
+    virtualHosts = {
+      "s3.inclyc.cn" = {
+        extraConfig = "reverse_proxy ${config.services.minio.listenAddress}";
+      };
+    };
+  };
+
   services.tailscale.enable = true;
 
   systemd.network.enable = true;
