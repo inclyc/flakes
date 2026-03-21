@@ -76,6 +76,9 @@
     enable = true;
     bantime = "-1";
     maxretry = 2;
+    ignoreIP = [
+      "192.168.31.0/24"
+    ];
     jails = {
       sshd = {
         settings = {
