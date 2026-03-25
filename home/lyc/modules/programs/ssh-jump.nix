@@ -9,7 +9,7 @@ let
     "ict-altric"
     "ict-44"
   ];
-  ict-portal = "ict-malcon-pub";
+  ict-portal = "adrastea";
 in
 {
   options = {
