@@ -82,7 +82,7 @@
           port = 20179;
         };
         ict-altric = {
-          hostname = "10.3.2.130";
+          hostname = "10.208.130.147";
           user = "lyc";
           port = 22;
         };
