@@ -50,7 +50,7 @@ in
       "oparic.inclyc.cn" = {
         extraConfig = frontend-caddy "production";
       };
-      "src.testing.oparic.inclyc.cn" = {
+      "testing.oparic.inclyc.cn" = {
         extraConfig = frontend-caddy "testing";
       };
       "posthog.inclyc.cn" = {
