@@ -15,6 +15,7 @@
     ./gui.nix
     ./user.nix
     ./sops.nix
+    ./xscribe.nix
 
     # Language-specific environments
     ./rust.nix
