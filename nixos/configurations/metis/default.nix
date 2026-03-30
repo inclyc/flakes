@@ -50,8 +50,7 @@
   sops.secrets."xscribe/env" = { };
   services.xscribe = {
     enable = true;
-    timer.enable = true; # 默认已启用，可省略
-    package = pkgs.xscribe; # 可选覆盖
+    timer.enable = true;
     environmentFile = config.sops.secrets."xscribe/env".path;
   };
 
