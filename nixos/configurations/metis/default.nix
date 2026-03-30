@@ -11,7 +11,6 @@
     ./hardware-configuration.nix
     ./rathole.nix
     ./oparic
-    ./xscribe.nix
   ];
 
   inclyc.development = {
@@ -46,6 +45,13 @@
     enable = true;
     tunMode = true;
     configFile = config.sops.secrets."clash/config".path;
+  };
+
+  sops.secrets."xscribe/env" = { };
+  services.xscribe = {
+    enable = true;
+    timer.enable = true;
+    environmentFile = config.sops.secrets."xscribe/env".path;
   };
 
   sops.secrets."minio/credentials" = { };

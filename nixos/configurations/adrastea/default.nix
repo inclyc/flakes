@@ -235,6 +235,13 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  sops.secrets."xscribe/env" = { };
+  services.xscribe = {
+    enable = true;
+    timer.enable = true;
+    environmentFile = config.sops.secrets."xscribe/env".path;
+  };
+
   users.defaultUserShell = pkgs.zsh;
   programs.zsh.enable = true;
 
