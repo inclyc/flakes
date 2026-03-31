@@ -78,6 +78,30 @@
     fsType = "ext4";
   };
 
+  fileSystems."/home/lyc/ict-disks" = {
+    device = "/dev/disk/by-uuid/f04d42c7-9135-4396-8543-bd04f4c4c9db";
+    fsType = "btrfs";
+    options = [
+      "subvol=lyc_data"
+      "compress=zstd"
+      "ssd"
+      "noatime"
+      "discard=async"
+    ];
+  };
+
+  fileSystems."/home/zhaopeiyuan" = {
+    device = "/dev/disk/by-uuid/f04d42c7-9135-4396-8543-bd04f4c4c9db";
+    fsType = "btrfs";
+    options = [
+      "subvol=zhaopeiyuan_data"
+      "compress=zstd"
+      "ssd"
+      "noatime"
+      "discard=async"
+    ];
+  };
+
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

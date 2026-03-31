@@ -311,6 +311,15 @@
       ]
       ++ config.users.users.lyc.openssh.authorizedKeys.keys;
     };
+    zhaopeiyuan = {
+      isNormalUser = true;
+      uid = 1002;
+      description = "Peiyuan Zhao";
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJD/V9urHp3yRVsPfCwmbNZiy4/AEl9Fn8qUJq9Ewcpv"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAfRk77bCvjNa0AhM9aks3P0ioDmdP8E1AZ89z1HI+3u"
+      ];
+    };
   };
 
   security.pam.services = {
