@@ -37,20 +37,49 @@ in
       networkConfig = {
         DHCP = "yes";
         IPv6AcceptRA = true;
+        IPv6Forwarding = true;
+      };
+      ipv6AcceptRAConfig = {
+        RouteMetric = 2048;
       };
     };
     "20-br1" = {
       matchConfig.Name = "br1";
       networkConfig = {
         DHCPServer = true;
-        IPMasquerade = "both";
+        IPMasquerade = "ipv4";
         ConfigureWithoutCarrier = true;
+        IPv6SendRA = true;
+        IPv6Forwarding = true;
       };
-      addresses = [ { Address = "10.157.0.1/24"; } ];
+      ipv6Prefixes = [
+        { Prefix = "2400:dd01:1034:1112::/64"; }
+      ];
+      addresses = [
+        { Address = "10.157.0.1/24"; }
+        { Address = "2400:dd01:1034:1112::1/64"; }
+      ];
     };
   }
   // physSlaves
   // allTapSlaves;
+
+  services.ndppd = {
+    enable = true;
+    proxies.br0 = {
+      rules = {
+        "2400:dd01:1034:1112::/64" = {
+          method = "static";
+        };
+      };
+    };
+  };
+
+  boot.kernel.sysctl = {
+    "net.ipv6.conf.all.forwarding" = 1;
+    "net.ipv6.conf.br0.proxy_ndp" = 1;
+    "net.ipv4.ip_forward" = 1;
+  };
 
   systemd.network.netdevs = {
     "20-br0" = {
