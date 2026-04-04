@@ -5,7 +5,8 @@ let
   };
 in
 {
-  environment.systemPackages = [
+  environment.systemPackages = with pkgs; [
     llama-cpp
+    opencode
   ];
 }
