@@ -8,6 +8,8 @@
 
   imports = [ ./sops.nix ];
 
+  inclyc.development.android.enable = true;
+
   inclyc.tex.enable = true;
   inclyc.ssh.ICTProxy = true;
 

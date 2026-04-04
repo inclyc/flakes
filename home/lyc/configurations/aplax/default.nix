@@ -5,9 +5,7 @@
   ...
 }:
 {
-  imports = [
-    ./android.nix
-  ];
+  inclyc.development.android.enable = true;
 
   programs.vscode = {
     enable = true;

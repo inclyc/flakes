@@ -1,6 +1,7 @@
 { lib, ... }:
 {
   imports = [
+    ./android.nix
     ./programs/direnv.nix
     ./programs/git.nix
     ./programs/gpg.nix
