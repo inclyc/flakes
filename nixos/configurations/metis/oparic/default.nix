@@ -56,6 +56,9 @@ in
       "posthog.inclyc.cn" = {
         extraConfig = "reverse_proxy 192.168.31.5:80";
       };
+      "matomo.inclyc.cn" = {
+        extraConfig = "php_fastcgi 192.168.31.5:9000";
+      };
     };
   };
 }
