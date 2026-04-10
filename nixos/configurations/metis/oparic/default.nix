@@ -57,7 +57,7 @@ in
         extraConfig = "reverse_proxy 192.168.31.5:80";
       };
       "matomo.inclyc.cn" = {
-        extraConfig = "php_fastcgi 192.168.31.5:9000";
+        extraConfig = "reverse_proxy 192.168.31.5:9000";
       };
     };
   };
