@@ -42,6 +42,8 @@
 
     nixd
 
+    gh
+
     pandoc
 
     elan
