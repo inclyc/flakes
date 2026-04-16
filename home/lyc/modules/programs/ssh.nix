@@ -130,6 +130,16 @@
           user = "git";
           proxyCommand = mkProxyCommand "localhost" 9056;
         };
+        pve = {
+          hostname = "llvmws.inclyc.cn";
+          user = "root";
+          port = 65500;
+        };
+        posthog = {
+          hostname = "llvmws.inclyc.cn";
+          user = "root";
+          port = 20023;
+        };
       };
     };
 }
