@@ -43,6 +43,7 @@
     nixd
 
     gh
+    git-absorb
 
     pandoc
 
