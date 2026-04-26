@@ -53,6 +53,6 @@
   };
 
   home.packages = with pkgs; [
-    nodePackages.pnpm
+    pnpm
   ];
 }

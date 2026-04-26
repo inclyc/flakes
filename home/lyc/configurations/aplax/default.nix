@@ -33,7 +33,7 @@
 
     nodejs
     yarn
-    nodePackages.pnpm
+    pnpm
 
     meson
     ninja
