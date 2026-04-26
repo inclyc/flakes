@@ -5,7 +5,7 @@
   programs.ssh =
     let
       nc = "${pkgs.libressl.nc}/bin/nc";
-      mkProxyCommand = host: port: "${nc} -x ${host}:${builtins.toString port} %h %p";
+      mkProxyCommand = host: port: "${nc} -x ${host}:${toString port} %h %p";
     in
     {
       enable = lib.mkDefault true;
