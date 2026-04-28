@@ -85,6 +85,7 @@
             (map (f: nixpkgs.lib.removeSuffix ".nix" f) [
               "adrastea"
               "metis"
+              "clops"
               "luna"
             ])
             (
