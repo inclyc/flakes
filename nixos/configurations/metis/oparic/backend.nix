@@ -6,13 +6,14 @@
 }:
 let
   nameBase = "oparic-backend";
+  nameSecret = lib.replaceStrings [ "-" ] [ "/" ] nameBase;
   profiles = [
     "production"
     "testing"
   ];
 in
 {
-  sops.secrets."${nameBase}" = { };
+  sops.secrets."${nameSecret}" = { };
   systemd.services = lib.genAttrs' profiles (
     profile:
     let
@@ -64,7 +65,7 @@ in
         };
         serviceConfig = {
           DynamicUser = "yes";
-          EnvironmentFile = [ config.sops.secrets."${nameBase}".path ];
+          EnvironmentFile = [ config.sops.secrets.${nameSecret}.path ];
           ExecStart = lib.getExe oparic;
           Restart = "on-failure";
           CapabilityBoundingSet = [ "" ];
