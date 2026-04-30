@@ -140,34 +140,6 @@
     wpsoffice-cn
 
     # Tencent apps
-    (wechat-uos.override {
-      buildFHSEnv =
-        args:
-        buildFHSEnv (
-          args
-          // {
-            # bubble wrap wechat-uos's home directory
-            extraPreBwrapCmds = ''
-              mkdir -p "''${XDG_DATA_HOME:-$HOME/.local/share}/wechat-uos"
-            '';
-            extraBwrapArgs = [
-              "--bind \"\${XDG_DATA_HOME:-$HOME/.local/share}/wechat-uos\" \"$HOME\""
-              # Bind "Downloads", "Pictures" directory to home directory
-              "--bind \"\${XDG_DOWNLOAD_DIR:-$HOME/Downloads}\" \"$HOME/Downloads\""
-              "--bind \"\${XDG_PICTURES_DIR:-$HOME/Pictures}\" \"$HOME/Pictures\""
-              "--chdir \"$HOME\""
-            ];
-
-            unshareUser = true;
-            unshareIpc = true;
-            unsharePid = true;
-            unshareNet = false;
-            unshareUts = true;
-            unshareCgroup = true;
-            privateTmp = true;
-          }
-        );
-    })
     qq
 
     uv
