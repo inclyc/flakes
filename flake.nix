@@ -77,6 +77,7 @@
               (cachix "nix-community")
               "https://cache.nixos.org"
               (cachix "inclyc")
+              "https://cache.nixos-cuda.org"
             ];
         };
         nixosModules.lyc = import ./nixos/modules;

@@ -23,6 +23,7 @@
       inherit (outputs.nix.settings) substituters;
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         "inclyc.cachix.org-1:izGZ+f/JLPovKX1OKd3rQZ8nPOCpvPij3+bebjxdZ2k="
       ];
