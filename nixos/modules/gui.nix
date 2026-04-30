@@ -14,49 +14,45 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    programs.nix-ld.libraries =
-      with pkgs;
-      [
-        alsa-lib
-        at-spi2-atk
-        at-spi2-core
-        atk
-        cairo
-        cups
-        fontconfig
-        freetype
-        gdk-pixbuf
-        glib
-        gtk3
-        libGL
-        libappindicator-gtk3
-        libdrm
-        libnotify
-        libpulseaudio
-        pango
-        pipewire
-        mesa
-        dbus.lib
-        libgbm
-      ]
-      ++ (with xorg; [
-        libX11
-        libXScrnSaver
-        libXcomposite
-        libXcursor
-        libXdamage
-        libXext
-        libXfixes
-        libXi
-        libXrandr
-        libXrender
-        libXtst
-        libxkbfile
-        libxshmfence
-        libxcb
-        libxkbcommon
-        nspr
-      ]);
+    programs.nix-ld.libraries = with pkgs; [
+      alsa-lib
+      at-spi2-atk
+      at-spi2-core
+      atk
+      cairo
+      cups
+      fontconfig
+      freetype
+      gdk-pixbuf
+      glib
+      gtk3
+      libGL
+      libappindicator-gtk3
+      libdrm
+      libnotify
+      libpulseaudio
+      pango
+      pipewire
+      mesa
+      dbus.lib
+      libgbm
+      libx11
+      libxscrnsaver
+      libxcomposite
+      libxcursor
+      libxdamage
+      libxext
+      libxfixes
+      libxi
+      libxrandr
+      libxrender
+      libxtst
+      libxkbfile
+      libxshmfence
+      libxcb
+      libxkbcommon
+      nspr
+    ];
     i18n.inputMethod = {
       enable = true;
       type = "fcitx5";
