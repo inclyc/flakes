@@ -28,7 +28,6 @@
     ./gitea.nix
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./llm.nix
     ./networking.nix
     ./nvidia.nix
     ./vm
