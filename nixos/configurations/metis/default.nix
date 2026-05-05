@@ -203,5 +203,13 @@
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJyrUiSdpTC+vP+pNDChehLG+ChYL2By2LtjmVJiHmaf"
       ];
     };
+
+    zhangxiaoyu = {
+      isNormalUser = true;
+      description = "Xiaoyu Zhang";
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF0j28/vUZJek/0ipuWsKYZ5E2w4pkCdRIpOSQf0NseW u0_a310@localhost"
+      ];
+    };
   };
 }
