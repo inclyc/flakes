@@ -211,6 +211,7 @@
       description = "Xiaoyu Zhang";
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF0j28/vUZJek/0ipuWsKYZ5E2w4pkCdRIpOSQf0NseW u0_a310@localhost"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC1kJQp6apa/oxvdOr7+bmwLzM9nrXGrQVqnA6MFE+1k zxy@MacbookAir"
       ];
     };
   };
