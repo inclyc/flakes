@@ -151,6 +151,8 @@
     dig
 
     nixd
+
+    claude-code
   ];
 
   # Allow unfree packages
