@@ -85,6 +85,9 @@
     tailscale
 
     zju-connect
+
+    ripgrep
+    tmux
   ];
 
   programs.ssh.matchBlocks = {
