@@ -88,6 +88,8 @@
 
     ripgrep
     tmux
+
+    claude-code
   ];
 
   programs.ssh.matchBlocks = {
