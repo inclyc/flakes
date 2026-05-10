@@ -146,6 +146,8 @@
     git-branch-clean
 
     biome
+
+    claude-code
   ];
 
   virtualisation.spiceUSBRedirection.enable = true;
