@@ -10,6 +10,7 @@
     ignores = [
       ".DS_Store"
       ".direnv"
+      ".claude/settings.local.json"
     ];
     settings = {
       init.defaultBranch = "main";
