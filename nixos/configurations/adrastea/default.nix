@@ -148,6 +148,7 @@
     biome
 
     claude-code
+    tmux
   ];
 
   virtualisation.spiceUSBRedirection.enable = true;
