@@ -9,10 +9,12 @@
     in
     {
       enable = lib.mkDefault true;
+      enableDefaultConfig = false;
       matchBlocks = rec {
         "*" = {
           serverAliveInterval = 3;
           controlMaster = "auto";
+          controlPath = "~/.ssh/master-%r@%n:%p";
           controlPersist = "10m";
         };
         hitmc = {
