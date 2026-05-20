@@ -10,142 +10,140 @@
     {
       enable = lib.mkDefault true;
       enableDefaultConfig = false;
-      matchBlocks = rec {
+      settings = rec {
         "*" = {
-          serverAliveInterval = 3;
-          controlMaster = "auto";
-          controlPath = "~/.ssh/master-%r@%n:%p";
-          controlPersist = "10m";
+          ServerAliveInterval = 3;
+          ControlMaster = "auto";
+          ControlPath = "~/.ssh/master-%r@%n:%p";
+          ControlPersist = "10m";
         };
         hitmc = {
-          hostname = "lan.hitmc.cc";
-          user = "inclyc";
-          port = 25884;
+          HostName = "lan.hitmc.cc";
+          User = "inclyc";
+          Port = 25884;
         };
         hitmc-pub = {
-          hostname = "t.inclyc.cn";
-          user = "inclyc";
-          port = 12742;
+          HostName = "t.inclyc.cn";
+          User = "inclyc";
+          Port = 12742;
         };
         ten = {
-          hostname = "t.inclyc.cn";
-          user = "lyc";
-          port = 22;
+          HostName = "t.inclyc.cn";
+          User = "lyc";
+          Port = 22;
         };
         metis = {
-          hostname = "llvmws.inclyc.cn";
-          user = "lyc";
-          port = 20122;
+          HostName = "llvmws.inclyc.cn";
+          User = "lyc";
+          Port = 20122;
         };
         oparic-base = {
-          hostname = "llvmws.inclyc.cn";
-          user = "inclyc";
-          port = 20533;
+          HostName = "llvmws.inclyc.cn";
+          User = "inclyc";
+          Port = 20533;
         };
         adrastea = {
-          hostname = "100.95.255.126";
-          user = "lyc";
-          port = 22;
+          HostName = "100.95.255.126";
+          User = "lyc";
+          Port = 22;
         };
         adrastea-v6 = adrastea // {
-          hostname = "6.adrastea.inclyc.cn";
-          port = 22;
+          HostName = "6.adrastea.inclyc.cn";
+          Port = 22;
         };
         adrastea-zxy = adrastea // {
-          user = "zxy";
+          User = "zxy";
         };
         adrastea-zxy-v6 = adrastea-zxy // {
-          hostname = "6.adrastea.inclyc.cn";
-          port = 22;
+          HostName = "6.adrastea.inclyc.cn";
+          Port = 22;
         };
         adrastea-pub = {
-          hostname = "t.inclyc.cn";
-          user = "lyc";
-          port = 10120;
+          HostName = "t.inclyc.cn";
+          User = "lyc";
+          Port = 10120;
         };
         metis-win = {
-          hostname = "llvmws.inclyc.cn";
-          user = "Admininstrator";
-          port = 23101;
+          HostName = "llvmws.inclyc.cn";
+          User = "Admininstrator";
+          Port = 23101;
         };
         adrastea-win = {
-          hostname = "100.124.27.109";
-          user = "Administrator";
-          port = 22;
+          HostName = "100.124.27.109";
+          User = "Administrator";
+          Port = 22;
         };
         swyjs = {
-          hostname = "40.0.1.110";
-          user = "swyjs";
-          port = 22;
+          HostName = "40.0.1.110";
+          User = "swyjs";
+          Port = 22;
         };
         ict-malcon = {
-          hostname = "10.3.2.104";
-          user = "lyc";
-          port = 22;
+          HostName = "10.3.2.104";
+          User = "lyc";
+          Port = 22;
         };
         ict-malcon-pub = {
-          hostname = "llvmws.inclyc.cn";
-          user = "lyc";
-          port = 20179;
+          HostName = "llvmws.inclyc.cn";
+          User = "lyc";
+          Port = 20179;
         };
         ict-altric = {
-          hostname = "10.208.130.147";
-          user = "lyc";
-          port = 22;
+          HostName = "10.208.130.147";
+          User = "lyc";
+          Port = 22;
         };
         ict-repo = {
-          hostname = "10.3.2.104";
-          user = "lyc";
-          port = 22;
+          HostName = "10.3.2.104";
+          User = "lyc";
+          Port = 22;
         };
         ict-sw-git = {
-          hostname = "10.208.130.239";
-          user = "git";
-          port = 22;
+          HostName = "10.208.130.239";
+          User = "git";
+          ProxyCommand = mkProxyCommand "localhost" 9056;
         };
         ict-sw = {
-          hostname = "10.208.130.239";
-          user = "lyc";
-          port = 22;
+          HostName = "10.208.130.239";
+          User = "lyc";
+          Port = 22;
         };
         wxiat = {
-          hostname = "code.developer.wxiat.com";
-          user = "root";
-          port = 22;
-          extraOptions = {
-            KexAlgorithms = "+diffie-hellman-group1-sha1";
-            HostKeyAlgorithms = "+ssh-rsa";
-            Ciphers = "+aes128-cbc";
-          };
+          HostName = "code.developer.wxiat.com";
+          User = "root";
+          Port = 22;
+          KexAlgorithms = "+diffie-hellman-group1-sha1";
+          HostKeyAlgorithms = "+ssh-rsa";
+          Ciphers = "+aes128-cbc";
         };
         "8A" = {
-          hostname = "192.168.4.172";
-          user = "lyc";
-          proxyCommand = mkProxyCommand "localhost" 1080;
+          HostName = "192.168.4.172";
+          User = "lyc";
+          ProxyCommand = mkProxyCommand "localhost" 1080;
         };
         "wxiat-41" = {
-          hostname = "192.168.4.41";
-          user = "wuzhikun";
-          proxyJump = "8A";
+          HostName = "192.168.4.41";
+          User = "wuzhikun";
+          ProxyJump = "8A";
         };
         "ict-44" = {
-          hostname = "10.208.130.44";
-          user = "i_longyingchi";
+          HostName = "10.208.130.44";
+          User = "i_longyingchi";
         };
         "git-xcoresigma" = {
-          hostname = "git.xcoresigma.com";
-          user = "git";
-          proxyCommand = mkProxyCommand "localhost" 9056;
+          HostName = "git.xcoresigma.com";
+          User = "git";
+          ProxyCommand = mkProxyCommand "localhost" 9056;
         };
         pve = {
-          hostname = "llvmws.inclyc.cn";
-          user = "root";
-          port = 65500;
+          HostName = "llvmws.inclyc.cn";
+          User = "root";
+          Port = 65500;
         };
         posthog = {
-          hostname = "llvmws.inclyc.cn";
-          user = "root";
-          port = 20023;
+          HostName = "llvmws.inclyc.cn";
+          User = "root";
+          Port = 20023;
         };
       };
     };

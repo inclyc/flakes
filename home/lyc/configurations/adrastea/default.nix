@@ -46,10 +46,10 @@
     llvm = "${config.home.homeDirectory}/workspace/CS/Compilers/llvm-project";
   };
 
-  programs.ssh.matchBlocks."adrastea-zxy" = lib.mkForce {
-    hostname = "localhost";
-    user = "zxy";
-    port = 22;
+  programs.ssh.settings."adrastea-zxy" = lib.mkForce {
+    HostName = "localhost";
+    User = "zxy";
+    Port = 22;
   };
 
   home.packages = with pkgs; [

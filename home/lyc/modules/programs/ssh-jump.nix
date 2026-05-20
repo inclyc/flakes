@@ -22,8 +22,8 @@ in
   };
 
   config = lib.mkIf cfg.ICTProxy {
-    programs.ssh.matchBlocks = lib.genAttrs ict-machines (_: {
-      proxyJump = ict-portal;
+    programs.ssh.settings = lib.genAttrs ict-machines (_: {
+      ProxyJump = ict-portal;
     });
   };
 }

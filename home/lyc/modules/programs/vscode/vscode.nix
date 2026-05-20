@@ -55,7 +55,7 @@
           # Remote SSH platforms.
           "remote.SSH.remotePlatform" = lib.mapAttrs (
             name: value: if name == "metis-win" || name == "adrastea-win" then "windows" else "linux"
-          ) config.programs.ssh.matchBlocks;
+          ) config.programs.ssh.settings;
         }
       );
   };

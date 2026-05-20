@@ -92,11 +92,11 @@
     claude-code
   ];
 
-  programs.ssh.matchBlocks = {
+  programs.ssh.settings = {
     luna = {
-      hostname = "luna.local";
-      user = "lyc";
-      port = 22;
+      HostName = "luna.local";
+      User = "lyc";
+      Port = 22;
     };
   };
 
