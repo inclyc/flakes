@@ -92,6 +92,7 @@
     fzf
 
     claude-code
+    kiro-cli
   ];
 
   programs.ssh.settings = {
