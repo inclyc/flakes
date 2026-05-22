@@ -89,6 +89,8 @@
     ripgrep
     tmux
 
+    fzf
+
     claude-code
   ];
 
