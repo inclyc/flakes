@@ -83,6 +83,11 @@
     "files.insertFinalNewline": true,
     "files.simpleDialog.enable": true,
     "files.trimTrailingWhitespace": true,
+    "files.watcherExclude": {
+        "**/.wine": true,
+        "**/.wineprefix": true,
+        "**/dosdevices": true
+    },
     "git.autofetch": false,
     "git.enableCommitSigning": true,
     "git.mergeEditor": false,
@@ -193,6 +198,11 @@
     },
     "remote.SSH.useLocalServer": false,
     "rust-analyzer.check.command": "clippy",
+    "search.exclude": {
+        "**/.wine": true,
+        "**/.wineprefix": true,
+        "**/dosdevices": true
+    },
     "settingsSync.ignoredExtensions": [
         "asvetliakov.vscode-neovim",
         "github.copilot",
