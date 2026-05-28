@@ -13,6 +13,7 @@
       ".claude/settings.local.json"
     ];
     settings = {
+      core.quotepath = false;
       init.defaultBranch = "main";
       pull.ff = "only";
       push.default = "current";
