@@ -18,13 +18,6 @@
       pull.ff = "only";
       push.default = "current";
       rerere.enabled = true;
-      sendemail = {
-        smtpencryption = "ssl";
-        smtpserver = "smtppro.zoho.com.cn";
-        smtpuser = config.inclyc.user.email;
-        smtpserverport = 465;
-        confirm = "always";
-      };
     };
   };
 }
