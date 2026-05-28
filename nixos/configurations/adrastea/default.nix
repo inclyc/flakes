@@ -145,6 +145,8 @@
 
     git-branch-clean
 
+    bubblewrap
+
     biome
 
     claude-code
