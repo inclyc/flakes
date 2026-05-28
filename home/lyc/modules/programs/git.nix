@@ -17,6 +17,9 @@
       init.defaultBranch = "main";
       pull.ff = "only";
       push.default = "current";
+      push.autoSetupRemote = true;
+      rebase.autosquash = true;
+      rebase.autoStash = true;
       rerere.enabled = true;
     };
   };
