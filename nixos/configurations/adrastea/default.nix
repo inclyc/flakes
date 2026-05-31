@@ -151,6 +151,8 @@
 
     claude-code
     tmux
+
+    git-absorb
   ];
 
   virtualisation.spiceUSBRedirection.enable = true;
