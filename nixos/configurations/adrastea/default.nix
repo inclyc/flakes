@@ -150,6 +150,7 @@
     biome
 
     claude-code
+    opencode
     tmux
 
     git-absorb

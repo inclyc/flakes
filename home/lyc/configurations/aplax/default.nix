@@ -92,6 +92,7 @@
     fzf
 
     claude-code
+    opencode
     kiro-cli
   ];
 

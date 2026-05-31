@@ -153,6 +153,7 @@
     nixd
 
     claude-code
+    opencode
   ];
 
   # Allow unfree packages
