@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, ... }:
 {
   programs.git = {
     enable = lib.mkDefault true;
@@ -11,6 +11,8 @@
       ".DS_Store"
       ".direnv"
       ".claude/settings.local.json"
+      ".pnpm-store"
+      "__pycache__/"
     ];
     settings = {
       core.quotepath = false;
