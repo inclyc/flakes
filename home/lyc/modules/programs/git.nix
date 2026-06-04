@@ -4,7 +4,6 @@
     enable = lib.mkDefault true;
     signing = {
       key = "296C3FEFEA88ABC5!";
-      signByDefault = true;
       format = "openpgp";
     };
     ignores = [
