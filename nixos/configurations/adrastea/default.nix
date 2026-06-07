@@ -151,6 +151,7 @@
 
     claude-code
     opencode
+    codex
     tmux
 
     git-absorb
