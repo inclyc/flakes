@@ -93,6 +93,7 @@
 
     claude-code
     opencode
+    omp
     kiro-cli
   ];
 

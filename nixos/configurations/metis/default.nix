@@ -154,6 +154,7 @@
 
     claude-code
     opencode
+    omp
   ];
 
   # Allow unfree packages

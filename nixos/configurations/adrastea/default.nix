@@ -151,6 +151,7 @@
 
     claude-code
     opencode
+    omp
     codex
     tmux
 
