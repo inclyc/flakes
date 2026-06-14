@@ -106,6 +106,7 @@
     dust
     ripgrep
     fd
+    jq
 
     # VNC client
     kdePackages.krdc
