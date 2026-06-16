@@ -68,9 +68,7 @@
     };
   };
 
-  environment.systemPackages = with pkgs; let
-    sandbox = agent-sandbox;
-  in [
+  environment.systemPackages = with pkgs; [
     android-tools
 
     gnumake
@@ -152,10 +150,10 @@
 
     biome
 
-    (sandbox claude-code)
-    (sandbox opencode)
-    (sandbox omp)
-    (sandbox codex)
+    (agent-sandbox claude-code)
+    (agent-sandbox opencode)
+    (agent-sandbox omp)
+    (agent-sandbox codex)
     tmux
 
     git-absorb
