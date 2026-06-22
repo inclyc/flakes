@@ -25,6 +25,8 @@ in
       environment.systemPackages = with pkgs; [
         nvidia # Provides nvidia-smi
         cudatoolkit # nvcc & cuda libraries.
+        cudaPackages.nsight_systems
+        cudaPackages.nsight_compute
       ];
 
       # Set "NVIDIA_KERNEL" for furthur references.
