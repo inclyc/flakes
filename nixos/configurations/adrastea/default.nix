@@ -117,10 +117,6 @@
     (texlive.combine { inherit (texlive) scheme-full; })
     typst
 
-    iverilog
-    verilator
-    verible
-
     racket
     chez
 
