@@ -14,7 +14,6 @@ in
     corefonts
     vista-fonts
     vista-fonts-chs
-    simsun
   ];
 
   services = {

@@ -110,7 +110,6 @@ in
         vista-fonts-chs
         segoe-ui-variable
         segoe-ui
-        simsun
       ];
       fontconfig.defaultFonts = pkgs.lib.mkForce {
         serif = [
