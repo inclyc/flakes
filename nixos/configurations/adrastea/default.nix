@@ -152,6 +152,8 @@
     (agent-sandbox codex)
     tmux
 
+    agent-env
+
     git-absorb
   ];
 
