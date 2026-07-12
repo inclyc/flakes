@@ -93,8 +93,6 @@
 
     claude-code
     opencode
-    omp
-    kiro-cli
   ];
 
   programs.ssh.settings = {
