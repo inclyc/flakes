@@ -110,4 +110,6 @@
     ANDROID_SDK_ROOT = "${config.home.homeDirectory}/.nix-profile/libexec/android-sdk";
     RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
   };
+
+  home.sessionPath = [ config.xdg.binHome ];
 }
