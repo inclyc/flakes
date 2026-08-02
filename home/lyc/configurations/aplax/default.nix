@@ -90,9 +90,6 @@
     tmux
 
     fzf
-
-    claude-code
-    opencode
   ];
 
   programs.ssh.settings = {
