@@ -88,10 +88,17 @@
           User = "lyc";
           Port = 20179;
         };
+        ict-146 = {
+          HostName = "10.208.130.146";
+          User = "lyc";
+          Port = 21462;
+          ProxyJump = "ict-altric";
+        };
         ict-altric = {
           HostName = "10.208.130.147";
           User = "lyc";
           Port = 22;
+          ProxyJump = "ict-malcon-pub";
         };
         ict-repo = {
           HostName = "10.3.2.104";

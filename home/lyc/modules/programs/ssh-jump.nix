@@ -2,14 +2,10 @@
 { config, lib, ... }:
 let
   cfg = config.inclyc.ssh;
-  ict-machines = [
-    "ict-sw"
-    "ict-sw-git"
-    "ict-repo"
-    "ict-altric"
-    "ict-44"
-  ];
-  ict-portal = "adrastea";
+  ict-portals = {
+    "ict-altric" = "ict-malcon-pub";
+    "ict-146" = "ict-altric";
+  };
 in
 {
   options = {
@@ -22,8 +18,8 @@ in
   };
 
   config = lib.mkIf cfg.ICTProxy {
-    programs.ssh.settings = lib.genAttrs ict-machines (_: {
-      ProxyJump = ict-portal;
-    });
+    programs.ssh.settings = lib.mapAttrs (host: portal: {
+      ProxyJump = portal;
+    }) ict-portals;
   };
 }
