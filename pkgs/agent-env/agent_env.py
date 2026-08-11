@@ -1,9 +1,21 @@
 #!/usr/bin/env python3
 import os
+import subprocess
 import sys
+import uuid
 from pathlib import Path
 
 import tomllib
+
+
+ALLOW_UNSCOPED_ENV = "AGENT_ENV_ALLOW_UNSCOPED"
+OOM_SCORE_ADJUST = 500
+SLICE_NAME = "agent.slice"
+REQUIRED_SLICE_PROPERTIES = (
+    "MemoryHigh",
+    "MemoryMax",
+    "MemorySwapMax",
+)
 
 
 def expand_path(path_str: str, home: Path, cwd: Path) -> Path:
@@ -122,12 +134,113 @@ def build_bwrap_command():
     return cmd
 
 
+def parse_systemd_properties(output: str) -> dict[str, str]:
+    properties = {}
+    for line in output.splitlines():
+        key, separator, value = line.partition("=")
+        if separator:
+            properties[key] = value
+    return properties
+
+
+def get_slice_properties() -> dict[str, str]:
+    try:
+        result = subprocess.run(
+            [
+                "systemctl",
+                "--user",
+                "show",
+                SLICE_NAME,
+                "--property=LoadState",
+                *[f"--property={property}" for property in REQUIRED_SLICE_PROPERTIES],
+                "--property=ManagedOOMMemoryPressure",
+                "--property=ManagedOOMSwap",
+            ],
+            capture_output=True,
+            check=False,
+            text=True,
+            timeout=5,
+        )
+    except FileNotFoundError as error:
+        raise RuntimeError("systemctl not found") from error
+    except subprocess.TimeoutExpired as error:
+        raise RuntimeError("Timed out reading agent.slice configuration") from error
+
+    if result.returncode != 0:
+        message = result.stderr.strip() or "unknown error"
+        raise RuntimeError(f"Unable to read agent.slice configuration: {message}")
+
+    return parse_systemd_properties(result.stdout)
+
+
+def validate_resource_slice() -> None:
+    properties = get_slice_properties()
+    if properties.get("LoadState") != "loaded":
+        raise RuntimeError("agent.slice is not loaded")
+
+    unlimited = [
+        property
+        for property in REQUIRED_SLICE_PROPERTIES
+        if properties.get(property) in {None, "infinity"}
+    ]
+    if unlimited:
+        raise RuntimeError(f"agent.slice has no finite limits for: {', '.join(unlimited)}")
+
+    for property in ("ManagedOOMMemoryPressure", "ManagedOOMSwap"):
+        if properties.get(property) != "kill":
+            raise RuntimeError(f"agent.slice does not enable {property}=kill")
+
+
+def set_oom_score_adjust() -> None:
+    try:
+        Path("/proc/self/oom_score_adj").write_text(f"{OOM_SCORE_ADJUST}\n")
+    except OSError as error:
+        raise RuntimeError(f"Unable to set oom_score_adj: {error}") from error
+
+
+def build_scoped_command(bwrap_command: list[str]) -> list[str]:
+    args = sys.argv[1:]
+    program_name = Path(args[0]).name if args else "command"
+    scope_name = f"agent-sandbox-{uuid.uuid4()}"
+    return [
+        "systemd-run",
+        "--user",
+        "--scope",
+        "--quiet",
+        "--collect",
+        "--same-dir",
+        f"--unit={scope_name}",
+        f"--description=Constrained agent: {program_name}",
+        f"--slice={SLICE_NAME}",
+        "--",
+        *bwrap_command,
+    ]
+
+
 def main():
     cmd = build_bwrap_command()
+    executable = "bwrap"
+    if os.environ.get(ALLOW_UNSCOPED_ENV) == "1":
+        print(
+            f"Warning: {ALLOW_UNSCOPED_ENV}=1 runs the agent without resource limits",
+            file=sys.stderr,
+        )
+    else:
+        try:
+            validate_resource_slice()
+            set_oom_score_adjust()
+        except RuntimeError as error:
+            sys.exit(
+                f"Refusing to start an unbounded agent: {error}\n"
+                f"Use {ALLOW_UNSCOPED_ENV}=1 only for emergency bypasses."
+            )
+        cmd = build_scoped_command(cmd)
+        executable = "systemd-run"
+
     try:
-        os.execvp("bwrap", cmd)
+        os.execvp(executable, cmd)
     except FileNotFoundError:
-        sys.exit("bwrap not found, install bubblewrap")
+        sys.exit(f"{executable} not found")
     except Exception as e:
         sys.exit(f"Failed to start: {e}")
 

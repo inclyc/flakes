@@ -4,6 +4,8 @@
   ...
 }:
 {
+  imports = [ ./network-resilience.nix ];
+
   networking.dhcpcd.enable = false;
   networking.useDHCP = false;
 
