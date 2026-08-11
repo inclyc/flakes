@@ -17,6 +17,19 @@
     "d %h/Downloads - - - mM:7d"
   ];
 
+  systemd.user.slices.agent = {
+    Unit.Description = "Constrained agent tasks";
+    Slice = {
+      MemoryHigh = "28G";
+      MemoryMax = "32G";
+      MemorySwapMax = "4G";
+      ManagedOOMMemoryPressure = "kill";
+      ManagedOOMMemoryPressureLimit = "60%";
+      ManagedOOMMemoryPressureDurationSec = "30s";
+      ManagedOOMSwap = "kill";
+    };
+  };
+
   systemd.user.services."tunnel-8A" = {
     Unit = {
       Description = "SSH Tunnel for Local Port Forwarding";
