@@ -133,6 +133,22 @@
           User = "wuzhikun";
           ProxyJump = "8A";
         };
+        "sw8a-test" = {
+          HostName = "192.168.4.189";
+          User = "test";
+          Port = 22;
+          ProxyCommand = mkProxyCommand "localhost" 1080;
+          IdentityFile = "~/.ssh/id_ed25519";
+          IdentitiesOnly = true;
+        };
+        "sw8a-12" = {
+          HostName = "192.168.4.41";
+          User = "longyingchi";
+          Port = 22;
+          ProxyJump = "sw8a-test";
+          IdentityFile = "~/.ssh/id_ed25519";
+          IdentitiesOnly = true;
+        };
         "ict-44" = {
           HostName = "10.208.130.44";
           User = "i_longyingchi";
