@@ -148,7 +148,6 @@
 
     (agent-sandbox claude-code)
     (agent-sandbox opencode)
-    (agent-sandbox omp)
     (agent-sandbox codex)
     tmux
 

@@ -18,6 +18,4 @@
   zju-connect = pkgs.callPackage ./zju-connect { };
 
   xscribe = pkgs.callPackage ./xscribe { };
-
-  omp = pkgs.callPackage ./omp { };
 }
