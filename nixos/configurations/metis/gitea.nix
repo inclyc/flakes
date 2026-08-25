@@ -109,6 +109,10 @@ in
           WIKI = "always";
           MERGES = "always";
         };
+        service = {
+          DISABLE_REGISTRATION = true;
+          REQUIRE_SIGNIN_VIEW = true;
+        };
       };
     };
   };
