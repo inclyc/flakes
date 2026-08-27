@@ -38,38 +38,17 @@
           Port = 20122;
         };
         oparic-base = {
-          HostName = "llvmws.inclyc.cn";
+          HostName = "100.64.0.6";
           User = "inclyc";
-          Port = 20533;
+          Port = 22;
         };
         adrastea = {
-          HostName = "100.95.255.126";
+          HostName = "100.64.0.3";
           User = "lyc";
           Port = 22;
-        };
-        adrastea-v6 = adrastea // {
-          HostName = "6.adrastea.inclyc.cn";
-          Port = 22;
-        };
-        adrastea-zxy = adrastea // {
-          User = "zxy";
-        };
-        adrastea-zxy-v6 = adrastea-zxy // {
-          HostName = "6.adrastea.inclyc.cn";
-          Port = 22;
-        };
-        adrastea-pub = {
-          HostName = "t.inclyc.cn";
-          User = "lyc";
-          Port = 10120;
-        };
-        metis-win = {
-          HostName = "llvmws.inclyc.cn";
-          User = "Admininstrator";
-          Port = 23101;
         };
         adrastea-win = {
-          HostName = "100.124.27.109";
+          HostName = "100.64.0.4";
           User = "Administrator";
           Port = 22;
         };
