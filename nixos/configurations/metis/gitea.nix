@@ -2,12 +2,25 @@
 let
   domain = "git.inclyc.cn";
   url = "https://${domain}";
+  tailscaleIPv4 = "100.64.0.2";
+  tailscaleIPv6 = "fd7a:115c:a1e0::2";
 in
 {
   sops.secrets = {
     "gitea/runners/simd" = { };
     "gitea/runners/fuse-feature" = { };
     "gitea/runners/oparic" = { };
+    "cloudflare/acme" = { };
+  };
+
+  security.acme = {
+    acceptTerms = true;
+    certs.${domain} = {
+      dnsProvider = "cloudflare";
+      environmentFile = config.sops.secrets."cloudflare/acme".path;
+      email = "longyingchi24s@ict.ac.cn";
+      group = "caddy";
+    };
   };
 
   fonts.fonts = with pkgs; [
@@ -88,6 +101,11 @@ in
       enable = true;
       virtualHosts = {
         "git.inclyc.cn" = {
+          listenAddresses = [
+            tailscaleIPv4
+            tailscaleIPv6
+          ];
+          useACMEHost = domain;
           extraConfig = "
           reverse_proxy unix/${config.services.gitea.settings.server.HTTP_ADDR}
         ";
@@ -101,7 +119,7 @@ in
           PROTOCOL = "http+unix";
           DOMAIN = domain;
           ROOT_URL = url;
-          SSH_PORT = 20122;
+          SSH_PORT = 22;
         };
         "repository.signing" = {
           INITIAL_COMMIT = "always";
@@ -116,4 +134,6 @@ in
       };
     };
   };
+
+  systemd.services.caddy.after = [ "tailscaled.service" ];
 }
