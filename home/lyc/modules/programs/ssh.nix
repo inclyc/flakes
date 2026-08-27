@@ -37,6 +37,11 @@
           User = "Administrator";
           Port = 22;
         };
+        ts-server = {
+          HostName = "ts.oparic.com";
+          User = "lyc";
+          Port = "22";
+        };
         swyjs = {
           HostName = "40.0.1.110";
           User = "swyjs";
