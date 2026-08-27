@@ -8,7 +8,7 @@
 let
   cfg = config.inclyc.development.android;
   androidenv = pkgs.androidenv.composeAndroidPackages {
-    platformToolsVersion = "35.0.2";
+    platformToolsVersion = "37.0.1";
     includeNDK = true;
     ndkVersions = [ "27.3.13750724" ];
   };
