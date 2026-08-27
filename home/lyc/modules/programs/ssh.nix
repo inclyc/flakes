@@ -17,21 +17,6 @@
           ControlPath = "~/.ssh/master-%r@%n:%p";
           ControlPersist = "10m";
         };
-        hitmc = {
-          HostName = "lan.hitmc.cc";
-          User = "inclyc";
-          Port = 25884;
-        };
-        hitmc-pub = {
-          HostName = "t.inclyc.cn";
-          User = "inclyc";
-          Port = 12742;
-        };
-        ten = {
-          HostName = "t.inclyc.cn";
-          User = "lyc";
-          Port = 22;
-        };
         metis = {
           HostName = "llvmws.inclyc.cn";
           User = "lyc";
