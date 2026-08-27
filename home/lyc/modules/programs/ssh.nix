@@ -38,9 +38,9 @@
           Port = 20122;
         };
         oparic-base = {
-          HostName = "100.64.0.6";
+          HostName = "llvmws.inclyc.cn";
           User = "inclyc";
-          Port = 22;
+          Port = 20533;
         };
         adrastea = {
           HostName = "100.64.0.3";
