@@ -155,6 +155,7 @@
 
     claude-code
     opencode
+    codex
   ];
 
   # Allow unfree packages
