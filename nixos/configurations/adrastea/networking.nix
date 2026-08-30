@@ -20,7 +20,8 @@
         chain input {
           type filter hook input priority 0; policy accept;
 
-          ip saddr 100.0.0.0/8 tcp dport 5901 accept
+          iifname "lo" tcp dport 5901 accept
+          iifname "tailscale0" tcp dport 5901 accept
           tcp dport 5901 drop
         }
       '';
