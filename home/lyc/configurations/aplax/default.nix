@@ -47,8 +47,6 @@
 
     pandoc
 
-    elan
-
     rsync
 
     # Resources monitor

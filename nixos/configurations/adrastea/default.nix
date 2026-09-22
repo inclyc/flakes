@@ -128,9 +128,6 @@
     rar
     unrar
 
-    lean4
-    elan
-
     esbuild
 
     wpsoffice-cn
