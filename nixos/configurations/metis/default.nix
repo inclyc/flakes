@@ -156,6 +156,8 @@
     claude-code
     opencode
     codex
+
+    tmux
   ];
 
   # Allow unfree packages
