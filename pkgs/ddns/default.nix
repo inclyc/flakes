@@ -15,7 +15,6 @@ buildPythonApplication rec {
   pyproject = true;
   build-system = [ setuptools ];
 
-  # Ungly hack for https://github.com/NewFuture/DDNS/blob/a1a8f8565c80d9702a49fcb45f18b32dfb4dba26/setup.py#L47
-  # setup a fack "travis" environment, pass package version to skip the check
-  TRAVIS_TAG = version;
+  # Upstream setup.py requires a CI tag to determine the package version.
+  env.TRAVIS_TAG = version;
 }

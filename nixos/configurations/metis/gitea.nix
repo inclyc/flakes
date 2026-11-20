@@ -23,7 +23,7 @@ in
     };
   };
 
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     corefonts
     vista-fonts
     vista-fonts-chs
@@ -117,7 +117,6 @@ in
       settings = {
         server = {
           PROTOCOL = "http+unix";
-          DOMAIN = domain;
           ROOT_URL = url;
           SSH_PORT = 22;
         };
