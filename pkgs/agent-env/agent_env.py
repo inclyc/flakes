@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
+import argparse
 import os
+import shutil
 import subprocess
 import sys
+import tomllib
 import uuid
 from pathlib import Path
-
-import tomllib
-
 
 ALLOW_UNSCOPED_ENV = "AGENT_ENV_ALLOW_UNSCOPED"
 OOM_SCORE_ADJUST = 500
@@ -16,6 +16,8 @@ REQUIRED_SLICE_PROPERTIES = (
     "MemoryMax",
     "MemorySwapMax",
 )
+SSH_RUNTIME_DIR = "/run/agent-env-ssh"
+SSH_CONFIG_SOURCE = f"{SSH_RUNTIME_DIR}/config"
 
 
 def expand_path(path_str: str, home: Path, cwd: Path) -> Path:
@@ -32,7 +34,9 @@ def load_config() -> dict:
     script_dir = Path(__file__).resolve().parent
     candidates = [
         script_dir / "config.toml",
-        Path(os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config")) / "agent-env" / "config.toml",
+        Path(os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config"))
+        / "agent-env"
+        / "config.toml",
     ]
     for config_file in candidates:
         if config_file.is_file():
@@ -41,21 +45,75 @@ def load_config() -> dict:
     sys.exit("Config not found. Searched:\n" + "\n".join(f"  {p}" for p in candidates))
 
 
+def get_ssh_bind_specs(ssh_dir: Path) -> list[str]:
+    """Build an isolated ~/.ssh mount for the sandbox."""
+    mount_args = [
+        "--dir",
+        SSH_RUNTIME_DIR,
+        "--tmpfs",
+        str(ssh_dir),
+        "--chmod",
+        "700",
+        str(ssh_dir),
+        "--tmpfs",
+        "/etc/ssh",
+    ]
+    for entry in sorted(ssh_dir.iterdir(), key=lambda path: path.name):
+        try:
+            source = entry.resolve(strict=True)
+        except (FileNotFoundError, OSError, RuntimeError):
+            continue
+
+        if entry.name == "config":
+            if source.is_file():
+                mount_args.extend(["--ro-bind", str(source), SSH_CONFIG_SOURCE])
+            continue
+
+        if source.is_socket():
+            # Existing multiplexing sockets belong to the host and must not
+            # cross the sandbox boundary.
+            continue
+
+        destination = ssh_dir / entry.name
+        if source.is_dir():
+            mount_args.extend(
+                ["--dir", str(destination), "--ro-bind", str(source), str(destination)]
+            )
+        elif source.is_file():
+            flag = (
+                "--bind"
+                if entry.name in {"known_hosts", "known_hosts.old"}
+                else "--ro-bind"
+            )
+            mount_args.extend([flag, str(source), str(destination)])
+
+    return mount_args
+
+
 def get_bind_specs():
     config = load_config()
     home = Path.home()
     cwd = Path.cwd()
+    ssh_dir = home / ".ssh"
 
     ro_binds = []
+    ssh_mount_args = []
     for entry in config.get("ro_binds", []):
         path = expand_path(entry, home, cwd)
         if path.exists():
+            if path == ssh_dir and path.is_dir():
+                ssh_mount_args = get_ssh_bind_specs(path)
+                continue
             ro_binds.append(str(path))
 
     rw_binds = []
     for entry in config.get("rw_binds", []):
         path = expand_path(entry, home, cwd)
         if path.exists():
+            if path == ssh_dir and path.is_dir():
+                if not ssh_mount_args:
+                    ssh_mount_args = get_ssh_bind_specs(path)
+                continue
             rw_binds.append(str(path))
 
     for remap in config.get("rw_remap", []):
@@ -72,7 +130,8 @@ def get_bind_specs():
     if ssh_auth_sock and Path(ssh_auth_sock).exists():
         rw_binds.append(ssh_auth_sock)
 
-    return ro_binds, rw_binds
+    return ro_binds, rw_binds, ssh_mount_args
+
 
 def binds_to_flags(ro_binds, rw_binds):
     """
@@ -101,14 +160,26 @@ def binds_to_flags(ro_binds, rw_binds):
     return args
 
 
-def build_bwrap_command():
+def parse_args(argv: list[str]) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(add_help=False, allow_abbrev=False)
+    parser.add_argument(
+        "--ssh-bootstrap",
+        dest="ssh_bootstrap",
+        nargs=2,
+        metavar=("SOURCE", "DESTINATION"),
+    )
+    parser.add_argument("command", nargs=argparse.REMAINDER)
+    return parser.parse_args(argv)
+
+
+def build_bwrap_command(target_args: list[str]):
     home = Path.home()
-    ro_binds, rw_binds = get_bind_specs()
+    ro_binds, rw_binds, ssh_mount_args = get_bind_specs()
     ssh_auth_sock = os.getenv("SSH_AUTH_SOCK")
     env_args = [
         *("--setenv", "HOME", str(home)),
-        *("--setenv", "GIT_SSH_COMMAND", "ssh -F /dev/null"),
         *("--setenv", "XDG_CACHE_HOME", str(home / ".cache")),
+        *("--setenv", "GIT_SSH_COMMAND", "ssh"),
     ]
     if ssh_auth_sock and Path(ssh_auth_sock).exists():
         env_args.extend(["--setenv", "SSH_AUTH_SOCK", ssh_auth_sock])
@@ -119,7 +190,17 @@ def build_bwrap_command():
         *("--dev", "/dev"),
     ]
     cmd.extend(binds_to_flags(ro_binds, rw_binds))
-    args = sys.argv[1:]
+    cmd.extend(ssh_mount_args)
+
+    if ssh_mount_args:
+        target_args = [
+            sys.executable,
+            str(Path(__file__).resolve()),
+            "--ssh-bootstrap",
+            SSH_CONFIG_SOURCE,
+            str(home / ".ssh" / "config"),
+            *target_args,
+        ]
 
     cmd.extend(
         [
@@ -128,10 +209,29 @@ def build_bwrap_command():
             "--unshare-uts",
             *env_args,
             "--",
-            *args,
+            *target_args,
         ]
     )
     return cmd
+
+
+def bootstrap_ssh_config(source: str, destination: str, target_args: list[str]) -> None:
+    """Copy the SSH config into the sandbox and replace this process."""
+    if not target_args:
+        raise RuntimeError("SSH bootstrap received no target command")
+
+    source_path = Path(source)
+    destination_path = Path(destination)
+    try:
+        if source_path.is_file():
+            shutil.copyfile(source_path, destination_path)
+        else:
+            destination_path.touch()
+        destination_path.chmod(0o600)
+    except OSError as error:
+        raise RuntimeError(f"Unable to prepare sandbox SSH config: {error}") from error
+
+    os.execvp(target_args[0], target_args)
 
 
 def parse_systemd_properties(output: str) -> dict[str, str]:
@@ -184,7 +284,9 @@ def validate_resource_slice() -> None:
         if properties.get(property) in {None, "infinity"}
     ]
     if unlimited:
-        raise RuntimeError(f"agent.slice has no finite limits for: {', '.join(unlimited)}")
+        raise RuntimeError(
+            f"agent.slice has no finite limits for: {', '.join(unlimited)}"
+        )
 
     for property in ("ManagedOOMMemoryPressure", "ManagedOOMSwap"):
         if properties.get(property) != "kill":
@@ -198,9 +300,8 @@ def set_oom_score_adjust() -> None:
         raise RuntimeError(f"Unable to set oom_score_adj: {error}") from error
 
 
-def build_scoped_command(bwrap_command: list[str]) -> list[str]:
-    args = sys.argv[1:]
-    program_name = Path(args[0]).name if args else "command"
+def build_scoped_command(bwrap_command: list[str], target_args: list[str]) -> list[str]:
+    program_name = Path(target_args[0]).name if target_args else "command"
     scope_name = f"agent-sandbox-{uuid.uuid4()}"
     return [
         "systemd-run",
@@ -218,7 +319,14 @@ def build_scoped_command(bwrap_command: list[str]) -> list[str]:
 
 
 def main():
-    cmd = build_bwrap_command()
+    args = parse_args(sys.argv[1:])
+    if args.ssh_bootstrap is not None:
+        try:
+            bootstrap_ssh_config(*args.ssh_bootstrap, args.command)
+        except RuntimeError as error:
+            sys.exit(str(error))
+
+    cmd = build_bwrap_command(args.command)
     executable = "bwrap"
     if os.environ.get(ALLOW_UNSCOPED_ENV) == "1":
         print(
@@ -234,15 +342,15 @@ def main():
                 f"Refusing to start an unbounded agent: {error}\n"
                 f"Use {ALLOW_UNSCOPED_ENV}=1 only for emergency bypasses."
             )
-        cmd = build_scoped_command(cmd)
+        cmd = build_scoped_command(cmd, args.command)
         executable = "systemd-run"
 
     try:
         os.execvp(executable, cmd)
     except FileNotFoundError:
         sys.exit(f"{executable} not found")
-    except Exception as e:
-        sys.exit(f"Failed to start: {e}")
+    except OSError as error:
+        sys.exit(f"Failed to start: {error}")
 
 
 if __name__ == "__main__":
