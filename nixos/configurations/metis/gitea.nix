@@ -2,8 +2,6 @@
 let
   domain = "git.inclyc.cn";
   url = "https://${domain}";
-  tailscaleIPv4 = "100.64.0.2";
-  tailscaleIPv6 = "fd7a:115c:a1e0::2";
 in
 {
   sops.secrets = {
@@ -101,14 +99,14 @@ in
       enable = true;
       virtualHosts = {
         "git.inclyc.cn" = {
-          listenAddresses = [
-            tailscaleIPv4
-            tailscaleIPv6
-          ];
           useACMEHost = domain;
-          extraConfig = "
-          reverse_proxy unix/${config.services.gitea.settings.server.HTTP_ADDR}
-        ";
+          extraConfig = ''
+            @nonTailscale {
+              not remote_ip 100.64.0.0/10 fd7a:115c:a1e0::/48 127.0.0.1 ::1
+            }
+            respond @nonTailscale 403
+            reverse_proxy unix/${config.services.gitea.settings.server.HTTP_ADDR}
+          '';
         };
       };
     };
@@ -133,6 +131,4 @@ in
       };
     };
   };
-
-  systemd.services.caddy.after = [ "tailscaled.service" ];
 }
