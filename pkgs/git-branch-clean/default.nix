@@ -1,7 +1,9 @@
 {
+  libgit2,
   openssl,
   pkg-config,
   rustPlatform,
+  zlib,
 }:
 
 rustPlatform.buildRustPackage {
@@ -17,6 +19,8 @@ rustPlatform.buildRustPackage {
   ];
 
   buildInputs = [
+    libgit2
     openssl
+    zlib
   ];
 }
