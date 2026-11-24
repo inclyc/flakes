@@ -10,6 +10,7 @@ let
   n = 5;
 
   packages = with pkgs; [
+    openssh
     ninja
     bash
     coreutils
@@ -30,6 +31,14 @@ let
 
 in
 {
+  programs.ssh.knownHosts.gitea = {
+    hostNames = [
+      "[git-ssh.oparic.com]:20122"
+      "[git.inclyc.cn]:20122"
+    ];
+    publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ4d0I2REGzryUaciXHySJR4T69SqoHpD2SbNLpjjble";
+  };
+
   sops.secrets."gitea/runners/oparic" = { };
 
   services.gitea-actions-runner.instances = lib.listToAttrs (
